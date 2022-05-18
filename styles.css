@@ -1,16 +1,31 @@
 /*---------RESET---------*/
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 * a{
     text-decoration: none;
     color: rgb(70, 70,70);
 }
 
-header{
+.headerContent{
     height: 3rem;
     margin-bottom: 4rem;
-    padding: 1rem;
+    padding: 0.75rem;
     display: flex;
     justify-content: right;
     margin-left: auto;
+    margin-right: 0.5rem;
+}
+
+.advancedHeader{
+    /*height: 3rem;*/
+    margin-bottom: 2rem;
+    padding: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: 0.5rem;
 }
 
 header a{
@@ -22,16 +37,19 @@ header a:hover{
     text-decoration: underline;
 }
 
+.container{
+    margin-left: 2.5rem;
+}
+
 .indexContainer, .logoContainer, .buttonHolder{
     display: flex;
     justify-content: center;
     text-align: center;
 }
 
-
-
-form{
+.indexForm{
     width: 100%;
+    max-width: 700px;
 }
 
 .searchInput{
@@ -43,7 +61,6 @@ form{
     font-size: medium;
     background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 1rem center;
     width: 75%;
-    max-width: 580px;
 }
 
 .submitButton{
@@ -63,10 +80,18 @@ form{
     color: #bbb;
 }
 
-
-
-#logo{
+.logo{
     width: 300px;
     margin-bottom: 1rem;
 }
 
+.advancedContainer p{
+    font-size: larger;
+    margin-bottom: 2rem;
+    color: rgba(217,48,37,255);
+    flex: 1;
+}
+
+.advancedContainer{
+    border-bottom: 1px solid rgb(200, 200, 200);
+}
