@@ -1,6 +1,37 @@
+/*---------RESET---------*/
+* a{
+    text-decoration: none;
+    color: rgb(70, 70,70);
+}
+
 header{
-    height: 4rem;
-    margin-bottom: 12rem;
+    height: 3rem;
+    margin-bottom: 4rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: right;
+    margin-left: auto;
+}
+
+header a{
+    margin-left: 2rem;
+    font-size: medium;
+}
+
+header a:hover{
+    text-decoration: underline;
+}
+
+.indexContainer, .logoContainer, .buttonHolder{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+
+
+form{
+    width: 100%;
 }
 
 .searchInput{
@@ -11,6 +42,8 @@ header{
     margin-bottom: 1.5rem;
     font-size: medium;
     background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 1rem center;
+    width: 75%;
+    max-width: 580px;
 }
 
 .submitButton{
@@ -18,7 +51,8 @@ header{
     border: 0.01rem solid rgb(250, 250, 250);
     padding: 0.5rem 1.5rem;
     font-size: medium;
-    background-color: rgb(250,250,250)
+    background-color: rgb(250,250,250);
+    color: rgb(70, 70,70);
 }
 
 .submitButton:hover{
@@ -29,12 +63,10 @@ header{
     color: #bbb;
 }
 
-.logoContainer, .indexContainer, .buttonHolder{
-    display: flex;
-    justify-content: center;
-}
+
 
 #logo{
-    margin-bottom: 1.5rem;
+    width: 300px;
+    margin-bottom: 1rem;
 }
 
