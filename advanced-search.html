@@ -20,10 +20,28 @@
                 <div class="advancedContainer">
                     <p>Advanced Search</p>
                 </div>
-                <div class="indexContainer">
-                    <form action="https://www.google.com/search">    
+                <div class="advancedFormContainer">
+                    <h4>Locate pages with...</h4>
+                    <form action="https://www.google.com/search">
+                        <div class="advancedFields">all these words:</div> 
+                        <div class="advancedInputContainer"><input type="text" name="as_q"></div><br>
+                        <div class="advancedFields">this exact word or phrase:</div>
+                        <div class="advancedInputContainer"><input type="text" name="as_epq"></div><br> 
+                        <div class="advancedFields">any of these words:</div>
+                        <div class="advancedInputContainer"><input type="text" name="as_oq"></div><br>
+                        <div class="advancedFields">none of these words:</div>
+                        <div class="advancedInputContainer"><input type="text" name="as_eq"></div><br>
+                        <div class="advancedFields">numbers ranging from:</div>
+                            <input class="rangeInput" type="text" name="as_nlo">
+                            <div style="display:inline-block; margin: 0 1rem;">to</div>
+                            <input class="rangeInput" type="text" name="as_nhi">
                     </form>
-                </div>  
+                </div>
+                <div class="advancedFormDropdownContainer">
+                    <form>
+
+                    </form>
+                </div>
             </div>
         </main>
     </body>
