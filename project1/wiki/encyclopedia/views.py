@@ -8,3 +8,9 @@ def index(request):
         "entries": util.list_entries()
     })
 
+def wikiEntry(request, entryTitle):
+    return render(request, "encyclopedia/wikiEntry.html", {
+        "entryTitle": entryTitle,
+        "content": util.get_entry(entryTitle).replace('"', '')
+    })
+
