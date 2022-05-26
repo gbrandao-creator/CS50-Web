@@ -36,7 +36,6 @@ def get_entry(title):
         str = ""
         for line in f.readlines():
             str += markdown.markdown(line.decode("utf-8"))
-        print(str)
         return str
     except FileNotFoundError:
         return None
