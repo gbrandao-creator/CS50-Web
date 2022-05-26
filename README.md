@@ -1,6 +1,6 @@
-#Harvard's CS50 Web programming with Python and Javascript
+# Harvard's CS50 Web programming with Python and Javascript
 
-##Project 1 
+## Project 1 
 
 Hello! This is my project 1 for Harvard's CS50 W.
 
