@@ -1,5 +1,5 @@
+# -*- coding: utf-8 -*-
 import re
-
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 import markdown
@@ -14,28 +14,40 @@ def list_entries():
                 for filename in filenames if filename.endswith(".md")))
 
 
-def save_entry(title, content):
+def save_entry(title, content, edit=False):
     """
     Saves an encyclopedia entry, given its title and Markdown
     content. If an existing entry with the same title already exists,
-    it is replaced.
+    raises exception.
     """
     filename = f"entries/{title}.md"
     if default_storage.exists(filename):
-        raise Exception("File already exists! Entry cannot be saved.")
-    default_storage.save(filename, ContentFile(content))
+        if not edit:
+            raise Exception("File already exists! Entry cannot be saved.")
+        default_storage.delete(filename)
+    
+    default_storage.save(filename, ContentFile(content.encode("utf-8")))
 
+
+def get_entry_markdown(title):
+    """
+    Retrieves an encyclopedia entry's markdown content
+     by its title. If no such entry exists, the function returns None.
+    """
+    try: 
+        f = default_storage.open(f"entries/{title}.md")
+        str = ""
+        for line in f.readlines():
+            str += line.decode("utf-8")
+        return str
+    except FileNotFoundError:
+        return None
 
 def get_entry(title):
     """
     Retrieves an encyclopedia entry by its title. If no such
     entry exists, the function returns None.
     """
-    try:
-        f = default_storage.open(f"entries/{title}.md")
-        str = ""
-        for line in f.readlines():
-            str += markdown.markdown(line.decode("utf-8"))
-        return str
-    except FileNotFoundError:
-        return None
+    return markdown.markdown(get_entry_markdown(title))
+
+

@@ -7,6 +7,7 @@
 {% block body %}
     {% if content != None %}
         {{ content |safe }}
+        <a href="{% url 'edit_page' entry_title %}">edit me</a>
     {% else %}
         <h5 style="padding: 1rem">Sorry. The requested page "<em>wiki/{{entry_title}}</em>" was not found.<h5>
     {% endif %}

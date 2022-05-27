@@ -39,7 +39,7 @@ textarea {
     margin-top: 5px;
 }
 
-input[type=submit]{
+.submit{
     margin-top: 0.5rem;
     background-color: rgb(44, 151, 75);
     border: 1px solid rgb(210, 210,210);
@@ -49,6 +49,6 @@ input[type=submit]{
     color:white;
 }
 
-input[type=submit]:hover{
+.submit:hover{
     background-color: rgb(34, 141, 65);
 }

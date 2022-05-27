@@ -8,10 +8,10 @@
     {% if not name_error %}
         <div style="margin: 0 auto">
             <h1>Create New Page</h1>
-            <form action="{% url 'new_page' %}" method="post" style="display: inline-flexbox; text-align: center;">
+            <form action="{% url 'new_page' %}" method="post" accept-charset="UTF-8" style="display: inline-flexbox; text-align: center;">
                 {% csrf_token %}
                 {{ form }}<br>
-                <input id="submit_new_page" type="submit" value="Save new page">
+                <input class="submit" type="submit" value="Save new page">
             </form>
         </div>
     {% else %}
