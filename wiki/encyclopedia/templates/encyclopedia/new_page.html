@@ -1,0 +1,21 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    New Page
+{% endblock %}
+
+{% block body %}
+    {% if not name_error %}
+        <div style="margin: 0 auto">
+            <h1>Create New Page</h1>
+            <form action="{% url 'new_page' %}" method="post" style="display: inline-flexbox; text-align: center;">
+                {% csrf_token %}
+                {{ form }}<br>
+                <input id="submit_new_page" type="submit" value="Save new page">
+            </form>
+        </div>
+    {% else %}
+        <h5>Sorry, the page you tried to create already exists.</h5>
+        <a href="{% url 'new_page' %}" style="margin-top: 1 rem;">Go back</a>
+    {% endif %}
+{% endblock %}

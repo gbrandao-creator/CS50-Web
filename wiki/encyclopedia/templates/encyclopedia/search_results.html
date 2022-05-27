@@ -5,8 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <h1 style="margin-bottom: 2rem">Search results for {{ query }}:</h1>
-
+    <h1>Search results for {{ query }}:</h1>
     <ul>
         {% for match in matches %}
         <a href="{% url 'wiki_entry' match %}">
