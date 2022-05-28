@@ -53,6 +53,11 @@ textarea {
     background-color: rgb(34, 141, 65);
 }
 
+a.submit:hover{
+    text-decoration: none;
+    color:white;
+}
+
 .error_container{
     width: 100vw;
     margin-top: 2rem;
