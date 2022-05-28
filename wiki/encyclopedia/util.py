@@ -48,6 +48,9 @@ def get_entry(title):
     Retrieves an encyclopedia entry by its title. If no such
     entry exists, the function returns None.
     """
-    return markdown.markdown(get_entry_markdown(title))
+    try:
+        return markdown.markdown(get_entry_markdown(title))
+    except:
+        return None
 
 

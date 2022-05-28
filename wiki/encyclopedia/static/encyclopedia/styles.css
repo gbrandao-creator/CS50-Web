@@ -52,3 +52,10 @@ textarea {
 .submit:hover{
     background-color: rgb(34, 141, 65);
 }
+
+.error_container{
+    width: 100vw;
+    margin-top: 2rem;
+    color: #D8000C;
+    display: inline-flex;
+}

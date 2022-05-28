@@ -4,6 +4,7 @@ from . import forms
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from . import util
+from random import choice
 
 
 
@@ -22,20 +23,6 @@ def wiki_entry(request, entry_title):
         "content": content
     })
 
-
-def search_results(request):
-    query = request.GET.get('q')
-    matches = []
-    for entry in util.list_entries():
-        if query.lower() == entry.lower():
-            return wiki_entry(request, query)
-        elif query.lower() in entry.lower():
-            matches.append(entry)
-    return render(request, "encyclopedia/search_results.html", {
-        "query": query,
-        "matches": matches
-    })
-
 def new_page(request):
     if request.method == "POST":
         form = forms.NewPageForm(request.POST)
@@ -47,6 +34,8 @@ def new_page(request):
                 return HttpResponseRedirect(reverse('wiki_entry', kwargs={'entry_title': new_page_title}))
             except:
                 return render(request, "encyclopedia/new_page.html", {
+                "form": forms.NewPageForm(initial={'title': new_page_title, 'markdown_content': new_page_content}),
+                "entry_title": new_page_title,
                 "name_error": True
             })
         else:
@@ -76,4 +65,20 @@ def edit_page(request, entry_title):
     return render(request, "encyclopedia/edit_page.html", {
         "entry_title": entry_title,
         "form": forms.EditPageForm(initial={'markdown_content': content})
+    })
+
+def random_page(request):
+    return HttpResponseRedirect(reverse('wiki_entry', kwargs={'entry_title': choice(util.list_entries())}))
+
+def search_results(request):
+    query = request.GET.get('q')
+    matches = []
+    for entry in util.list_entries():
+        if query.lower() == entry.lower():
+            return wiki_entry(request, query)
+        elif query.lower() in entry.lower():
+            matches.append(entry)
+    return render(request, "encyclopedia/search_results.html", {
+        "query": query,
+        "matches": matches
     })

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    {% if not name_error %}
+    
         <div style="margin: 0 auto">
             <h1>Create New Page</h1>
             <form action="{% url 'new_page' %}" method="post" accept-charset="UTF-8" style="display: inline-flexbox; text-align: center;">
@@ -14,8 +14,9 @@
                 <input class="submit" type="submit" value="Save new page">
             </form>
         </div>
-    {% else %}
-        <h5>Sorry, the page you tried to create already exists.</h5>
-        <a href="{% url 'new_page' %}" style="margin-top: 1 rem;">Go back</a>
+    {% if name_error %}
+        <div class="error_container">
+            <p>Sorry, the page you tried to create already exists. Change the title or <a href="{% url 'edit_page' entry_title %}">edit the existing page.<p>
+        </div> 
     {% endif %}
 {% endblock %}
