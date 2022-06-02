@@ -72,8 +72,9 @@ def new_listing(request):
             title = form.cleaned_data["title"]
             description = form.cleaned_data["description"]
             starting_bid = form.cleaned_data["starting_bid"]
-            url = form.cleaned_data["url"]
-            listing = Listing.objects.create(title=title, description=description, starting_bid=starting_bid, url=url)
+            image_url = form.cleaned_data["image_url"]
+            category = form.cleaned_data["category"]
+            listing = Listing.objects.create(title=title, description=description, starting_bid=starting_bid, image_url=image_url)
             return HttpResponseRedirect(reverse("index"))
         else:
             return render(request, "auction/new_listing.html", {

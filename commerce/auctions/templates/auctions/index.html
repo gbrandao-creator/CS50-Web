@@ -1,13 +1,27 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <div class="title">
+    <div class="title row">
         <h2>Active Listings</h2><h6><a href="{% url 'new_listing' %}">New listing</a></h6>
     </div> 
-    <div>
     {% for listing in listings %}
-        <h2>Listing {{ listing.id }}: {{ listing.title}}</h2>
-        <p>{{ listing.description }}</p>
+        <div class="row active-box">
+            <div class="col-5" style="border-right: 1px solid rgb(220,220,220)">
+                <img class="active-fig" src="{{ listing.image_url }}" alt="listing {{ listing.id }}">
+            </div>
+            <div class="col-7">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>{{ listing.title}}</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <p>{{ listing.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     {% endfor %}
-    </div>
+
 {% endblock %}

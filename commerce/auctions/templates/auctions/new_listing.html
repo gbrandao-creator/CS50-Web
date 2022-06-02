@@ -6,13 +6,14 @@ Create Listing
 
 
 {% block body %}
-
 <div>
-    <h1>New listing</h1>
-    <form action="{% url 'new_listing' %}" method="post" accept-charset="UTF-8">
+    <h3 style="margin-bottom: 2rem">New listing</h3>
+    <form action="{% url 'new_listing' %}" method="post" accept-charset="UTF-8" class="form">
         {% csrf_token %}
-        {{ form }}<br>
-        <input type="submit" class="submit" value="Submit new Listing">
+        {% for field in form %}
+        {{ field }}<br>
+        {% endfor %}
+        <input class="submit" type="submit" class="submit" value="Submit new Listing">
     </form>
 </div>
 {% endblock %}
