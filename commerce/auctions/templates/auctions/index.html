@@ -6,13 +6,18 @@
     </div> 
     {% for listing in listings %}
         <div class="row active-box">
-            <div class="col-5" style="border-right: 1px solid rgb(220,220,220)">
+            <div class="col-4" style="border-right: 1px solid rgb(220,220,220)">
                 <img class="active-fig" src="{{ listing.image_url }}" alt="listing {{ listing.id }}">
             </div>
-            <div class="col-7">
+            <div class="col-8">
                 <div class="row">
                     <div class="col-12">
-                        <h2>{{ listing.title}}</h2>
+                        <h3>{{ listing.title}}</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <h5>Price: <span style="font-weight: 200">${{ listing.starting_bid }}</span></h5>
                     </div>
                 </div>
                 <div class="row">

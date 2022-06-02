@@ -24,7 +24,7 @@ class NewListingForm(forms.Form):
     }), label="")
     starting_bid = forms.DecimalField(widget=forms.NumberInput(attrs = {
         'placeholder': 'Enter starting bid',
-        'data-mask': "R$0000,00",
+        'data-mask': "$0000.00",
         'style': custom_styles
     }))
     image_url = forms.URLField(required=False, widget=forms.URLInput(attrs= {

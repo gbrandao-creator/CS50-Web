@@ -1,0 +1,14 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="title row">
+    <h2>Listing: {{ listing.title }}</h2>
+</div>
+    {% if user.is_authenticated %}
+    <div class="row">
+        <button>
+            Add to watchlist
+        </button>
+    </div>
+    {% endif %}
+{% endblock %}
