@@ -24,7 +24,6 @@ class NewListingForm(forms.Form):
     }), label="")
     starting_bid = forms.DecimalField(widget=forms.NumberInput(attrs = {
         'placeholder': 'Enter starting bid',
-        'data-mask': "$0000.00",
         'style': custom_styles
     }))
     image_url = forms.URLField(required=False, widget=forms.URLInput(attrs= {
@@ -35,3 +34,9 @@ class NewListingForm(forms.Form):
         'placeholder': 'Enter a category (optional)',
         'style': custom_styles
     }))
+
+class NewBidForm(forms.Form):
+    bid = forms.DecimalField(widget=forms.NumberInput(attrs = {
+        'placeholder': 'Enter your bid',
+        'style': custom_styles + 'width: 100%'
+    }), label="")

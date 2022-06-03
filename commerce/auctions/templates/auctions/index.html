@@ -5,28 +5,54 @@
         <h2>Active Listings</h2><h6><a href="{% url 'new_listing' %}">New listing</a></h6>
     </div> 
     {% for listing in listings %}
-        <div class="row active-box">
-            <div class="col-4" style="border-right: 1px solid rgb(220,220,220)">
-                <img class="active-fig" src="{{ listing.image_url }}" alt="listing {{ listing.id }}">
+        {% if listing.image_url != "" %}
+            <div class="row active-box">
+                <div class="col-4" style="border-right: 1px solid rgb(220,220,220)">
+                    <a href="{% url 'listing' listing.id %}">
+                        <img class="active-fig" src="{{ listing.image_url }}" alt="listing {{ listing.id }}">
+                    </a>
+                </div>
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="{% url 'listing' listing.id %}" style="color: black">
+                                <h3>{{ listing.title}}</h3>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <h5>Price: <span style="font-weight: 200">${{ listing.starting_bid }}</span></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p>{{ listing.description }}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-8">
-                <div class="row">
-                    <div class="col-12">
-                        <h3>{{ listing.title}}</h3>
+        {% else %}
+            <div class="row active-box" style="height: 30vh; display: flex; align-items: center;">
+                <div class="col-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="{% url 'listing' listing.id %}" style="color: black">
+                                <h1>{{ listing.title}}</h1>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <h3>Price: <span style="font-weight: 200">${{ listing.starting_bid }}</span></h3>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <h5>Price: <span style="font-weight: 200">${{ listing.starting_bid }}</span></h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <p>{{ listing.description }}</p>
-                    </div>
+                <div class="col-8">
+                    <p>{{ listing.description }}</p>
                 </div>
             </div>
-        </div>
+        {% endif %}
     {% endfor %}
 
 {% endblock %}

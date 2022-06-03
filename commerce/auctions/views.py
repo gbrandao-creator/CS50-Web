@@ -67,8 +67,19 @@ def register(request):
 
 def listing(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
+    if request.method == "POST":
+        form = forms.NewBidForm(request.POST)
+        if form.is_valid():
+            bid = form.cleaned_data["bid"]
+            return HttpResponseRedirect(reverse("index"))
+        else:
+            return render(request, "auction/listing.html", {
+                "listing": listing,
+                "form": form
+            })
     return render(request, "auctions/listing.html", {
-        "listing": listing
+        "listing": listing,
+        "form": forms.NewBidForm()
     })
 
 def new_listing(request):
