@@ -22,7 +22,10 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <h5>Price: <span style="font-weight: 200">${{ listing.starting_bid }}</span></h5>
+                            <h5>
+                                Price: 
+                                <span style="font-weight: 300">${{ listing.bids.last.value }}</span>
+                            </h5>
                         </div>
                     </div>
                     <div class="row">
@@ -44,7 +47,10 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <h3>Price: <span style="font-weight: 200">${{ listing.starting_bid }}</span></h3>
+                            <h3>
+                                Price: <span style="font-weight: 200">
+                                ${{ listing.bids.last }}
+                            </span></h3>
                         </div>
                     </div>
                 </div>

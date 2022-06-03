@@ -22,7 +22,7 @@ class NewListingForm(forms.Form):
         max-height: 35vh;
         '''
     }), label="")
-    starting_bid = forms.DecimalField(widget=forms.NumberInput(attrs = {
+    bid = forms.DecimalField(widget=forms.NumberInput(attrs = {
         'placeholder': 'Enter starting bid',
         'style': custom_styles
     }))

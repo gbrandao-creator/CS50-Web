@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, Listing
+from .models import User, Listing, Bid
 from . import forms
 
 
@@ -70,15 +70,20 @@ def listing(request, listing_id):
     if request.method == "POST":
         form = forms.NewBidForm(request.POST)
         if form.is_valid():
-            bid = form.cleaned_data["bid"]
-            return HttpResponseRedirect(reverse("index"))
+            bid_value = form.cleaned_data["bid"]
+            if bid_value > listing.bids.last().value:
+                bid = Bid.objects.create(value=bid_value,owner=request.user)
+                listing.bids.add(bid)
+                return HttpResponseRedirect(reverse("index"))
         else:
             return render(request, "auction/listing.html", {
                 "listing": listing,
+                "bids": listing.bids.all(),
                 "form": form
             })
     return render(request, "auctions/listing.html", {
         "listing": listing,
+        "last_bid": listing.bids.last(),
         "form": forms.NewBidForm()
     })
 
@@ -88,10 +93,12 @@ def new_listing(request):
         if form.is_valid():
             title = form.cleaned_data["title"]
             description = form.cleaned_data["description"]
-            starting_bid = form.cleaned_data["starting_bid"]
+            starting_bid = form.cleaned_data["bid"]
             image_url = form.cleaned_data["image_url"]
             category = form.cleaned_data["category"]
-            listing = Listing.objects.create(title=title, description=description, starting_bid=starting_bid, image_url=image_url)
+            bid = Bid.objects.create(value=starting_bid, owner=request.user)
+            listing = Listing.objects.create(title=title, description=description, image_url=image_url, category=category)
+            listing.bids.add(bid)
             return HttpResponseRedirect(reverse("index"))
         else:
             return render(request, "auction/new_listing.html", {

@@ -27,7 +27,9 @@ body {
 
 .alt-active-fig {
     display: block;
-    width: 100%;
+    max-width: 100%;
+    max-height:60vh;
+    margin: 0 auto;
 }
 .form { 
     display: inline-flexbox;
