@@ -1,4 +1,5 @@
 from django import forms
+#from input_mask.fields import DecimalField
 from numpy import require
 
 custom_styles = '''
@@ -39,4 +40,14 @@ class NewBidForm(forms.Form):
     bid = forms.DecimalField(widget=forms.NumberInput(attrs = {
         'placeholder': 'Enter your bid',
         'style': custom_styles + 'width: 100%'
+    }), label="")
+
+class NewCommentForm(forms.Form):
+    content = forms.CharField(widget=forms.Textarea(attrs={
+        'placeholder': 'Enter comment',
+        'style': custom_styles + '''
+        width: 100%;
+        border-radius: 1rem;
+        max-height: 20vh;
+        '''
     }), label="")

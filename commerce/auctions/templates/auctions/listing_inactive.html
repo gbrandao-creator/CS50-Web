@@ -1,0 +1,46 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <div class="title row">
+        <h2>Listing: {{ listing.title }}</h2>
+    </div>
+        
+    <div class="row" style="margin-bottom: 1rem">
+            <div class="col-12">
+                <button type="button" class="btn btn-secondary btn-sm" disabled>
+                    Watchlist
+                </button>
+            </div>
+    </div>
+    <div class="row">
+        <div class="col-6" 
+        style="background-color: 
+        rgb(245,245,245); 
+        padding: 1rem; 
+        border-radius: 0.5rem;"
+        >
+            <img class="alt-active-fig" src="{{ listing.image_url }}" alt="listing {{ listing.id }}">
+        </div>
+        <div class="col-6">
+            <div class="row">
+                <div class="col-12">
+                    <p style="color: rgb(100,100,100);">{{ listing.description }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h4>This auction was closed for ${{ listing.bids.last.value }} at {{ listing.updated_at }}</h4>
+                </div>
+            </div>
+                {% if listing.winner == request.user %}
+                    <div class="row" style="margin-top: 2rem; text-align: center">
+                        <div class="col-1 col-lg-3"></div>
+                        <div class="col-10 col-lg-6 alert alert-success">
+                            Congratulations, {{ request.user }}, you won this auction!
+                        </div>
+                        <div class="col-1 col-lg-3"></div>
+                    </div>
+                {% endif %}
+        </div>
+    </div>
+{% endblock %}

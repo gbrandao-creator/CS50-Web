@@ -11,6 +11,12 @@ body {
     margin-bottom: 2rem;
 }
 
+.list {
+    display: flex; 
+    white-space: break-spaces;
+}
+
+
 .active-box {
     padding: 0.5rem;
     border-top: 0.1rem solid rgb(220, 220,220);
@@ -44,4 +50,9 @@ body {
     border-radius: 0.75rem;
     font-weight: 500;
     color:white;
+}
+
+.some-space{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }

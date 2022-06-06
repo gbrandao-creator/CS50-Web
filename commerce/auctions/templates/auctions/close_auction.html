@@ -1,0 +1,54 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="title row">
+    <h2>Close auction for listing: {{ listing.title }}</h2>
+</div>
+    <div class="row">
+        <div class="col-6" 
+            style="background-color: rgb(245,245,245); 
+            padding: 1rem; 
+            border-radius: 0.5rem;"
+        >
+            <img class="alt-active-fig" src="{{ listing.image_url }}" alt="listing {{ listing.id }}">
+        </div>
+        <div class="col-6">
+            <div class="row">
+                <div class="col-12">
+                    <h2>Do you really wish to close this auction?</h2>
+                </div>
+            </div>
+                <div class="row" style="margin-top: 1rem;">
+                    <ul style="font-size: large">
+                        <li>
+                            <span>
+                                Last bid: 
+                                ${{ listing.bids.last.value }}
+                            </span>
+                        </li>
+                        <li>
+                            <span>
+                                Updated at:
+                                {{ listing.updated_at }}
+                            </span>
+                        </li>
+                        <li>
+                            <span>
+                                Last bid owner: 
+                                {{ listing.bids.last.owner }}
+                            </span> 
+                        </li>
+                    </ul>
+                </div>
+            
+            <div class="row">
+                <div class="col-12">
+                    <form action="{% url 'close_auction' listing.id %}" method="post" accept-charset="UTF-8">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Yes! Close it!</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

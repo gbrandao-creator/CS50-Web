@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="title row">
-        <h2>Active Listings</h2>
+        <h2>Closed Listings</h2>
     </div> 
     {% for listing in listings %}
         {% if listing.image_url != "" %}
@@ -28,7 +28,7 @@
                         <div class="col-12">
                             <p>{{ listing.description }}</p>
                         </div>
-                        <div class="col-12">
+                        <div class="col-12" style="margin-top: 2rem">
                             <p style="font-weight: 300; font-size: small">
                                 Created {{ listing.created_at }}
                             </p>
@@ -38,7 +38,7 @@
             </div>
         {% else %}
             <div class="row active-box" style="height: 30vh; display: flex; align-items: center;">
-                <div class="col-4" style="text-align: center">
+                <div class="col-4">
                     <div class="row">
                         <div class="col-12">
                             <a href="{% url 'listing' listing.id %}" style="color: black">
@@ -48,22 +48,15 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <h4>
+                            <h3>
                                 Price: <span style="font-weight: 200">
-                                ${{ listing.bids.last.value }}
-                            </span></h4>
+                                ${{ listing.bids.last }}
+                            </span></h3>
                         </div>
                     </div>
                 </div>
                 <div class="col-8">
-                    <div class="col-12">
-                        <p>{{ listing.description }}</p>
-                    </div>
-                    <div class="col-12">
-                        <p style="font-weight: 300; font-size: small">
-                            Created {{ listing.created_at }}
-                        </p>
-                    </div>
+                    <p>{{ listing.description }}</p>
                 </div>
             </div>
         {% endif %}

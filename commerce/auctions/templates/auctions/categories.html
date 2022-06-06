@@ -1,0 +1,25 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <div class="title row">
+        <h2>Categories</h2>
+    </div>
+    {% for category in categories %}
+        <div class="row active-box" style="height: 10vh; display: flex; align-items: center;">
+            <div class="col-4" style="text-align: start">
+                <ul>
+                    <li>
+                        <div class="row">
+                            <div class="col-12">
+                                <a href="{% url 'category' category %}" style="color: black">
+                                    <h4>{{ category }}</h4>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    {% endfor %}
+        
+{% endblock %}
