@@ -8,13 +8,23 @@
     </div>
 
     {% if user.is_authenticated %}
-        <div class="row mb-2">
-            <div class="col-12">
-                <button type="button" class="btn btn-secondary btn-sm">
-                    Watchlist
-                </button>
+        {% if not in_watchlist %}
+            <div class="row mb-2">
+                <div class="col-12">
+                    <a href="{% url 'add_to_watchlist' listing.id %}" class="btn btn-success btn-sm">
+                        Add to watchlist
+                    </a>
+                </div>
             </div>
-        </div>
+        {% else %}
+            <div class="row mb-2">
+                <div class="col-12">
+                    <a href="{% url 'remove_from_watchlist' listing.id %}" class="btn btn-secondary btn-sm">
+                        Remove from watchlist
+                    </a>
+                </div>
+            </div>
+        {% endif %}
     {% else %}
         <div class="row mb-2">
             <div class="col-12">
@@ -72,7 +82,7 @@
                         {% if user.is_authenticated %}
                             <div class="row">
                                 <div class="col-12">
-                                    {{ form }}
+                                    {{ bid_form }}
                                 </div>
                             </div>
                             <div class="row">
@@ -169,18 +179,35 @@
                 <div class="col-12 my-1">
                     <div class="card-footer py-2 border-0" style="background-color: #f8f9fa;">
                         <div class="flex-start w-100">
-                            <h5 class="mb-4">Comment as {{ request.user }}:</h5>
-                            <div class="w-100">
-                                <div class="float-end mt-2 pt-1">
-                                    <form action="{% url 'comment' listing.id %}" method="post" accept-charset="UTF-8">
-                                        {% csrf_token %}
-                                        {{ comment_form }}
-                                        <button type="submit" class="btn-sm btn-primary ">
-                                            Post comment
-                                        </button>
-                                    </form>
+                            {% if user.is_authenticated %}
+                                <h5 class="mb-4">Comment as {{ request.user }}:</h5>
+                                <div class="w-100">
+                                    <div class="float-end mt-2 pt-1">
+                                        
+                                        <form action="{% url 'comment' listing.id %}" method="post" accept-charset="UTF-8">
+                                            {% csrf_token %}
+                                            {{ comment_form }}
+                                            <button type="submit" class="btn-sm btn-primary ">
+                                                Post comment
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
+                            {% else %}
+                                <h5 class="mb-4">You must be logged in to comment</h5>
+                                <div class="w-100">
+                                    <div class="float-end mt-2 pt-1">
+                                        
+                                        <form action="{% url 'comment' listing.id %}" method="post" accept-charset="UTF-8">
+                                            {% csrf_token %}
+                                            {{ comment_form }}
+                                            <button type="submit" class="btn-sm btn-primary" disabled>
+                                                Post comment
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

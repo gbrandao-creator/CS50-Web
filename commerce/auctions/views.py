@@ -5,7 +5,7 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, Listing, Bid, Comment
+from .models import User, Listing, Bid, Comment, Watchlist
 from . import forms
 
 
@@ -56,6 +56,8 @@ def register(request):
         try:
             user = User.objects.create_user(username, email, password)
             user.save()
+            watchlist = Watchlist.objects.create(owner=user)
+            watchlist.save()
         except IntegrityError:
             return render(request, "auctions/register.html", {
                 "message": "Username already taken."
@@ -74,15 +76,28 @@ def listing(request, listing_id):
         base_template = "auctions/listing_active.html"
     else:
         base_template = "auctions/listing_inactive.html"
+
+    context = {}
+
+    if request.user.is_authenticated:
+        #watchlist = 
+       # print(watchlist)
+        print(Watchlist.objects.get(owner=request.user).listings.filter(pk=listing.id).exists())
+        if Watchlist.objects.get(owner=request.user).listings.filter(pk=listing.id).exists():
+            context["in_watchlist"] = True
+        else:
+            context["in_watchlist"] = False
+    
+    context["listing"] = listing
+    context["comment_form"] = forms.NewCommentForm()
+
+    
     if request.method == "POST":
-        form = forms.NewBidForm(request.POST)
-        context = {
-            "listing": listing,
-            "form": form,
-            "comment_form": forms.NewCommentForm()
-        }
-        if form.is_valid():
-            bid_value = form.cleaned_data["bid"]
+        bid_form = forms.NewBidForm(request.POST)
+        context["bid_form"] = bid_form
+
+        if bid_form.is_valid():
+            bid_value = bid_form.cleaned_data["bid"]
             if bid_value > listing.bids.last().value:
                 bid = Bid.objects.create(value=bid_value,owner=request.user)
                 listing.bids.add(bid)
@@ -92,11 +107,7 @@ def listing(request, listing_id):
                 return render(request, base_template, context)
         else:
             return render(request, base_template, context)
-    return render(request, base_template, {
-        "listing": listing,
-        "form": forms.NewBidForm(),
-        "comment_form": forms.NewCommentForm()
-    })
+    return render(request, base_template, context)
 
 def new_listing(request):
     if request.user.is_authenticated:
@@ -168,6 +179,24 @@ def category(request, category=""):
     else:
         return render(request, "auctions/index.html", {
         "listings": Listing.objects.filter(active=True, category=category)
+    })
+
+def add_to_watchlist(request, listing_id):
+    listing = Listing.objects.get(id=listing_id)
+    watchlist = Watchlist.objects.get(owner=request.user)
+    watchlist.listings.add(listing)
+    return HttpResponseRedirect(reverse("listing", args=listing_id))
+
+def remove_from_watchlist(request, listing_id):
+    listing = Listing.objects.get(id=listing_id)
+    watchlist = Watchlist.objects.get(owner=request.user)
+    watchlist.listings.remove(listing)
+    return HttpResponseRedirect(reverse("listing", args=listing_id))
+
+def watchlist(request):
+    watchlist_listings = Watchlist.objects.get(owner=request.user).listings.all()
+    return render(request, "auctions/watchlist.html", {
+        "listings": watchlist_listings
     })
 
     

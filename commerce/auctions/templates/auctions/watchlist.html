@@ -1,0 +1,71 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <div class="title row">
+        <h2>Watchlist</h2>
+    </div> 
+    {% for listing in listings %}
+        {% if listing.image_url != "" %}
+            <div class="row active-box">
+                <div class="col-4" style="border-right: 1px solid rgb(220,220,220)">
+                    <a href="{% url 'listing' listing.id %}">
+                        <img class="active-fig" src="{{ listing.image_url }}" alt="listing {{ listing.id }}">
+                    </a>
+                </div>
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="{% url 'listing' listing.id %}" style="color: black">
+                                <h3>{{ listing.title}}</h3>
+                            </a>
+                        </div>
+                        <div class="col-12">
+                            <h5>
+                                Price: 
+                                <span style="font-weight: 300">${{ listing.bids.last.value }}</span>
+                            </h5>
+                        </div>
+                        <div class="col-12">
+                            <p>{{ listing.description }}</p>
+                        </div>
+                        <div class="col-12">
+                            <p style="font-weight: 300; font-size: small">
+                                Created {{ listing.created_at }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="row active-box" style="height: 30vh; display: flex; align-items: center;">
+                <div class="col-4" style="text-align: center">
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="{% url 'listing' listing.id %}" style="color: black">
+                                <h1>{{ listing.title}}</h1>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>
+                                Price: <span style="font-weight: 200">
+                                ${{ listing.bids.last.value }}
+                            </span></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="col-12">
+                        <p>{{ listing.description }}</p>
+                    </div>
+                    <div class="col-12">
+                        <p style="font-weight: 300; font-size: small">
+                            Created {{ listing.created_at }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
