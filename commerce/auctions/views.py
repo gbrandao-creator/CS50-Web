@@ -9,9 +9,10 @@ from .models import User, Listing, Bid, Comment, Watchlist
 from . import forms
 
 
-def index(request):
+def index(request, message=""):
     return render(request, "auctions/index.html", {
-        "listings": Listing.objects.filter(active=True)
+        "listings": Listing.objects.filter(active=True),
+        "message": message
     })
 
 
@@ -63,7 +64,7 @@ def register(request):
                 "message": "Username already taken."
             })
         login(request, user)
-        return HttpResponseRedirect(reverse("index"))
+        return index(request, "Successfully created user")
     else:
         return render(request, "auctions/register.html")
 
@@ -78,20 +79,17 @@ def listing(request, listing_id):
         base_template = "auctions/listing_inactive.html"
 
     context = {}
+    context["listing"] = listing
+    context["comment_form"] = forms.NewCommentForm()
+    context["bid_form"] = forms.NewBidForm()
 
     if request.user.is_authenticated:
-        #watchlist = 
-       # print(watchlist)
         print(Watchlist.objects.get(owner=request.user).listings.filter(pk=listing.id).exists())
         if Watchlist.objects.get(owner=request.user).listings.filter(pk=listing.id).exists():
             context["in_watchlist"] = True
         else:
             context["in_watchlist"] = False
-    
-    context["listing"] = listing
-    context["comment_form"] = forms.NewCommentForm()
 
-    
     if request.method == "POST":
         bid_form = forms.NewBidForm(request.POST)
         context["bid_form"] = bid_form
@@ -101,7 +99,7 @@ def listing(request, listing_id):
             if bid_value > listing.bids.last().value:
                 bid = Bid.objects.create(value=bid_value,owner=request.user)
                 listing.bids.add(bid)
-                return HttpResponseRedirect(reverse("index"))
+                return index(request, "Your bid has been placed!")
             else:
                 context["bid_error"] = True
                 return render(request, base_template, context)
@@ -174,11 +172,12 @@ def comment(request, listing_id):
 def category(request, category=""):
     if category == "":
         return render(request, "auctions/categories.html", {
-            "categories": Listing.objects.all().values_list('category', flat=True).distinct()
+            "categories": Listing.objects.filter(active=True).values_list('category', flat=True).distinct()
         })
     else:
         return render(request, "auctions/index.html", {
-        "listings": Listing.objects.filter(active=True, category=category)
+        "listings": Listing.objects.filter(active=True, category=category),
+        "category": ": " + category
     })
 
 def add_to_watchlist(request, listing_id):

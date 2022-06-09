@@ -6,34 +6,36 @@
             <h2>Listing: {{ listing.title }}</h2>
         </div>
     </div>
-
-    {% if user.is_authenticated %}
-        {% if not in_watchlist %}
-            <div class="row mb-2">
-                <div class="col-12">
-                    <a href="{% url 'add_to_watchlist' listing.id %}" class="btn btn-success btn-sm">
-                        Add to watchlist
-                    </a>
+    {% block watchlist %}
+        {% if user.is_authenticated %}
+            {% if not in_watchlist %}
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <a href="{% url 'add_to_watchlist' listing.id %}" class="btn btn-success btn-sm">
+                            Add to watchlist
+                        </a>
+                    </div>
                 </div>
-            </div>
+            {% else %}
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <a href="{% url 'remove_from_watchlist' listing.id %}" class="btn btn-secondary btn-sm">
+                            Remove from watchlist
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
         {% else %}
             <div class="row mb-2">
                 <div class="col-12">
-                    <a href="{% url 'remove_from_watchlist' listing.id %}" class="btn btn-secondary btn-sm">
-                        Remove from watchlist
-                    </a>
+                    <button type="button" class="btn btn-secondary btn-sm" disabled>
+                        Watchlist
+                    </button>
                 </div>
             </div>
         {% endif %}
-    {% else %}
-        <div class="row mb-2">
-            <div class="col-12">
-                <button type="button" class="btn btn-secondary btn-sm" disabled>
-                    Watchlist
-                </button>
-            </div>
-        </div>
-    {% endif %}
+    {% endblock %}
+
     <div class="row mb-2">
         {% if listing.image_url != "" %}
             <div class="col-6" 
@@ -51,6 +53,7 @@
             <div class="col-12">
                 <p style="color: rgb(100,100,100);">{{ listing.description }}</p>
             </div>
+        {% block main %}
             <div class="col-12">
                 <h2>${{ listing.bids.last.value }}</h2>
             </div>
@@ -116,7 +119,7 @@
                             <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                             </svg>
                             <div class="ml-2">
-                            Your bid must be higher than the current bid
+                                Your bid must be higher than the current bid
                             </div>
                         </div>
                     </div>
@@ -125,6 +128,9 @@
             </div>
         </div>
     </div>
+    {% endblock %}
+    </div>
+</div>
     <div class="row title mt-4">
         <div class="col-12">
             <h3>Details</h3>
