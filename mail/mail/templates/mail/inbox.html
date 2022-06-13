@@ -16,7 +16,7 @@
 
     <div id="compose-view">
         <h3>New Email</h3>
-        <form id="compose-form">
+        <form id="compose-form" action="">
             <div class="form-group">
                 From: <input disabled class="form-control" value="{{ request.user.email }}">
             </div>
@@ -27,8 +27,21 @@
                 <input class="form-control" id="compose-subject" placeholder="Subject">
             </div>
             <textarea class="form-control" id="compose-body" placeholder="Body"></textarea>
-            <input type="submit" class="btn btn-primary"/>
+            <input type="submit" id="submit" class="btn btn-primary"/>
         </form>
+    </div>
+
+    <div id="single-email-view">
+        <div class="border-top border-bottom">
+            <div class="d-flex mt-3"><p class="font-weight-bold mr-2">From: </p> <span id="single-email-sender"></span></div>
+            <div class="d-flex"><p class="font-weight-bold mr-2">To: </p> <span id="single-email-recipients"></span></div>
+            <div class="d-flex"><p class="font-weight-bold mr-2">Subject: </p> <span id="single-email-subject"></span></div>
+            <div class="d-flex"><p class="font-weight-bold mr-2">Timestamp: </p> <span id="single-email-timestamp"></span></div>
+            <button class="btn btn-sm btn-outline-primary mb-3" id="reply">Reply</button>
+        </div>
+        <div>
+            <p id="single-email-body"></p>
+        </div>
     </div>
 {% endblock %}
 
