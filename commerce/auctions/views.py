@@ -4,6 +4,7 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpRequest
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 from .models import User, Listing, Bid, Comment, Watchlist
 from . import forms
@@ -107,29 +108,29 @@ def listing(request, listing_id):
             return render(request, base_template, context)
     return render(request, base_template, context)
 
+@login_required
 def new_listing(request):
-    if request.user.is_authenticated:
-        if request.method == "POST":
-            form = forms.NewListingForm(request.POST)
-            if form.is_valid():
-                title = form.cleaned_data["title"]
-                description = form.cleaned_data["description"]
-                image_url = form.cleaned_data["image_url"]
-                category = form.cleaned_data["category"]
-                starting_bid = form.cleaned_data["bid"]
-                bid = Bid.objects.create(value=starting_bid,owner=request.user)
-                listing = Listing.objects.create(title=title, description=description, image_url=image_url, category=category, owner=request.user)
-                listing.bids.add(bid)
-                return HttpResponseRedirect(reverse("index"))
-            else:
-                return render(request, "auction/new_listing.html", {
-                    "form": form
-                })
-        return render(request, "auctions/new_listing.html", {
-            "form": forms.NewListingForm()
-        })
-    raise PermissionDenied
+    if request.method == "POST":
+        form = forms.NewListingForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            description = form.cleaned_data["description"]
+            image_url = form.cleaned_data["image_url"]
+            category = form.cleaned_data["category"]
+            starting_bid = form.cleaned_data["bid"]
+            bid = Bid.objects.create(value=starting_bid,owner=request.user)
+            listing = Listing.objects.create(title=title, description=description, image_url=image_url, category=category, owner=request.user)
+            listing.bids.add(bid)
+            return HttpResponseRedirect(reverse("index"))
+        else:
+            return render(request, "auction/new_listing.html", {
+                "form": form
+            })
+    return render(request, "auctions/new_listing.html", {
+        "form": forms.NewListingForm()
+    })
 
+@login_required
 def close_auction(request, listing_id):
     try:
         listing = Listing.objects.get(id=listing_id)
@@ -152,6 +153,8 @@ def closed_listings(request):
         "listings": Listing.objects.filter(active=False)
     })
 
+
+@login_required
 def comment(request, listing_id):
     try:
         listing = Listing.objects.get(id=listing_id)
@@ -180,12 +183,14 @@ def category(request, category=""):
         "category": ": " + category
     })
 
+@login_required
 def add_to_watchlist(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
     watchlist = Watchlist.objects.get(owner=request.user)
     watchlist.listings.add(listing)
     return HttpResponseRedirect(reverse("listing", args=listing_id))
 
+@login_required
 def remove_from_watchlist(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
     watchlist = Watchlist.objects.get(owner=request.user)
