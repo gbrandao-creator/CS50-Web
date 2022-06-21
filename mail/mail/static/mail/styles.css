@@ -2,6 +2,32 @@ textarea {
     min-height: 400px;
 }
 
-.unread:hover{
+.unread:hover {
     background-color: lightgrey;
+}
+
+pre {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    background-color: #fff;
+}
+
+@keyframes fadein {
+    0% {
+       opacity: 0;
+    }
+    
+    50% {
+        opacity: 1;
+    }
+}
+
+#error {
+    animation-name: fadein;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
 }

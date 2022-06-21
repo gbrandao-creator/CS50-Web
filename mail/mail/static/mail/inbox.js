@@ -4,24 +4,42 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('#inbox').addEventListener('click', () => load_mailbox('inbox'));
   document.querySelector('#sent').addEventListener('click', () => load_mailbox('sent'));
   document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
-  document.querySelector('#compose').addEventListener('click', compose_email);
+  document.querySelector('#compose').addEventListener('click', () => compose_email());
 
   // By default, load the inbox
   load_mailbox('inbox');
   
 });
 
-function compose_email() {
 
+function compose_email(reply=false, originalEmail=undefined) {
   // Show compose view and hide other views
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'block';
   document.querySelector('#single-email-view').style.display = 'none';
+  document.querySelector('#error').style.visibility = 'hidden';
+  document.querySelector('#error').style.animationPlayState = 'paused';
 
-  // Clear out composition fields
-  document.querySelector('#compose-recipients').value = '';
-  document.querySelector('#compose-subject').value = '';
-  document.querySelector('#compose-body').value = '';
+  // Composition fields initial values 
+  // If replying an email, pre-fill with original email content
+  if (reply) {
+    document.querySelector('#compose-recipients').value = originalEmail.sender;
+    document.querySelector('#compose-recipients').disabled = true;
+
+    if (originalEmail.subject.includes('Re:')) {
+
+      document.querySelector('#compose-subject').value = originalEmail.subject;
+    } else {
+      document.querySelector('#compose-subject').value = 'Re: ' + originalEmail.subject;
+    }
+      document.querySelector('#compose-body').value = `On ${originalEmail.timestamp}  ${originalEmail.sender}  wrote:\n${originalEmail.body}`;
+    
+  } else {
+    document.querySelector('#compose-recipients').value = '';
+    document.querySelector('#compose-recipients').disabled = false;
+    document.querySelector('#compose-subject').value = '';
+    document.querySelector('#compose-body').value = '';
+  }
 
   // By default, submit button is disabled
   document.querySelector('#submit').disabled = true;
@@ -52,15 +70,22 @@ function compose_email() {
       })
     })
     .then(response => response.json())
-    /*.then(result => {
-      console.log(result);
-    })*/
-    .then(load_mailbox('sent'));
+    .then(res => {
+      console.log(res);
+      if(res['error']){
+        console.log('erro');
+        document.querySelector('#error').innerHTML = res['error'];
+        document.querySelector('#error').style.visibility = 'visible';
+        document.querySelector('#error').style.animationPlayState = 'running';
+      } else {
+        load_mailbox('sent');
+      }
+    });
     return false;
   }
 }
 
-function load_mailbox(mailbox) {
+function load_mailbox(mailbox, message="") {
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'block';
   document.querySelector('#compose-view').style.display = 'none';
@@ -75,8 +100,6 @@ function load_mailbox(mailbox) {
   fetch(`/emails/${mailbox}`)
   .then(response => response.json())
   .then(emails => {
-    console.log(emails);
-
     emails.forEach(email => {
       
       const emailContainer = document.createElement('button');
@@ -88,13 +111,13 @@ function load_mailbox(mailbox) {
       }
 
       emailContainer.innerHTML = `
-      <div class="d-flex">
-        <p class="font-weight-bold mr-5">${email.sender}</p>
-        <p>${email.subject}</p>
+      <div style="line-height: 2.5em" class="d-flex">
+        <span class="font-weight-bold mr-5">${email.sender}</span>
+        <span>${email.subject}</span>
       </div>
-      <div class="d-flex">
+      <div style="line-height: 2.5em" class="d-flex">
         <button id="archive" class="btn btn-link btn-sm mr-3">${email.archived ? "Unarchive" : "Archive"}</button>
-        <p class="text-secondary">${email.timestamp}</p>
+        <span class="text-secondary">${email.timestamp}</span>
       </div>`;
 
 
@@ -160,8 +183,8 @@ function load_email(email) {
   // looping through object's keys
   // reference: https://stackoverflow.com/questions/921789/how-to-loop-through-a-plain-javascript-object-with-the-objects-as-members
   Object.keys(ids).forEach(key => {
-    document.querySelector(key).innerHTML = ids[key];
+    document.querySelector(key).innerHTML = "<pre>" + ids[key] + "</pre>";
   })
 
-  document.querySelector('#reply').addEventListener('click', )
+  document.querySelector('#reply').addEventListener('click', () => compose_email(reply=true, originalEmail=email));
 }
