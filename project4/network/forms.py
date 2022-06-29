@@ -1,0 +1,14 @@
+from django import forms
+
+custom_styles = '''
+    border-radius: 0.5rem;
+    border: 0.1rem solid rgb(200,200,200);
+    padding: 0.5rem 0.5rem;
+    width: 90%;
+    margin-bottom: 1rem;'''
+
+class NewPostForm(forms.Form):
+    content = forms.CharField(widget=forms.Textarea(attrs={
+        'placeholder': 'Post content',
+        'style': custom_styles
+    }), label="")
