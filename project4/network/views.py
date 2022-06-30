@@ -1,16 +1,22 @@
+#delete this comment: cTxLa&Oj@iJ0
+
+import json
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 
-from .models import User, Post
+from .models import User, Post, Follower
 from . import forms
 
 def index(request):
     return render(request, "network/index.html", {
-        'form': forms.NewPostForm()
+        'form': forms.NewPostForm(),
+        'posts': Post.objects.all().order_by('-id')
     })
 
 @login_required
@@ -21,11 +27,46 @@ def new_post(request):
             content = form.cleaned_data["content"]
             owner = request.user
             post = Post.objects.create(content=content, owner=owner)
+            return HttpResponseRedirect(reverse("index"))
     else:
-        return render(request, "network")
+        return render(request, "network/index.html")
             
 def user_profile(request, username):
-    return render(request, "network/profile.html")
+    user = User.objects.get(username=username)
+    follows = request.user.following.filter(following_user=user).exists()
+    follow_msg = 'Unfollow' if follows else 'Follow'
+    return render(request, "network/profile.html", {
+        'profile_user': user,
+        'is_other_user': request.user.username != username,
+        'follow_msg': follow_msg,
+        'posts': user.user_posts.all().order_by('-id'),
+    })
+
+@login_required
+@csrf_exempt
+def follow(request):
+    #if request.method != "POST":
+    #    return JsonResponse({"error": "POST request required."}, status=400)
+
+    data = json.loads(request.body)
+    username = data.get("usernamee")
+
+    user = User.objects.get(username=username)
+    return JsonResponse({"message": "Ok! got the data" + user.email}, status=201)
+
+
+    # If authenticated user is not following current profile page user
+    if not request.user.following.filter(following_user=user).exists():
+        # Follow that user
+        Follower.objects.create(user=request.user, following_user=user)
+        return JsonResponse({"message": "Successfully followed user " + username}, status=201)
+        #return HttpResponseRedirect(reverse("user_profile", args=[str(username)]))
+    else:
+        # Unfollow that user
+        follower_instance = Follower.objects.get(user=request.user, following_user=user)
+        follower_instance.delete()
+        return JsonResponse({"message": "Successfully unfollowed user " + username}, status=201)
+        #return HttpResponseRedirect(reverse("user_profile", args=[str(username)]))
 
 # authentication views
 def login_view(request):
@@ -57,7 +98,6 @@ def register(request):
     if request.method == "POST":
         username = request.POST["username"]
         email = request.POST["email"]
-
         # Ensure password matches confirmation
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
@@ -66,6 +106,8 @@ def register(request):
                 "message": "Passwords must match."
             })
 
+        followers = list
+        following = list
         # Attempt to create new user
         try:
             user = User.objects.create_user(username, email, password)
