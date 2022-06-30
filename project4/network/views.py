@@ -31,8 +31,10 @@ def new_post(request):
     else:
         return render(request, "network/index.html")
             
+
 def user_profile(request, username):
     user = User.objects.get(username=username)
+    print(user.username)
     follows = request.user.following.filter(following_user=user).exists()
     follow_msg = 'Unfollow' if follows else 'Follow'
     return render(request, "network/profile.html", {
@@ -43,30 +45,19 @@ def user_profile(request, username):
     })
 
 @login_required
-@csrf_exempt
-def follow(request):
-    #if request.method != "POST":
-    #    return JsonResponse({"error": "POST request required."}, status=400)
-
-    data = json.loads(request.body)
-    username = data.get("usernamee")
-
+def follow(request, username):
     user = User.objects.get(username=username)
-    return JsonResponse({"message": "Ok! got the data" + user.email}, status=201)
-
-
     # If authenticated user is not following current profile page user
     if not request.user.following.filter(following_user=user).exists():
         # Follow that user
         Follower.objects.create(user=request.user, following_user=user)
-        return JsonResponse({"message": "Successfully followed user " + username}, status=201)
-        #return HttpResponseRedirect(reverse("user_profile", args=[str(username)]))
+        #return JsonResponse({"message": "Successfully followed user " + username}, status=201)
+        return HttpResponseRedirect(reverse("user_profile", args=[str(username)]))
     else:
         # Unfollow that user
         follower_instance = Follower.objects.get(user=request.user, following_user=user)
         follower_instance.delete()
-        return JsonResponse({"message": "Successfully unfollowed user " + username}, status=201)
-        #return HttpResponseRedirect(reverse("user_profile", args=[str(username)]))
+        return HttpResponseRedirect(reverse("user_profile", args=[str(username)]))
 
 # authentication views
 def login_view(request):
