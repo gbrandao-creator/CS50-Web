@@ -1,22 +1,24 @@
 {% extends "network/layout.html" %}
+{% load static %}
 
 {% block body %}
     <div id="all-posts-view">
         <div class="row sticky-top semi-transparent-gray sticky mb-3 p-3 border-bottom">
             <div class="col">
-                <h1>All Posts</h1>
+                <h1>{{ title }}</h1>
             </div>
         </div>
         <div class="row mb-3 px-3">
-            <div class="col">
-                <form action="{% url 'new_post' %}" method="post" accept-charset="UTF-8" class="form text-center">
+            <div class="col text-center">
+                <form action="{% url 'new_post' %}" method="post" accept-charset="UTF-8" class="form">
                     {% csrf_token %}
                     {{form}}<br>
-                    <input class="btn btn-primary" type="submit" value="Submit">
+                    <input class="btn btn-primary" type="submit" value="Submit" 
+                    {% if not user.is_authenticated %}disabled{% endif %}>
                 </form>
             </div>
         </div>
-        {% for post in posts %}
+        {% for post in posts_page %}
             <div class="row mb-2 p-3 border-bottom">
                 <div class="col">
                     <span><a class="text-decoration-none" href="{% url 'user_profile' post.owner %}"><strong>{{ post.owner }}</strong></a></span> 
@@ -27,6 +29,31 @@
                     <span>0</span>
                 </div>
             </div>
+            {% empty %}
+            <strong>No posts to show.</strong>
         {% endfor %}
+        <div class="p-3 border-bottom">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item 
+                    {% if posts_page.number == 1 %} disabled {% endif %}">
+                        <a class="page-link" tabindex="-1" id="previous_page" href="#">Previous</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" id="page_button_1" href="#"></a></li>
+                    <li class="page-item"><a class="page-link" id="page_button_2" href="#"></a></li>
+                    <li class="page-item"><a class="page-link" id="page_button_3" href="#"></a></li>
+                    <li class="page-item
+                    {% if posts_page.number == num_pages %} disabled {% endif %}">
+                        <a class="page-link" id="next_page" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
+{% endblock %}
+
+{% block script %}
+{{ posts_page.number|json_script:"page_number" }}
+{{ num_pages|json_script:"num_pages" }}
+<script src="{% static 'network/paginator.js' %}"></script>
 {% endblock %}
