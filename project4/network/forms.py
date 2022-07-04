@@ -6,7 +6,7 @@ custom_styles = '''
     padding: 0.5rem 0.5rem;
     width: 100%;
     height: 15vh;
-    margin-bottom: 0.5rem;'''
+    margin-bottom: 0.25rem;'''
 
 class NewPostForm(forms.Form):
     content = forms.CharField(widget=forms.Textarea(attrs={

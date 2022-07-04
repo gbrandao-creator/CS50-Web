@@ -1,6 +1,6 @@
 #delete this comment: cTxLa&Oj@iJ0
 
-#import json
+import json
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
@@ -8,15 +8,14 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-#from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 
-from .models import User, Post, Follower
+from .models import User, Post, Follower, Like
 from . import forms
 
 def index(request):
     posts_list = Post.objects.all().order_by('-id')
-    print(posts_list.count())
     paginator = Paginator(posts_list, 10) # Show 10 posts per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -50,11 +49,54 @@ def new_post(request):
         if form.is_valid():
             content = form.cleaned_data["content"]
             owner = request.user
-            post = Post.objects.create(content=content, owner=owner)
+            Post.objects.create(content=content, owner=owner)
             return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "network/index.html")
             
+@login_required
+def edit_post(request, post_id):
+    try:
+        post = Post.objects.get(id=post_id)
+    except Post.DoesNotExist:
+        return JsonResponse({"error": "Post not found."}, status=404)
+
+    if request.method == "PUT":
+        if request.user == post.owner:
+            data = json.loads(request.body)
+            if data.get("content") is not None:
+                post.content = data["content"]
+                post.save()
+                print('entrei aqui')
+                return JsonResponse({"message": "Post updated successfully."}, status=204)
+            else:
+                return JsonResponse({"error": "No content found."}, status=400)
+        else:
+            return JsonResponse({"error": "Authenticated user is not post owner"}, status=403)
+    else:
+        return JsonResponse({"error": "PUT request required."}, status=400)
+
+@login_required
+def like_post(request, post_id):
+    try:
+        post = Post.objects.get(id=post_id)
+    except Post.DoesNotExist:
+        return JsonResponse({"error": "Post not found."}, status=404)
+    
+    if request.method == "POST":
+        data = json.loads(request.body)
+        if data.get("like") is not None:
+            if data["like"]:
+                Like.objects.delete(post=post, owner=request.user)
+                return JsonResponse({"message": "Successfully unliked post"}, status=204)
+            else:
+                Like.objects.create(post=post, owner=request.user)
+                return JsonResponse({"message": "Successfully liked post"}, status=204)
+        else:
+            return JsonResponse({"error": "No data found."}, status=400)
+    else:
+        return JsonResponse({"error": "POST request required."}, status=400)
+
 
 def user_profile(request, username):
     user = User.objects.get(username=username)
@@ -65,11 +107,12 @@ def user_profile(request, username):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, "network/profile.html", {
+        'form': forms.NewPostForm(),
         'profile_user': user,
         'is_other_user': request.user.username != username,
         'follow_msg': follow_msg,
         'posts_page': page_obj,
-        'num_pages': paginator.num_pages,
+        'num_pages': paginator.num_pages
     })
 
 @login_required

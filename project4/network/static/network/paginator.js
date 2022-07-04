@@ -1,89 +1,89 @@
 document.addEventListener('DOMContentLoaded', function() {
-    load_page();
+    loadPage();
 
-    document.querySelector('#previous_page').addEventListener('click', () => load_page());
-    document.querySelector('#page_button_1').addEventListener('click', () => load_page());
-    document.querySelector('#page_button_2').addEventListener('click', () => load_page());
-    document.querySelector('#page_button_3').addEventListener('click', () => load_page());
-    document.querySelector('#next_page').addEventListener('click', () => load_page());
+    document.querySelector('#previous-page').addEventListener('click', () => loadPage());
+    document.querySelector('#page-button-1').addEventListener('click', () => loadPage());
+    document.querySelector('#page-button-2').addEventListener('click', () => loadPage());
+    document.querySelector('#page-button-3').addEventListener('click', () => loadPage());
+    document.querySelector('#next-page').addEventListener('click', () => loadPage());
     
-    function load_page() {
-        const current_page_number = JSON.parse(document.getElementById('page_number').textContent);
-        const num_pages = JSON.parse(document.getElementById('num_pages').textContent);
+    function loadPage() {
+        const currentPageNumber = JSON.parse(document.getElementById('page_number').textContent);
+        const numPages = JSON.parse(document.getElementById('num_pages').textContent);
 
-        previous_page = document.querySelector('#previous_page');
-        page_button_1 = document.querySelector('#page_button_1');
-        page_button_2 = document.querySelector('#page_button_2');
-        page_button_3 = document.querySelector('#page_button_3');
-        next_page = document.querySelector('#next_page');
+        previousPage = document.querySelector('#previous-page');
+        pageButton1 = document.querySelector('#page-button-1');
+        pageButton2 = document.querySelector('#page-button-2');
+        pageButton3 = document.querySelector('#page-button-3');
+        nextPage = document.querySelector('#next-page');
 
         /* If the third button label reached the total number of pages
         we want to set the inner HTML based on this total.*/
-        if (current_page_number + 2 > num_pages){
-            page_button_1.innerHTML = num_pages - 2;
-            page_button_2.innerHTML = num_pages - 1;
-            page_button_3.innerHTML = num_pages;
+        if (currentPageNumber + 2 > numPages){
+            pageButton1.innerHTML = numPages - 2;
+            pageButton2.innerHTML = numPages - 1;
+            pageButton3.innerHTML = numPages;
 
-            page_button_1.href = `?page=${num_pages - 2}`;
-            page_button_2.href = `?page=${num_pages - 1}`;
-            page_button_3.href = `?page=${num_pages}`;
+            pageButton1.href = `?page=${numPages - 2}`;
+            pageButton2.href = `?page=${numPages - 1}`;
+            pageButton3.href = `?page=${numPages}`;
 
-            if (num_pages == 1) {
-                page_button_1.style.display = 'none';
-                page_button_2.style.display = 'none';
-            } else if (num_pages == 2) {
-                page_button_1.style.display = 'none';
+            if (numPages == 1) {
+                pageButton1.style.display = 'none';
+                pageButton2.style.display = 'none';
+            } else if (numPages == 2) {
+                pageButton1.style.display = 'none';
             } else {
-                page_button_1.style.display = 'block';
-                page_button_2.style.display = 'block';
-                page_button_3.style.display = 'block';
+                pageButton1.style.display = 'block';
+                pageButton2.style.display = 'block';
+                pageButton3.style.display = 'block';
             }
         } /* Else, we want to set the inner HTMLs based on 
-        current_page_number.*/
+        currentPageNumber.*/
 
         /* If the current page is not the first, the 
         second button is the active one.*/
-        else if (current_page_number != 1) {
-            page_button_1.innerHTML = current_page_number - 1;
-            page_button_2.innerHTML = current_page_number;
-            page_button_3.innerHTML = current_page_number + 1;
+        else if (currentPageNumber != 1) {
+            pageButton1.innerHTML = currentPageNumber - 1;
+            pageButton2.innerHTML = currentPageNumber;
+            pageButton3.innerHTML = currentPageNumber + 1;
 
-            page_button_1.href = `?page=${current_page_number - 1}`;
-            page_button_2.href = `?page=${current_page_number}`;
-            page_button_3.href = `?page=${current_page_number + 1}`;
+            pageButton1.href = `?page=${currentPageNumber - 1}`;
+            pageButton2.href = `?page=${currentPageNumber}`;
+            pageButton3.href = `?page=${currentPageNumber + 1}`;
         } // The first button is the active one otherwise. 
         else {
-            page_button_1.innerHTML = current_page_number;
-            page_button_2.innerHTML = current_page_number + 1;
-            page_button_3.innerHTML = current_page_number + 2;
+            pageButton1.innerHTML = currentPageNumber;
+            pageButton2.innerHTML = currentPageNumber + 1;
+            pageButton3.innerHTML = currentPageNumber + 2;
 
-            page_button_1.href = `?page=${current_page_number}`;
-            page_button_2.href = `?page=${current_page_number + 1}`;
-            page_button_3.href = `?page=${current_page_number + 2}`;
+            pageButton1.href = `?page=${currentPageNumber}`;
+            pageButton2.href = `?page=${currentPageNumber + 1}`;
+            pageButton3.href = `?page=${currentPageNumber + 2}`;
         }
 
-        previous_page.href = `?page=${current_page_number - 1}`;
-        next_page.href = `?page=${current_page_number + 1}`;
+        previousPage.href = `?page=${currentPageNumber - 1}`;
+        nextPage.href = `?page=${currentPageNumber + 1}`;
 
         // styling the active button 
-        style_active();
+        styleActive();
         return false;
     }
 
-    function style_active(){
-        const current_page_number = JSON.parse(document.getElementById('page_number').textContent);
+    function styleActive(){
+        const currentPageNumber = JSON.parse(document.getElementById('page_number').textContent);
 
-        page_button_1 = document.querySelector('#page_button_1');
-        page_button_2 = document.querySelector('#page_button_2');
-        page_button_3 = document.querySelector('#page_button_3');
+        pageButton1 = document.querySelector('#page-button-1');
+        pageButton2 = document.querySelector('#page-button-2');
+        pageButton3 = document.querySelector('#page-button-3');
         
-        page_button_1.parentElement.className = 'page-item';
-        page_button_2.parentElement.className = 'page-item';
-        page_button_3.parentElement.className = 'page-item';
-        page_buttons = [page_button_1, page_button_2, page_button_3];
-        for (index in page_buttons){
-            if (page_buttons[index].innerHTML == current_page_number){
-                page_buttons[index].parentElement.className = 'page-item active';
+        pageButton1.parentElement.className = 'page-item';
+        pageButton2.parentElement.className = 'page-item';
+        pageButton3.parentElement.className = 'page-item';
+        pageButtons = [pageButton1, pageButton2, pageButton3];
+        for (index in pageButtons){
+            if (pageButtons[index].innerHTML == currentPageNumber){
+                pageButtons[index].parentElement.className = 'page-item active';
             }
         }
         return false;

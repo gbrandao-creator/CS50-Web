@@ -14,9 +14,13 @@ class Follower(models.Model):
 
 class Post(models.Model):
     content = models.CharField(max_length=240)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_posts")
+    owner = models.ForeignKey(User, related_name="user_posts", on_delete=models.CASCADE)
     creation_date = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"Posted by {self.owner} at {self.creation_date}"
+
+class Like(models.Model):
+    post = models.ForeignKey(Post, related_name="likes", on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, related_name="likes", on_delete=models.CASCADE)
