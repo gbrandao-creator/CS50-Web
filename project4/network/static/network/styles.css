@@ -5,3 +5,8 @@ body{
 .semi-transparent-gray{
     background-color: rgb(248, 249, 250, 0.75);
 }
+
+#previous_page, #next_page {
+    min-width: 5rem;
+    text-align: center;
+}

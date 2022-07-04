@@ -53,7 +53,7 @@
 {% endblock %}
 
 {% block script %}
-{{ posts_page.number|json_script:"page_number" }}
-{{ num_pages|json_script:"num_pages" }}
-<script src="{% static 'network/paginator.js' %}"></script>
+    {{ posts_page.number|json_script:"page_number" }}
+    {{ num_pages|json_script:"num_pages" }}
+    <script src="{% static 'network/paginator.js' %}"></script>
 {% endblock %}

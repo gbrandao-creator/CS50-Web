@@ -32,10 +32,14 @@ def following(request):
     following_users = []
     for user in request.user.following.all().iterator():
         following_users.append(user.following_user)
-    posts = Post.objects.filter(owner__in=following_users)
+    posts_list = Post.objects.filter(owner__in=following_users)
+    paginator = Paginator(posts_list, 10) # Show 10 posts per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     return render(request, "network/index.html", {
         'form': forms.NewPostForm(),
-        'posts': posts,
+        'posts_page': page_obj,
+        'num_pages': paginator.num_pages,
         'title': 'Following'
     })
 
@@ -56,11 +60,16 @@ def user_profile(request, username):
     user = User.objects.get(username=username)
     does_follow = request.user.following.filter(following_user=user).exists()
     follow_msg = 'Unfollow' if does_follow else 'Follow'
+    posts_list = user.user_posts.all().order_by('-id')
+    paginator = Paginator(posts_list, 10) # Show 10 posts per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     return render(request, "network/profile.html", {
         'profile_user': user,
         'is_other_user': request.user.username != username,
         'follow_msg': follow_msg,
-        'posts': user.user_posts.all().order_by('-id'),
+        'posts_page': page_obj,
+        'num_pages': paginator.num_pages,
     })
 
 @login_required
