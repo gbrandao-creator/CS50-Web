@@ -11,18 +11,16 @@
     </div>
     <div class="row py-2 d-flex border-bottom">
         <div class="col-2 text-center" style="line-height:2.5em">
-            <span class="font-weight-bold">{{ profile_user.followers.all.count }}</span> 
+            <span id="followers-count" class="font-weight-bold">{{ profile_user.followers.all.count }}</span> 
             {% if profile_user.followers.all.count == 1 %} Follower {% else %} Followers {% endif %}
         </div>
         <div class="col-2 text-center" style="line-height:2.5em">
-            <span class="font-weight-bold">0</span> Following
+            <span class="font-weight-bold">{{ profile_user.following.all.count }}</span> Following
         </div>
         <div class="col-5"></div>
-        {% if is_other_user %}
+        {% if user.is_authenticated and user != profile_user%}
             <div class="col-3 text-center" style="line-height:2.5em">
-                <a href="{% url 'follow' profile_user.username %}"class="btn btn-sm btn-outline-primary" id="follow-button">
-                    {{ follow_msg }}
-                </a>
+                <button class="btn btn-sm btn-outline-primary" id="follow-button">{{ follow_msg }}</button>
             </div>
         {% endif %}
     </div>
@@ -36,7 +34,7 @@
                 </div>
                 {% if user == post.owner %}
                     <div>
-                        <a class="edit-post">Edit</a>
+                        <a class="edit-post" href="#">Edit</a>
                     </div>
                 {% endif %}
             </div>
@@ -106,7 +104,9 @@
 {% block script %}
     {{ posts_page.number|json_script:"page_number" }}
     {{ num_pages|json_script:"num_pages" }}
+    {{ profile_user.username|json_script:"profile_username" }}
     <script src="{% static 'network/paginator.js' %}"></script>
-    <script src="{% static 'network/posts.js' %}"></script>
-    <script src="{% static 'network/like.js' %}"></script>
+    <script src="{% static 'network/follow.js' %}" type="module"></script>
+    <script src="{% static 'network/edit.js' %}" type="module"></script>
+    <script src="{% static 'network/like.js' %}" type="module"></script>
 {% endblock %}

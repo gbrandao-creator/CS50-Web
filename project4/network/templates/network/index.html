@@ -98,7 +98,7 @@
 {% block script %}
     {{ posts_page.number|json_script:"page_number" }}
     {{ num_pages|json_script:"num_pages" }}
-    <script src="{% static 'network/paginator.js' %}"></script>
-    <script src="{% static 'network/posts.js' %}"></script>
-    <script src="{% static 'network/like.js' %}"></script>
+    <script src="{% static 'network/paginator.js' %}" ></script>
+    <script src="{% static 'network/edit.js' %}" type="module"></script>
+    <script src="{% static 'network/like.js' %}" type="module"></script>
 {% endblock %}

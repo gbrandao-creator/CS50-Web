@@ -8,7 +8,6 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 
 from .models import User, Post, Follower, Like
@@ -41,9 +40,16 @@ def following(request):
     paginator = Paginator(posts_list, 10) # Show 10 posts per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+        # Boolean list for liked posts. True when a post is liked and False otherwise
+    try:
+        is_liked= [Like.objects.filter(post=post, owner=request.user).exists() for post in page_obj.object_list]
+    except:
+        is_liked = [False for post in page_obj.object_list]
+
     return render(request, "network/index.html", {
         'form': forms.NewPostForm(),
         'posts_page': page_obj,
+        'is_liked': is_liked,
         'num_pages': paginator.num_pages,
         'title': 'Following'
     })
@@ -116,7 +122,7 @@ def like_post(request, post_id):
 
 def user_profile(request, username):
     user = User.objects.get(username=username)
-    does_follow = request.user.following.filter(following_user=user).exists()
+    does_follow = request.user.following.filter(following_user=user).exists() if request.user.is_authenticated else False
     follow_msg = 'Unfollow' if does_follow else 'Follow'
     posts_list = user.user_posts.all().order_by('-id')
     paginator = Paginator(posts_list, 10) # Show 10 posts per page
@@ -127,10 +133,10 @@ def user_profile(request, username):
         is_liked= [Like.objects.filter(post=post, owner=request.user).exists() for post in page_obj.object_list]
     except:
         is_liked = [False for post in page_obj.object_list]
+        
     return render(request, "network/profile.html", {
         'form': forms.NewPostForm(),
         'profile_user': user,
-        'is_other_user': request.user.username != username,
         'follow_msg': follow_msg,
         'posts_page': page_obj,
         'num_pages': paginator.num_pages,
@@ -140,18 +146,21 @@ def user_profile(request, username):
 @login_required
 def follow(request, username):
     user = User.objects.get(username=username)
-    # If authenticated user is not following current profile page user
-    if not request.user.following.filter(following_user=user).exists():
-        # Follow that user
-        Follower.objects.create(user=request.user, following_user=user)
-        #return JsonResponse({"message": "Successfully followed user " + username}, status=201)
-        return HttpResponseRedirect(reverse("user_profile", args=[str(username)]))
+    if request.method == "PUT":
+        # If authenticated user is not following current profile page user
+        if not request.user.following.filter(following_user=user).exists():
+            # Follow that user
+            Follower.objects.create(user=request.user, following_user=user)
+            return JsonResponse({"message": "Successfully followed user " + username})
+            #return HttpResponseRedirect(reverse("user_profile", args=[str(username)]))
+        else:
+            # Unfollow that user
+            follower_instance = Follower.objects.get(user=request.user, following_user=user)
+            follower_instance.delete()
+            return JsonResponse({"message": "Successfully unfollowed user " + username})
+            #return HttpResponseRedirect(reverse("user_profile", args=[str(username)]))
     else:
-        # Unfollow that user
-        follower_instance = Follower.objects.get(user=request.user, following_user=user)
-        follower_instance.delete()
-        return HttpResponseRedirect(reverse("user_profile", args=[str(username)]))
-
+        return JsonResponse({"error": "PUT request required."}, status=400)
 # authentication views
 def login_view(request):
     if request.method == "POST":

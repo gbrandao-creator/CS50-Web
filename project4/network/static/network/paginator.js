@@ -40,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } /* Else, we want to set the inner HTMLs based on 
         currentPageNumber.*/
-
         /* If the current page is not the first, the 
         second button is the active one.*/
         else if (currentPageNumber != 1) {
@@ -65,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
         previousPage.href = `?page=${currentPageNumber - 1}`;
         nextPage.href = `?page=${currentPageNumber + 1}`;
 
-        // styling the active button 
+        // Styling the active button 
         styleActive();
         return false;
     }
