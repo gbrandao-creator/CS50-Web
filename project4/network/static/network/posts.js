@@ -4,8 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 
     function editPost(event){
-        postContent = event.currentTarget.closest('.post').querySelector('.post-content');
 
+        
+        postContent = event.currentTarget.closest('.post').querySelector('.post-content');
         // Show form
         postContent.querySelector('.current-content').style.display = 'none';
         var form = postContent.querySelector('form');

@@ -19,9 +19,15 @@ def index(request):
     paginator = Paginator(posts_list, 10) # Show 10 posts per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    # Boolean list for liked posts. True when a post is liked and False otherwise
+    try:
+        is_liked= [Like.objects.filter(post=post, owner=request.user).exists() for post in page_obj.object_list]
+    except:
+        is_liked = [False for post in page_obj.object_list]
     return render(request, "network/index.html", {
         'form': forms.NewPostForm(),
         'posts_page': page_obj,
+        'is_liked': is_liked,
         'num_pages': paginator.num_pages,
         'title': 'All Posts'
     })
@@ -58,6 +64,7 @@ def new_post(request):
 def edit_post(request, post_id):
     try:
         post = Post.objects.get(id=post_id)
+        print(Like.objects.all().count())
     except Post.DoesNotExist:
         return JsonResponse({"error": "Post not found."}, status=404)
 
@@ -67,14 +74,22 @@ def edit_post(request, post_id):
             if data.get("content") is not None:
                 post.content = data["content"]
                 post.save()
-                print('entrei aqui')
-                return JsonResponse({"message": "Post updated successfully."}, status=204)
+                return JsonResponse({"message": "Post updated successfully."})
             else:
                 return JsonResponse({"error": "No content found."}, status=400)
         else:
             return JsonResponse({"error": "Authenticated user is not post owner"}, status=403)
     else:
         return JsonResponse({"error": "PUT request required."}, status=400)
+
+@login_required
+def is_liked(request, post_id):
+    post = Post.objects.get(id=post_id)
+
+    if request.method == "GET":
+        return JsonResponse({"is_liked": Like.objects.filter(post=post, owner=request.user).exists()})
+    else:
+        return JsonResponse({"error": "GET request required."}, status=400)
 
 @login_required
 def like_post(request, post_id):
@@ -87,15 +102,16 @@ def like_post(request, post_id):
         data = json.loads(request.body)
         if data.get("like") is not None:
             if data["like"]:
-                Like.objects.delete(post=post, owner=request.user)
-                return JsonResponse({"message": "Successfully unliked post"}, status=204)
-            else:
                 Like.objects.create(post=post, owner=request.user)
-                return JsonResponse({"message": "Successfully liked post"}, status=204)
+                return JsonResponse({"message": "Successfully liked post"})
+            else:
+                Like.objects.filter(post=post, owner=request.user).delete()
+                return JsonResponse({"message": "Successfully unliked post"})
         else:
             return JsonResponse({"error": "No data found."}, status=400)
     else:
         return JsonResponse({"error": "POST request required."}, status=400)
+
 
 
 def user_profile(request, username):
@@ -106,13 +122,19 @@ def user_profile(request, username):
     paginator = Paginator(posts_list, 10) # Show 10 posts per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    # Boolean list for liked posts. True when a post is liked and False otherwise
+    try:
+        is_liked= [Like.objects.filter(post=post, owner=request.user).exists() for post in page_obj.object_list]
+    except:
+        is_liked = [False for post in page_obj.object_list]
     return render(request, "network/profile.html", {
         'form': forms.NewPostForm(),
         'profile_user': user,
         'is_other_user': request.user.username != username,
         'follow_msg': follow_msg,
         'posts_page': page_obj,
-        'num_pages': paginator.num_pages
+        'num_pages': paginator.num_pages,
+        'is_liked': is_liked
     })
 
 @login_required

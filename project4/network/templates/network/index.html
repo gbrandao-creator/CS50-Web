@@ -1,5 +1,6 @@
 {% extends "network/layout.html" %}
 {% load static %}
+{% load index %} <!--See templatetags/index.py for reference-->
 
 {% block body %}
     <div id="all-posts-view">
@@ -28,7 +29,7 @@
                         </div>
                         {% if user == post.owner %}
                             <div>
-                                <a class="edit-post">Edit</a>
+                                <a class="edit-post" href="#">Edit</a>
                             </div>
                         {% endif %}
                     </div>
@@ -47,13 +48,28 @@
                             </div>
                         </form>
                     </div>
-                    <a class="like">
-                        <svg height="1rem" data-name="red heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 107.39"><defs><style>.cls-1{fill:#ed1b24;fill-rule:evenodd;}</style></defs><title>red-heart</title><path class="cls-1" d="M60.83,17.18c8-8.35,13.62-15.57,26-17C110-2.46,131.27,21.26,119.57,44.61c-3.33,6.65-10.11,14.56-17.61,22.32-8.23,8.52-17.34,16.87-23.72,23.2l-17.4,17.26L46.46,93.55C29.16,76.89,1,55.92,0,29.94-.63,11.74,13.73.08,30.25.29c14.76.2,21,7.54,30.58,16.89Z"/>
-                        </svg>
-
-                        <svg height="1rem" data-name="grey heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 107.39"><defs><style>.cls-2{fill:#cccccc;fill-rule:evenodd;}</style></defs><title>grey-heart</title><path class="cls-2" d="M60.83,17.18c8-8.35,13.62-15.57,26-17C110-2.46,131.27,21.26,119.57,44.61c-3.33,6.65-10.11,14.56-17.61,22.32-8.23,8.52-17.34,16.87-23.72,23.2l-17.4,17.26L46.46,93.55C29.16,76.89,1,55.92,0,29.94-.63,11.74,13.73.08,30.25.29c14.76.2,21,7.54,30.58,16.89Z"/>
+                    {% if user.is_authenticated %}
+                        <a class="like text-decoration-none" href="">
+                    {% else %}
+                        <a class="like disabled text-decoration-none">
+                    {% endif %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <defs>
+                                <style>
+                                    .svg-color-red{fill:#ed1b24;fill-rule:evenodd;}
+                                    .svg-color-grey{fill:#cccccc;fill-rule:evenodd;}
+                                </style>
+                            </defs>
+                            <path 
+                            {% if is_liked|index:forloop.counter0 %}
+                                class="svg-path svg-color-red"
+                            {% else %}
+                                class="svg-path svg-color-grey"
+                            {% endif %}
+                            d="M12 4.419c-2.826-5.695-11.999-4.064-11.999 3.27 0 7.27 9.903 10.938 11.999 15.311 2.096-4.373 12-8.041 12-15.311 0-7.327-9.17-8.972-12-3.27z"/>
                         </svg>
                     </a>
+                        <span class="likes-count ml-2">{{ post.likes.all.count }}</span>
                 </div>
             </div>
             {% empty %}
@@ -84,4 +100,5 @@
     {{ num_pages|json_script:"num_pages" }}
     <script src="{% static 'network/paginator.js' %}"></script>
     <script src="{% static 'network/posts.js' %}"></script>
+    <script src="{% static 'network/like.js' %}"></script>
 {% endblock %}
