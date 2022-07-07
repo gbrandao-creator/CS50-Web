@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', editPost)
     })
 
-    function editPost(event){
-        const postContent = event.currentTarget.closest('.post').querySelector('.post-content');
+    function editPost(evt){
+        const postContent = evt.currentTarget.closest('.post').querySelector('.post-content');
         // Show form
         postContent.querySelector('.current-content').style.display = 'none';
         var form = postContent.querySelector('form');
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const saveButton = form.elements['save'];
         saveButton.disabled = true;
 
-        // Enable submit only if there's text in content field
+        // Enable submit only if there's text in content field, and the content is not the same as before
         const formContent = form.elements['content'];
         formContent.onkeyup = () => {
             if (formContent.value.length > 0 && 
@@ -35,16 +35,16 @@ document.addEventListener('DOMContentLoaded', function() {
         
     }
 
-    function handleCancel(event){
-        const form = event.currentTarget.parentElement.parentElement;
+    function handleCancel(evt){
+        const form = evt.currentTarget.parentElement.parentElement;
         const postContent = form.parentElement;
         
         postContent.querySelector('.current-content').style.display = 'block';
         form.style.display = 'none';
     }
 
-    function handleSubmit(event){
-        var form = event.currentTarget.parentElement.parentElement;
+    function handleSubmit(evt){
+        var form = evt.currentTarget.parentElement.parentElement;
         const postId = form.elements['post-id'].value;
         const formContent = form.elements['content'].value;
         const csrftoken = getCookie('csrftoken');

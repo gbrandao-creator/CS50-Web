@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
-    loadPage();
+    loadPaginator();
 
-    document.querySelector('#previous-page').addEventListener('click', () => loadPage());
-    document.querySelector('#page-button-1').addEventListener('click', () => loadPage());
-    document.querySelector('#page-button-2').addEventListener('click', () => loadPage());
-    document.querySelector('#page-button-3').addEventListener('click', () => loadPage());
-    document.querySelector('#next-page').addEventListener('click', () => loadPage());
+    document.querySelector('#previous-page').addEventListener('click', () => loadPaginator());
+    document.querySelector('#page-button-1').addEventListener('click', () => loadPaginator());
+    document.querySelector('#page-button-2').addEventListener('click', () => loadPaginator());
+    document.querySelector('#page-button-3').addEventListener('click', () => loadPaginator());
+    document.querySelector('#next-page').addEventListener('click', () => loadPaginator());
     
-    function loadPage() {
+    function loadPaginator() {
         const currentPageNumber = JSON.parse(document.getElementById('page_number').textContent);
         const numPages = JSON.parse(document.getElementById('num_pages').textContent);
 
@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
             pageButton2.href = `?page=${numPages - 1}`;
             pageButton3.href = `?page=${numPages}`;
 
+            // Special cases when numPages < 3
             if (numPages == 1) {
                 pageButton1.style.display = 'none';
                 pageButton2.style.display = 'none';
@@ -66,6 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Styling the active button 
         styleActive();
+
         return false;
     }
 
@@ -85,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 pageButtons[index].parentElement.className = 'page-item active';
             }
         }
+
         return false;
     }
 })
