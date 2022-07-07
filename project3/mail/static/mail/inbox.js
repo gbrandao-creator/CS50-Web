@@ -1,18 +1,18 @@
 document.addEventListener('DOMContentLoaded', function() {
 
   // Use buttons to toggle between views
-  document.querySelector('#inbox').addEventListener('click', () => load_mailbox('inbox'));
-  document.querySelector('#sent').addEventListener('click', () => load_mailbox('sent'));
-  document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
-  document.querySelector('#compose').addEventListener('click', () => compose_email());
+  document.querySelector('#inbox').addEventListener('click', () => loadMailbox('inbox'));
+  document.querySelector('#sent').addEventListener('click', () => loadMailbox('sent'));
+  document.querySelector('#archived').addEventListener('click', () => loadMailbox('archive'));
+  document.querySelector('#compose').addEventListener('click', () => composeEmail());
 
   // By default, load the inbox
-  load_mailbox('inbox');
+  loadMailbox('inbox');
   
 });
 
 
-function compose_email(reply=false, originalEmail=undefined) {
+function composeEmail(reply=false, originalEmail=undefined) {
   // Show compose view and hide other views
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'block';
@@ -78,14 +78,14 @@ function compose_email(reply=false, originalEmail=undefined) {
         document.querySelector('#error').style.visibility = 'visible';
         document.querySelector('#error').style.animationPlayState = 'running';
       } else {
-        load_mailbox('sent');
+        loadMailbox('sent');
       }
     });
     return false;
   }
 }
 
-function load_mailbox(mailbox, message="") {
+function loadMailbox(mailbox, message="") {
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'block';
   document.querySelector('#compose-view').style.display = 'none';
@@ -122,7 +122,7 @@ function load_mailbox(mailbox, message="") {
 
 
       // clicking on the email will load it
-      emailContainer.addEventListener('click', () => load_email(email));
+      emailContainer.addEventListener('click', () => loadEmail(email));
 
       // archive functionality
       const archiveElement = emailContainer.querySelector('#archive');
@@ -138,7 +138,7 @@ function load_mailbox(mailbox, message="") {
                 archived: false
               })
             })
-            load_mailbox('inbox');
+            loadMailbox('inbox');
           } else {
             fetch(`/emails/${email.id}`, {
               method: 'PUT',
@@ -147,7 +147,7 @@ function load_mailbox(mailbox, message="") {
               })
             })
             archiveElement.innerHTML = "Unarchive";
-            load_mailbox('inbox');
+            loadMailbox('inbox');
           }
         })
       }
@@ -157,7 +157,7 @@ function load_mailbox(mailbox, message="") {
   })
 }
 
-function load_email(email) {
+function loadEmail(email) {
   // Show the email and hide other views
   document.querySelector('#compose-view').style.display = 'none';
   document.querySelector('#emails-view').style.display = 'none';
@@ -186,5 +186,5 @@ function load_email(email) {
     document.querySelector(key).innerHTML = "<pre>" + ids[key] + "</pre>";
   })
 
-  document.querySelector('#reply').addEventListener('click', () => compose_email(reply=true, originalEmail=email));
+  document.querySelector('#reply').addEventListener('click', () => composeEmail(reply=true, originalEmail=email));
 }
