@@ -8,32 +8,69 @@
 
 <div class="text-center mb-3 mt-4">
     <a class="navbar-brand mr-3 mb-3" href="{% url 'index' %}">
-        <img src="{% static 'pets/logo.png' %}" alt="logo" class="logo">
+        <img src="{% static 'pets/img/logo.png' %}" alt="logo" class="logo">
     </a>
     <h5>Register</h5>
 </div>
-<form action="{% url 'login' %}" method="post" id="auth-form" class="w-50 mw-30 border rounded p-4 bg-light">
-    {% csrf_token %}
-    <div class="form-group">
-        <input type="text" autofocus class="form-control" name="username" placeholder="Username">
-    </div>
-    <div class="form-group">
-        <input type="email" autofocus class="form-control" name="email" placeholder="Email Address">
-    </div>
-    <div class="form-group">
-        <input class="form-control" type="password" name="password" placeholder="Password">
-    </div>
-    <div class="form-group">
-        <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
-    </div>
-    <input class="btn btn-primary" type="submit" value="Login">
-</form>
 
-<div align="center">
-    <div  class="card text-center mt-3 p-1 w-50 mw-30">
-        Already have an account? <a href="{% url 'login' %}">Log in</a>
+<div id="first-container">
+    <form action="{% url 'register' %}" method="post" class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
+        {% csrf_token %}
+        <div id="form-div-1">
+            <div class="form-group">
+                <input type="text" autofocus class="form-control" name="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input type="text" autofocus class="form-control" name="first name" placeholder="First name">
+            </div>
+            <div class="form-group">
+                <input type="text" autofocus class="form-control" name="last name" placeholder="Last name">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+            </div>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Sign up">
+    </form>
+
+    <div align="center">
+        <div  class="card text-center mt-3 p-1 w-100 mw-30">
+            Already have an account? <a href="{% url 'login' %}">Log in</a>
+        </div>
     </div>
 </div>
 
+<div id="second-container" 
+class="w-100 mw-30 img-container mx-auto">
+    <img class="w-100" src="https://images.unsplash.com/photo-1583511655826-05700d52f4d9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80" alt="dog with yellow background">
+    <h3 class="center-top">Welcome to PSY</h3>
+    <p class="w-lg-75 w-100 center-top2">Here we deal with real people that love real pets. That's why you now need to confirm a few details to activate your account.</p>
+    <button id="get-started-btn" class="btn btn-danger center-bottom font-weight-semibold w-50" >Get Started</button>
+</div>
 
+<!--INCOMPLETE-->
+<div id="third-container" 
+class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
+    <h3 class="text-center">Add your profile photo</h3>
+    <p class="text-center">Put a face to your name so people can identify your pet friendliness!</p>
+    <div class="d-flex justify-content-center mb-4">
+        <img src="{% static 'pets/img/default_profile.png' %}" alt="default profile picture">
+    </div>
+    <form class="d-flex justify-content-center mb-4">
+        <button type="button" id="upload-photo-btn" class="btn btn-secondary font-weight-semibold w-50 text-center">
+            Upload photo
+        </button>
+    </form>
+    <div class="d-flex justify-content-center">
+        <button id="upload-photo-skip" class="btn btn-outline-dark btn-sm">Skip for now</button>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'pets/register.js' %}"></script>
 {% endblock %}

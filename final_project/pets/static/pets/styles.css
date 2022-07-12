@@ -6,14 +6,14 @@ body{
     height: 4rem;
 }
 
-#auth-form{
+.auth-form-container{
     margin: auto;
 }
 
 .img-container{
     position: relative;
     text-align: center;
-    color: black;
+    color: white;
 }
 
 .mw-30{
@@ -24,16 +24,23 @@ body{
     color: rgb(102, 45, 145);
 }
 
-.center-left{
+.center-top{
     position: absolute;
-    top: 50%;
-    left: 80%;
+    top: 7.5%;
+    left: 50%;
     transform: translate(-50%, -50%);
 }
 
-.center-right{
+.center-top2{
     position: absolute;
-    top: 50%;
-    right: 20%;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.center-bottom{
+    position: absolute;
+    bottom: -1%;
+    left: 50%;
     transform: translate(-50%, -50%);
 }
