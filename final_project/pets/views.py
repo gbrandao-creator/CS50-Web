@@ -11,6 +11,18 @@ from .models import User
 def index(request):
     return render(request, "pets/index.html")
 
+def search_view(request):
+
+    location = request.GET.get('l')
+    from_date = request.GET.get('fd')
+    until_date = request.GET.get('ud')
+
+    print(location, from_date, until_date)
+    return render(request, "pets/search.html", {
+
+    })
+    return HttpResponse(status=204)
+
 # Authentication views
 def login_view(request):
     if request.method == "POST":

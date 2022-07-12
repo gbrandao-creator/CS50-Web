@@ -20,6 +20,14 @@ body{
     max-width: 30rem;
 }
 
+.mw-50{
+    max-width: 50rem;
+}
+
+.shadow{
+    box-shadow: 0 0 0.1rem rgb(200,200,200);
+}
+
 .color-purple{
     color: rgb(102, 45, 145);
 }
