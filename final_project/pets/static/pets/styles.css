@@ -1,0 +1,39 @@
+body{
+    overflow-x: hidden;
+}
+
+.logo{
+    height: 4rem;
+}
+
+#auth-form{
+    margin: auto;
+}
+
+.img-container{
+    position: relative;
+    text-align: center;
+    color: black;
+}
+
+.mw-30{
+    max-width: 30rem;
+}
+
+.color-purple{
+    color: rgb(102, 45, 145);
+}
+
+.center-left{
+    position: absolute;
+    top: 50%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+}
+
+.center-right{
+    position: absolute;
+    top: 50%;
+    right: 20%;
+    transform: translate(-50%, -50%);
+}

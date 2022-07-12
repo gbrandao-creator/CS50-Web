@@ -1,0 +1,43 @@
+{% extends 'pets/layout.html' %}
+{% load static %}
+
+{% block title %} 
+    Pet Sitter You - Home 
+{% endblock %}
+
+{% block body %}
+    <div class="row img-container">
+        <div class="col-12">
+            <img class="img-fluid" src="{% static 'pets/img/krista-mangulsone-9gz3wfHr65U-unsplash.jpg' %}"
+            style="width: 100vw">
+        </div>
+        <!--<div class="col-lg-5 col-0">
+            <div class="row img-container">
+                <img class="img-fluid" src="{% static 'pets/krista-mangulsone-9gz3wfHr65U-unsplash.jpg' %}"
+                style="width: 100vw">
+            </div>
+        </div>-->
+    </div>
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-lg-5 col-12 text-center p-3">
+                <img src="{% static 'pets/img/humphrey-muleba-Y6EIP03u_wY-unsplash.jpg' %}" alt="woman-example" 
+                class="rounded-circle mb-4" style="height: 35rem;">
+                <blockquote class="blockquote text-center">
+                    <h3>Diana is a Pet Sitter at <span class="color-purple">PSY</span>:</h3>
+                    <footer class="blockquote-footer">I love the way PSY connects pet owners with pet sitters. It just makes my job so much easier.</footer>
+                </blockquote>
+            </div>
+            <div class="col-lg-2 col-0 "></div>
+            <div class="col-lg-5 col-12 text-center p-3">
+                <img src="{% static 'pets/img/good-faces-MUAjN1w9lUA-unsplash.jpg' %}" alt="woman-example" 
+                class="rounded-circle mb-4" style="height: 35rem;">
+                <blockquote class="blockquote text-center">
+                    <h3>Matthew is a Pet Owner at <span class="color-purple">PSY</span>:</h3>
+                    <footer class="blockquote-footer">I travel often and used to spend a lot of time and money finding the right pet sitter for my dog Lily. Now with PSY I'm able to do it in minutes, and always with a fair price.</footer>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
