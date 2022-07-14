@@ -3,4 +3,4 @@ from django.db import models
 
 # Create your models here.
 class User(AbstractUser):
-    pass
+    photo_url = models.URLField(max_length=250, blank=True)

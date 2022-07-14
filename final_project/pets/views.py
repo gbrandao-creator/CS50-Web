@@ -6,6 +6,7 @@ from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 
 from .models import User
+from . import forms
 
 # Create your views here.
 def index(request):
@@ -19,7 +20,7 @@ def search_view(request):
 
     print(location, from_date, until_date)
     return render(request, "pets/search.html", {
-
+        
     })
     return HttpResponse(status=204)
 
@@ -38,10 +39,13 @@ def login_view(request):
             return HttpResponseRedirect(reverse("index"))
         else:
             return render(request, "pets/login.html", {
+                "form": forms.loginForm,
                 "message": "Invalid username and/or password."
             })
     else:
-        return render(request, "pets/login.html")
+        return render(request, "pets/login.html", {
+            "form": forms.loginForm
+        })
 
 def logout_view(request):
     logout(request)
@@ -54,8 +58,8 @@ def register(request):
         # Ensure password matches confirmation
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
-        first_name = request.POST["first name"]
-        last_name = request.POST["last name"]
+        first_name = request.POST["first_name"]
+        last_name = request.POST["last_name"]
         if password != confirmation:
             return render(request, "pets/register.html", {
                 "message": "Passwords must match."
@@ -64,11 +68,22 @@ def register(request):
         try:
             user = User.objects.create_user(username, password=password, first_name=first_name, last_name=last_name)
             user.save()
+            print(user.username, user.first_name, user.last_name)
         except IntegrityError:
             return render(request, "pets/register.html", {
                 "message": "Username already taken."
             })
         login(request, user)
+        return HttpResponseRedirect(reverse('register_confirm'))
+    else:
+        return render(request, "pets/register.html", {
+            "form": forms.registerForm
+        })
+
+def register_confirm(request):
+    if request.method == "POST":
+        photo_url = request.POST["photo_url"]
+        request.user.photo_url = photo_url
         return HttpResponse(status=204)
     else:
-        return render(request, "pets/register.html")
+        return render(request, "pets/register_confirm.html")

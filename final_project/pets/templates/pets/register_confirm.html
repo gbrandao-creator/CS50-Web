@@ -1,0 +1,70 @@
+{% extends "pets/layout.html" %}
+{% load static %}
+
+{% block header %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="text-center mb-3 mt-4">
+        <a class="navbar-brand mr-3 mb-3" href="{% url 'index' %}">
+            <img src="{% static 'pets/img/logo.png' %}" alt="logo" class="logo">
+        </a>
+        <h5>Register details</h5>
+    </div>
+
+    <div id="firstContainer" 
+    class="w-100 mw-30 img-container mx-auto">
+        <img class="w-100" src="https://images.unsplash.com/photo-1583511655826-05700d52f4d9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80" alt="dog with yellow background">
+        <h3 class="center-top">Welcome to PSY</h3>
+        <p class="w-75 center-top2">Here we deal with real people that love real pets. Please confirm a few details to activate your account.</p>
+        <button id="get-started-btn" class="btn btn-danger center-bottom font-weight-semibold w-50" >Get Started</button>
+    </div>
+
+    <div id="secondContainer" class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
+        <h3 class="text-center">Add your profile photo</h3>
+        <p class="text-center">Put a face to your name so people can identify your pet friendliness!</p>
+        <div class="d-flex justify-content-center mb-4">
+            <img style="height: 25vh; clip-path: circle(50% at 50% 50%);"
+            id="profilePicture" src="{% static 'pets/img/default_profile.png' %}" alt="default profile picture">
+        </div>
+        <form action="{% url 'register_confirm' %}" method="post" class="d-flex justify-content-center mb-4">
+            {% csrf_token %}
+            <div class="row my-2">
+                <div class="col-12 input-group p-1">
+                    <input type="text" autofocus class="form-control" id="photoInput" name="photo_url" placeholder="Insert profile photo URL" aria-describedby="button-load">
+                    <button class="btn btn-outline-secondary" type="button" id="loadPhotoButton">Load photo</button>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" id="nextButton" class="w-25 btn btn-primary mt-2">Next</button>
+                </div>
+            </div>
+        </form>
+        <div class="d-flex justify-content-center">
+            <button type="button" id="skipButton" class="btn btn-link btn-sm">Skip for now</button>
+        </div>
+    </div>
+
+    <div id="thirdContainer" class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
+        <h3 class="text-center">About you</h3>
+        <form action="">
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="petSitterSelect">Are you a Pet Sitter?</label>
+                <select class="form-select" id="petSitterSelect">
+                <option selected>Choose...</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+                </select>
+            </div>
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Write a bio" id="bio" style="height: 6rem"></textarea>
+                <label for="bio" id="bioLabel">Introduce yourself</label>
+              </div>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'pets/register.js' %}"></script>
+{% endblock %}
