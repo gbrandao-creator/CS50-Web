@@ -9,7 +9,6 @@ body{
 .img-container{
     position: relative;
     text-align: center;
-    color: white;
 }
 
 .mw-30{
@@ -28,25 +27,19 @@ body{
     color: rgb(102, 45, 145);
 }
 
-.center-top{
+
+.center-center{
     position: absolute;
-    top: 7.5%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-.center-top2{
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.profile-picture {
+    height: 25vh;
+    width: 25vh;
+    border-radius: 20%;
+    border: 2px solid rgb(102, 45, 145);
+    object-fit: cover;
 }
-
-.center-bottom{
-    position: absolute;
-    bottom: -1%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
 /* Register page */

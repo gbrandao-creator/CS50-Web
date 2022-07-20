@@ -14,11 +14,15 @@
 </div>
 
 <div id="first-container" class="">
-    <form action="{% url 'register' %}" method="post" class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
-        {% csrf_token %}
-        {{ form }}
-        <input class="btn btn-primary" type="submit" value="Sign up">
-    </form>
+    {% if not message %}
+        <form action="{% url 'register' %}" method="post" class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
+            {% csrf_token %}
+            {{ form }}
+            <input class="btn btn-primary" type="submit" value="Sign up">
+        </form>
+    {% else %}
+        {{ message }}
+    {% endif %}
 
     <div align="center">
         <div  class="card text-center mt-3 p-1 w-100 mw-30">

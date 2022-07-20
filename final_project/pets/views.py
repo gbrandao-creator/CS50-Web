@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
@@ -9,8 +9,10 @@ from .models import User
 from . import forms
 
 # Create your views here.
-def index(request):
-    return render(request, "pets/index.html")
+def index(request, message=""):
+    return render(request, "pets/index.html", {
+        "message": message
+    })
 
 def search_view(request):
 
@@ -19,10 +21,18 @@ def search_view(request):
     until_date = request.GET.get('ud')
 
     print(location, from_date, until_date)
-    return render(request, "pets/search.html", {
-        
+    return render(request, "pets/search.html", {  
     })
-    return HttpResponse(status=204)
+
+def profile(request, username):
+    try:
+        profile_user = User.objects.get(username=username)
+    except:
+        return 
+    return render(request, "pets/profile.html", {
+        "profile_user": profile_user
+    })
+
 
 # Authentication views
 def login_view(request):
@@ -54,6 +64,7 @@ def logout_view(request):
 
 def register(request):
     if request.method == "POST":
+        
         username = request.POST["username"]
         # Ensure password matches confirmation
         password = request.POST["password"]
@@ -80,10 +91,26 @@ def register(request):
             "form": forms.registerForm
         })
 
+@login_required
 def register_confirm(request):
     if request.method == "POST":
         photo_url = request.POST["photo_url"]
+        bio = request.POST["bio"]
+        is_pet_sitter = True if request.POST["is_pet_sitter"] == "yes" else False
+        hour_rate = request.POST["hour_rate"]
+
+        print(photo_url, bio, is_pet_sitter, hour_rate)
+
         request.user.photo_url = photo_url
-        return HttpResponse(status=204)
+        request.user.bio = bio
+        request.user.is_pet_sitter = is_pet_sitter
+        if is_pet_sitter:
+            pass
+            request.user.hour_rate = hour_rate
+        request.user.confirmed = True
+
+        request.user.save()
+        
+        return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "pets/register_confirm.html")

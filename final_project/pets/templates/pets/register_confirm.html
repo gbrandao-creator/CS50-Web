@@ -21,47 +21,57 @@
         <button id="get-started-btn" class="btn btn-danger center-bottom font-weight-semibold w-50" >Get Started</button>
     </div>
 
-    <div id="secondContainer" class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
-        <h3 class="text-center">Add your profile photo</h3>
-        <p class="text-center">Put a face to your name so people can identify your pet friendliness!</p>
-        <div class="d-flex justify-content-center mb-4">
-            <img style="height: 25vh; clip-path: circle(50% at 50% 50%);"
-            id="profilePicture" src="{% static 'pets/img/default_profile.png' %}" alt="default profile picture">
-        </div>
-        <form action="{% url 'register_confirm' %}" method="post" class="d-flex justify-content-center mb-4">
-            {% csrf_token %}
+    <form action="{% url 'register_confirm' %}" method="post" class="d-flex justify-content-center mb-4">
+        {% csrf_token %}
+        <div id="secondContainer" class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
+            <h3 class="text-center">Add your profile photo</h3>
+            <p class="text-center">Put a face to your name so people can identify your pet friendliness!</p>
+            <div class="d-flex justify-content-center mb-4">
+                <img class="profile-picture"
+                id="profilePicture" src="{% static 'pets/img/default_profile.png' %}" alt="default profile picture">
+            </div>
             <div class="row my-2">
                 <div class="col-12 input-group p-1">
                     <input type="text" autofocus class="form-control" id="photoInput" name="photo_url" placeholder="Insert profile photo URL" aria-describedby="button-load">
                     <button class="btn btn-outline-secondary" type="button" id="loadPhotoButton">Load photo</button>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button type="submit" id="nextButton" class="w-25 btn btn-primary mt-2">Next</button>
+                    <button type="button" id="nextButton" class="w-25 btn btn-primary mt-2">Next</button>
                 </div>
             </div>
-        </form>
-        <div class="d-flex justify-content-center">
-            <button type="button" id="skipButton" class="btn btn-link btn-sm">Skip for now</button>
+            <div class="d-flex justify-content-center">
+                <button type="button" id="skipButton" class="btn btn-link btn-sm">Skip for now</button>
+            </div>
         </div>
-    </div>
+    
 
-    <div id="thirdContainer" class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
-        <h3 class="text-center">About you</h3>
-        <form action="">
+        <div id="thirdContainer" class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
+            <h3 class="text-center">About you</h3>
+
+            <div class="form-floating my-3">
+                <textarea class="form-control" placeholder="Write a bio" id="bio" style="height: 8rem" name="bio"></textarea>
+                <label for="bio">Write a bio!</label>
+            </div>
             <div class="input-group mb-3">
                 <label class="input-group-text" for="petSitterSelect">Are you a Pet Sitter?</label>
-                <select class="form-select" id="petSitterSelect">
+                <select class="form-select" id="petSitterSelect" name="is_pet_sitter">
                 <option selected>Choose...</option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
                 </select>
             </div>
-            <div class="form-floating">
-                <textarea class="form-control" placeholder="Write a bio" id="bio" style="height: 6rem"></textarea>
-                <label for="bio" id="bioLabel">Introduce yourself</label>
-              </div>
-        </form>
-    </div>
+            <div id="showCaseYes">
+                <div class="form-floating">
+                    <input type="number" class="form-control" placeholder="Hour rate" id="hourRate" name="hour_rate">
+                    <label for="hourRate">Set an hour rate for your services ($)</label>
+                </div>
+                <input type="hidden" class="form-control" id="location">
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <button type="submit" id="nextButton" class="w-50 btn btn-success">Confirm details</button>
+            </div>
+        </div>
+    </form>
 
 {% endblock %}
 

@@ -33,16 +33,15 @@ document.addEventListener('DOMContentLoaded', function() {
         firstContainer.style.display = 'none';
         secondContainer.style.display = 'none';
         thirdContainer.style.display = 'block';
-        thirdContainer.querySelector('#bio').style.display = 'none';
-        thirdContainer.querySelector('#bioLabel').style.display = 'none';
+
+        thirdContainer.querySelector('#showCaseYes').style.display = 'none';
 
         thirdContainer.querySelector('#petSitterSelect').addEventListener('change', (evt) => {
             if(evt.target.value == 'yes'){
-                thirdContainer.querySelector('#bio').style.display = 'block';
-                thirdContainer.querySelector('#bioLabel').style.display = 'block';
+                thirdContainer.querySelector('#showCaseYes').style.display = 'block';
+
             } else{
-                thirdContainer.querySelector('#bio').style.display = 'none';
-                thirdContainer.querySelector('#bioLabel').style.display = 'none';
+                thirdContainer.querySelector('#showCaseYes').style.display = 'none';
             }
         })
 
