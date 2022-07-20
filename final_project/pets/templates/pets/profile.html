@@ -6,49 +6,58 @@
 {% endblock %}
 
 {% block body %}
-<div class="container mt-5">
+<div class="container-fluid mt-5">
     <div class="row text-center">
-        <div class="col-12 col-lg-4">
-            {% if profile_user.bio %}
-                {{ profile_user.bio }}
-            {% endif %}
+        <div class="col-12 col-lg-8 order-3 order-lg-1 my-4 my-lg-0">
+            <div class="card shadow alt-card p-3 text-start">
+                <h2 class="color-purple">oiiii {{ profile_user.bio }}</h2>
+            </div>
         </div>
-        <div class="col-12 col-lg-8">
-            <img class="profile-picture border-rounded mb-2" alt="profile picture"
-            {% if profile_user.photo_url %}
-                src="{{ profile_user.photo_url }}"
-            {% else %}
-                src="{% static 'pets/img/default_profile.png' %}"
-            {% endif %}>
-
-            <h4>{{ profile_user.first_name }} {{ profile_user.last_name }}</h4>
-            <br>
-            <span class="badge text-bg-secondary">
-                Pet Owner
-            </span>
-            <br>
-            <span class="badge text-bg-primary">
-                Pet Sitter
-            </span>
+        <div class="col-12 col-lg-4 order-1 order-lg-2">
+            <div class="shadow border rounded p-4">
+                <img class="profile-picture border-rounded mb-2" alt="profile picture"
+                {% if profile_user.photo_url %}
+                    src="{{ profile_user.photo_url }}"
+                {% else %}
+                    src="{% static 'pets/img/default_profile.png' %}"
+                {% endif %}>
+                <h3>{{ profile_user.first_name }} {{ profile_user.last_name }}</h3>
+                <span class="badge text-bg-secondary">
+                    Pet Owner
+                </span>
+                <br>
+                <span class="badge text-bg-primary">
+                    Pet Sitter
+                </span>
+                <div class="d-flex d-lg-block my-4 my-lg-0">
+                    <div class="col-4 col-lg-12">
+                        <h4>${{ profile_user.hour_rate }}</h4>
+                        <p class="text-secondary"><small>Hour rate</small></p>
+                    </div>
+                    <div class="col-4 col-lg-12">
+                        <h4>47</h4>
+                        <p class="text-secondary"><small>Number of deals</small></p>
+                    </div>
+                    <div class="col-4 col-lg-12">
+                        <h4>10min</h4>
+                        <p class="text-secondary"><small>Average response time</small></p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row text-center">
-        <div class="col-12 col-lg-4 d-flex ">
-            <div class="col-4 col-lg-12">
-                Price {{ profile_user.hour_rate }}
+        
+    <div class="row text-center ">
+        <div class="col-12 d-flex justify-content-between">
+            <div>
+                <h3 style="white-space: nowrap">Avaliações</h3>
             </div>
-            <div class="col-4 col-lg-12">
-                Number of deals
-            </div>
-            <div class="col-4 col-lg-12">
-                Average response time
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="rgb(255, 181, 0)" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                </svg>
             </div>
         </div>
-    </div>
-    <div class="row text-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-        </svg>
     </div>
 </div>
 

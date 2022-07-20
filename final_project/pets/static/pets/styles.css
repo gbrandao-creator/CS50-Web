@@ -27,7 +27,6 @@ body{
     color: rgb(102, 45, 145);
 }
 
-
 .center-center{
     position: absolute;
     top: 50%;
@@ -41,5 +40,11 @@ body{
     border-radius: 20%;
     border: 2px solid rgb(102, 45, 145);
     object-fit: cover;
+}
+
+.alt-card {
+    width: 100%; 
+    height: 25vh; 
+    background-color: rgb(203, 195, 227);
 }
 /* Register page */
