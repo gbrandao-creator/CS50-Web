@@ -1,50 +1,81 @@
 body{
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 .logo{
-    height: 4rem;
+  height: 4rem;
 }
 
 .img-container{
-    position: relative;
-    text-align: center;
+  position: relative;
+  text-align: center;
 }
 
 .mw-30{
-    max-width: 30rem;
+  max-width: 30rem;
 }
 
 .mw-50{
-    max-width: 50rem;
+  max-width: 50rem;
 }
 
 .shadow{
-    box-shadow: 0 0 0.1rem rgb(200,200,200);
+  box-shadow: 0 0 0.1rem rgb(200,200,200);
 }
 
 .color-purple{
-    color: rgb(102, 45, 145);
+  color: rgb(102, 45, 145);
+}
+
+.border-purple{
+  border: 2px solid rgb(102, 45, 145);
 }
 
 .center-center{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .profile-picture {
-    height: 25vh;
-    width: 25vh;
-    border-radius: 20%;
-    border: 2px solid rgb(102, 45, 145);
-    object-fit: cover;
+  height: 25vh;
+  width: 25vh;
+  border-radius: 20%;
+  object-fit: cover;
 }
 
 .alt-card {
-    width: 100%; 
-    height: 25vh; 
-    background-color: rgb(203, 195, 227);
+  width: 100%; 
+  height: 25vh; 
+  background-color: rgb(203, 195, 227);
 }
+
+div#footer, div#header{
+  opacity:0;
+  -webkit-transition: opacity 0.35s;
+  -moz-transition: opacity 0.35s;     
+  -o-transition: opacity 0.35s;  
+  transition: opacity 0.35s; 
+}
+
+div#footer.fade, div#header.fade {
+  opacity:1;
+}
+
+
 /* Register page */
+.btn-bd-primary {
+  --bs-btn-font-weight: 600;
+  --bs-btn-color: var(--bs-white);
+  --bs-btn-bg: rgb(140, 112, 224);
+  --bs-btn-border-color: var(--bd-violet);
+  --bs-btn-border-radius: .5rem;
+  --bs-btn-hover-color: var(--bs-white);
+  --bs-btn-hover-bg: #6528e0;
+  --bs-btn-hover-border-color: #6528e0;
+  --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+  --bs-btn-active-color: var(--bs-btn-hover-color);
+  --bs-btn-active-bg: #5a23c8;
+  --bs-btn-active-border-color: #5a23c8;
+}
