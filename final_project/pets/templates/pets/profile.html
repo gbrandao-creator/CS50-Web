@@ -71,10 +71,11 @@
     </div>
 </div>
 
-<div class="footer sticky-bottom sticky bg-white shadow text-center p-4" id="footer">
+
+<div class="footer sticky-bottom sticky bg-white shadow text-center p-4 
+{% if not profile_user.is_pet_sitter %} d-none {%endif%}" id="footer">
     <button type="button" class="btn btn-bd-primary w-75">Send a request</button>
 </div>
-
 {% endblock %}
 
 {% block script %}

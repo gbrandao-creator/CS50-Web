@@ -28,10 +28,13 @@ def profile(request, username):
     try:
         profile_user = User.objects.get(username=username)
     except:
-        return 
-    return render(request, "pets/profile.html", {
-        "profile_user": profile_user
-    })
+        return HttpResponse(status=404)
+    if profile_user.confirmed:
+        return render(request, "pets/profile.html", {
+            "profile_user": profile_user
+        })
+    else:
+        return HttpResponse(status=404)
 
 
 # Authentication views

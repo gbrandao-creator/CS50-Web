@@ -31,6 +31,27 @@ body{
   border: 2px solid rgb(102, 45, 145);
 }
 
+.center-top{
+  position: absolute;
+  top: 7.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.center-top2{
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.center-bottom{
+  position: absolute;
+  bottom: -1%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .center-center{
   position: absolute;
   top: 50%;
