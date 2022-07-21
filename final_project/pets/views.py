@@ -101,15 +101,14 @@ def register_confirm(request):
         bio = request.POST["bio"]
         is_pet_sitter = True if request.POST["is_pet_sitter"] == "yes" else False
         hour_rate = request.POST["hour_rate"]
-
-        print(photo_url, bio, is_pet_sitter, hour_rate)
+        #experience = [request.POST[""], request.POST[""]
 
         request.user.photo_url = photo_url
         request.user.bio = bio
         request.user.is_pet_sitter = is_pet_sitter
         if is_pet_sitter:
-            pass
             request.user.hour_rate = hour_rate
+
         request.user.confirmed = True
 
         request.user.save()

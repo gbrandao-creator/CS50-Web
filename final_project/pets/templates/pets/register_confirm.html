@@ -23,31 +23,37 @@
 
     <form action="{% url 'register_confirm' %}" method="post" class="d-flex justify-content-center mb-4">
         {% csrf_token %}
+        
         <div id="secondContainer" class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
+            <svg id="previousTwo" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+            </svg>
             <h3 class="text-center">Add your profile photo</h3>
             <p class="text-center">Put a face to your name so people can identify your pet friendliness!</p>
             <div class="d-flex justify-content-center mb-4">
                 <img class="profile-picture"
-                id="profilePicture" src="{% static 'pets/img/default_profile.png' %}" alt="default profile picture">
+                id="profilePicture0" src="{% static 'pets/img/default_profile.png' %}" alt="default profile picture">
             </div>
             <div class="row my-2">
                 <div class="col-12 input-group p-1">
                     <input type="text" autofocus class="form-control" id="photoInput" name="photo_url" placeholder="Insert profile photo URL" aria-describedby="button-load">
                     <button class="btn btn-outline-secondary" type="button" id="loadPhotoButton">Load photo</button>
                 </div>
-                <div class="d-flex justify-content-center">
-                    <button type="button" id="nextButton" class="w-25 btn btn-primary mt-2">Next</button>
+                <div class="d-flex mt-5 mb-2 justify-content-center">
+                    <button type="button" id="nextButton2" class="w-25 btn btn-primary mt-2">Next</button>
                 </div>
-            </div>
-            <div class="d-flex justify-content-center">
-                <button type="button" id="skipButton" class="btn btn-link btn-sm">Skip for now</button>
+                <div class="d-flex justify-content-center">
+                    <button type="button" id="skipButton2" class="btn btn-link btn-sm">Skip for now</button>
+                </div>
             </div>
         </div>
     
 
         <div id="thirdContainer" class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
+            <svg id="previousThree" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+            </svg>
             <h3 class="text-center">About you</h3>
-
             <div class="form-floating my-3">
                 <textarea class="form-control" placeholder="Write a bio" id="bio" style="height: 8rem" name="bio"></textarea>
                 <label for="bio">Write a bio!</label>
@@ -55,39 +61,109 @@
             <div class="input-group mb-3">
                 <label class="input-group-text" for="petSitterSelect">Are you a Pet Sitter?</label>
                 <select class="form-select" id="petSitterSelect" name="is_pet_sitter">
-                <option selected>Choose...</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
+                    <option selected>Choose...</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
                 </select>
             </div>
-            <div id="showCaseYes">
+            <div id="sitterShowCaseYes">
                 <div class="form-floating">
                     <input type="number" class="form-control" placeholder="Hour rate" id="hourRate" name="hour_rate">
                     <label for="hourRate">Set an hour rate for your services ($)</label>
                 </div>
                 <div class="form-floating mt-4">
                     <div class="row">
-                        <div class="col-3">
-                            <span class="input-group-text">Dogs</span>
-                            <div class="input-group-text text-center">
-                                <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        <label class="form-check-label" for="CheckBoxes">
+                            <p class="fw-semibold">Which pets do you have experiece with?</p>
+                        </label>
+                        <div class="col-12 d-flex justify-content-between" id="CheckBoxes">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDogs">
+                                <label class="form-check-label" for="flexCheckDogs">
+                                    Dogs
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckCats">
+                                <label class="form-check-label" for="flexCheckCats">
+                                    Cats
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckBirds">
+                                <label class="form-check-label" for="flexCheckBirds">
+                                    Birds
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckBirds">
+                                <label class="form-check-label" for="flexCheckBirds">
+                                    Rabbits
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckFish">
+                                <label class="form-check-label" for="flexCheckFish">
+                                    Fish
+                                </label>
                             </div>
                         </div>
-                        <div class="col-3">
-                            <span class="input-group-text">Cats</span>
-                        </div>
-                        <div class="col-3">
-                            <span class="input-group-text">Birds</span>
-                        </div>
-                        <div class="col-3">
-                            <span class="input-group-text">Birds</span>
-                        </div>
                     </div>
-                    
                 </div>
             </div>
-            <div class="d-flex justify-content-center mt-3">
-                <button type="submit" id="nextButton" class="w-50 btn btn-success">Confirm details</button>
+            <div class="d-flex justify-content-center mt-5 mb-2">
+                <button type="button" id="nextButton3" class="w-50 btn btn-primary">Next</button>
+            </div>
+        </div>
+
+        <div id="fourthContainer" class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
+            <svg id="previousFour" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+            </svg>
+            <h3 class="text-center">About your pets</h3>
+
+            <div class="input-group my-3">
+                <label class="input-group-text" for="petOwnerSelect">Are you a Pet Owner?</label>
+                <select class="form-select" id="petOwnerSelect" name="is_pet_owner">
+                    <option selected>Choose...</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div id="ownerShowCaseYes">
+                <label class="form-check-label mt-2" for="PetName">
+                    <p class="fw-semibold">Pet 1</p>
+                </label>
+                <div class="input-group">
+                    <span class="input-group-text" id="PetName">Pet's name</span>
+                    <input type="text" class="form-control" placeholder="Insert your pet's name" aria-label="Pet name" aria-describedby="basic-addon1">
+                </div>
+                <select class="form-select my-3" aria-label="pet category">
+                    <option selected>Select your pet's category</option>
+                    <option value="dog">Dog</option>
+                    <option value="cat">Cat</option>
+                    <option value="bird">Bird</option>
+                    <option value="rabbit">Rabbit</option>
+                    <option value="fish">Fish</option>
+                </select>
+                <div class="input-group">
+                    <input type="text" autofocus class="form-control" id="photoInput" name="photo_url" placeholder="Insert profile photo URL" aria-describedby="button-load">
+                    <button class="btn btn-outline-secondary" type="button" id="loadPhotoButton">Load photo</button>
+                </div>
+                <div class="d-flex justify-content-center mt-3">
+                    <img class="profile-picture-mini"
+                    id="profilePicture" src="{% static 'pets/img/default_profile.png' %}" alt="default profile picture">
+                </div>
+                <div class="form-floating my-3">
+                    <textarea class="form-control" placeholder="Write a bio" id="petBio" style="height: 8rem" name="pet_bio"></textarea>
+                    <label for="bio">Write a bio!</label>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="button" id="addPetButton" class="btn btn-link btn-sm mt-2">Add a pet</button>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-3 mb-2">
+                <button type="submit" id="submitButton" class="w-50 btn btn-success">Confirm details</button>
             </div>
         </div>
     </form>
