@@ -28,7 +28,7 @@
             <svg id="previousTwo" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
             </svg>
-            <h3 class="text-center">Add your profile photo</h3>
+            <h3 class="text-center">Add your profile Picture</h3>
             <p class="text-center">Put a face to your name so people can identify your pet friendliness!</p>
             <div class="d-flex justify-content-center mb-4">
                 <img class="profile-picture"
@@ -36,8 +36,8 @@
             </div>
             <div class="row my-2">
                 <div class="col-12 input-group p-1">
-                    <input type="text" autofocus class="form-control" id="photoInput" name="photo_url" placeholder="Insert profile photo URL" aria-describedby="button-load">
-                    <button class="btn btn-outline-secondary" type="button" id="loadPhotoButton">Load photo</button>
+                    <input type="text" autofocus class="form-control" id="pictureInput" name="picture_url" placeholder="Insert profile picture URL" aria-describedby="button-load">
+                    <button class="btn btn-outline-secondary" type="button" id="loadPictureButton0">Load Picture</button>
                 </div>
                 <div class="d-flex mt-5 mb-2 justify-content-center">
                     <button type="button" id="nextButton2" class="w-25 btn btn-primary mt-2">Next</button>
@@ -131,35 +131,40 @@
                 </select>
             </div>
             <div id="ownerShowCaseYes">
-                <label class="form-check-label mt-2" for="PetName">
-                    <p class="fw-semibold">Pet 1</p>
-                </label>
-                <div class="input-group">
-                    <span class="input-group-text" id="PetName">Pet's name</span>
-                    <input type="text" class="form-control" placeholder="Insert your pet's name" aria-label="Pet name" aria-describedby="basic-addon1">
+                <div id="allPets">
+                    <div class="pet" id="pet1">
+                        <label class="form-check-label mt-2" for="petName1">
+                            <p class="fw-semibold">Pet 1</p>
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text">Pet's name</span>
+                            <input id="petName1" type="text" class="form-control" placeholder="Insert your pet's name" aria-label="Pet name" aria-describedby="basic-addon1">
+                        </div>
+                        <select id="petCategory1" class="form-select my-3" aria-label="pet category">
+                            <option value="" selected>Select your pet's category</option>
+                            <option value="dog">Dog</option>
+                            <option value="cat">Cat</option>
+                            <option value="bird">Bird</option>
+                            <option value="rabbit">Rabbit</option>
+                            <option value="fish">Fish</option>
+                        </select>
+                        <div class="input-group">
+                            <input type="text" autofocus class="form-control" id="petPictureUrl1" name="pet_picture_url_1" placeholder="Insert pet profile picture URL" aria-describedby="button-load">
+                            <button class="btn btn-outline-secondary" type="button" id="loadPictureButton1">Load Picture</button>
+                        </div>
+                        <div class="d-flex justify-content-center mt-3">
+                            <img class="profile-picture-mini"
+                            id="profilePicture1" src="{% static 'pets/img/default_profile.png' %}" alt="default profile picture">
+                        </div>
+                        <div class="form-floating my-3">
+                            <textarea class="form-control" placeholder="Write a bio" id="petBio" style="height: 8rem" name="pet_bio"></textarea>
+                            <label for="bio">Write a bio!</label>
+                        </div>
+                    </div>
                 </div>
-                <select class="form-select my-3" aria-label="pet category">
-                    <option selected>Select your pet's category</option>
-                    <option value="dog">Dog</option>
-                    <option value="cat">Cat</option>
-                    <option value="bird">Bird</option>
-                    <option value="rabbit">Rabbit</option>
-                    <option value="fish">Fish</option>
-                </select>
-                <div class="input-group">
-                    <input type="text" autofocus class="form-control" id="photoInput" name="photo_url" placeholder="Insert profile photo URL" aria-describedby="button-load">
-                    <button class="btn btn-outline-secondary" type="button" id="loadPhotoButton">Load photo</button>
-                </div>
-                <div class="d-flex justify-content-center mt-3">
-                    <img class="profile-picture-mini"
-                    id="profilePicture" src="{% static 'pets/img/default_profile.png' %}" alt="default profile picture">
-                </div>
-                <div class="form-floating my-3">
-                    <textarea class="form-control" placeholder="Write a bio" id="petBio" style="height: 8rem" name="pet_bio"></textarea>
-                    <label for="bio">Write a bio!</label>
-                </div>
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-between">
                     <button type="button" id="addPetButton" class="btn btn-link btn-sm mt-2">Add a pet</button>
+                    <button type="button" id="addPetButton" class="btn btn-link btn-sm mt-2">Remove pet</button>
                 </div>
             </div>
             <div class="d-flex justify-content-center mt-3 mb-2">
