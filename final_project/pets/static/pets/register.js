@@ -1,22 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    document.querySelector('#firstContainer').style.display = 'block';
-    document.querySelector('#secondContainer').style.display = 'none';
-    document.querySelector('#thirdContainer').style.display = 'none';
-    document.querySelector('#fourthContainer').style.display = 'none';
-
-    document.querySelector('#firstContainer').querySelector('button').addEventListener('click', loadFirst);
+        loadFirst();
 
     function loadFirst() {
+        document.querySelector('#firstContainer').style.display = 'block';
+        document.querySelector('#secondContainer').style.display = 'none';
+        document.querySelector('#thirdContainer').style.display = 'none';
+        document.querySelector('#fourthContainer').style.display = 'none';
+
+        document.querySelector('#firstContainer').querySelector('#getStartedBtn').addEventListener('click', loadSecond);
+    }
+
+    function loadSecond() {
         const firstContainer = document.querySelector('#firstContainer');
         const secondContainer = document.querySelector('#secondContainer');
+        const thirdContainer = document.querySelector('#thirdContainer');
 
         firstContainer.style.display = 'none';
         secondContainer.style.display = 'block';
+        thirdContainer.style.display = 'none';
 
         secondContainer.querySelector('#loadPictureButton0').addEventListener('click', () => handleLoadPicture('0'));
         secondContainer.querySelector('#nextButton2').addEventListener('click', loadThird);
         secondContainer.querySelector('#skipButton2').addEventListener('click', loadThird);
+        secondContainer.querySelector('#previousTwo').addEventListener('click', () => handlePrevious('2'));
     }
 
     function loadThird() {
@@ -56,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         thirdContainer.querySelector('#nextButton3').addEventListener('click', loadFourth);
+        thirdContainer.querySelector('#previousThree').addEventListener('click', () => handlePrevious('3'));
     }
 
     function loadFourth() {
@@ -66,14 +74,23 @@ document.addEventListener('DOMContentLoaded', function() {
         fourthContainer.style.display = 'block';
 
         fourthContainer.querySelector('#ownerShowCaseYes').style.display = 'none';
+        fourthContainer.querySelector('#previousFour').addEventListener('click', () => handlePrevious('4'));
         reloadFourth();
     }
     
     function reloadFourth() {
         // By default, submit button is disabled
         fourthContainer.querySelector('#submitButton').disabled = true;
+        fourthContainer.querySelector('#addPetButton').addEventListener('click', handleAddPet);
         enableSubmit();
-        fourthContainer.querySelector('#addPetButton').addEventListener('click', handleAddPet)
+        
+        if (Array.from(fourthContainer.querySelectorAll('.pet')).length > 1) {
+            fourthContainer.querySelector('#removePetButton').disabled = false;
+            fourthContainer.querySelector('#removePetButton').addEventListener('click', handleRemovePet);
+        } else {
+            fourthContainer.querySelector('#removePetButton').disabled = true;
+        }
+        
 
         fourthContainer.querySelectorAll('.pet').forEach( (div, index) => {
             div.querySelector(`#loadPictureButton${index + 1}`).addEventListener('click', () => handleLoadPicture(index + 1));
@@ -98,77 +115,70 @@ document.addEventListener('DOMContentLoaded', function() {
         })
 
 
-        /* this needs fix! Actually need to check it for all inputs at the same time.
-        Right now it checks for each div, and if one div satisfies the condition, the
-        submit button is enabled */
+        /* this needs fix! */
         
         // Enable submit button if both PetName and petCategory have a value
         // for all .pet divs.
-        fourthContainer.querySelectorAll('.pet').forEach((div, index) => {
-            console.log(index);
-            div.querySelector(`#petCategory${index + 1}`).onchange = (evt) => {
-                if (evt.target.value !== '' & div.querySelector(`#petName${index+1}`).value !== '')
-                    fourthContainer.querySelector('#submitButton').disabled = false;         
-                else
-                    fourthContainer.querySelector('#submitButton').disabled = true;
-            }
-
-            div.querySelector(`#petName${index + 1}`).onkeyup = (evt) => {
-                if (evt.target.value !== '' & div.querySelector(`#petCategory${index + 1}`).value !== '')
-                    fourthContainer.querySelector('#submitButton').disabled = false;         
-                else
-                    fourthContainer.querySelector('#submitButton').disabled = true;
-            }
-        })
+        console.log(Array.from(fourthContainer.querySelectorAll('.pet')).every((petDiv, index) => {
+            petDiv.querySelector(`#petCategory${index + 1}`).value !== '' & petDiv.querySelector(`#petName${index+1}`).value !== ''
+        }));
     }
 
     function handleAddPet() {
         const fourthContainer = document.querySelector('#fourthContainer');
-        const petsNumber = Array.from(fourthContainer.querySelectorAll('.pet')).length + 1;
+        const petsNumber = Array.from(fourthContainer.querySelectorAll('.pet')).length;
 
         const petEl = document.createElement('div');
         petEl.className = 'pet mt-4';
-        petEl.id = `pet${petsNumber}`;
-        petEl.innerHTML = `
-        <label class="form-check-label mt-2" for="petName${petsNumber}">
-            <p class="fw-semibold">Pet ${petsNumber}</p>
-        </label>
-        <div class="input-group">
-            <span class="input-group-text">Pet's name</span>
-            <input id="petName${petsNumber}" type="text" class="form-control" placeholder="Insert your pet's name" aria-label="Pet name" aria-describedby="basic-addon1">
-        </div>
-        <select id="petCategory${petsNumber}" class="form-select my-3" aria-label="pet category">
-            <option value="" selected>Select your pet's category</option>
-            <option value="dog">Dog</option>
-            <option value="cat">Cat</option>
-            <option value="bird">Bird</option>
-            <option value="rabbit">Rabbit</option>
-            <option value="fish">Fish</option>
-        </select>
-        <div class="input-group">
-            <input type="text" autofocus class="form-control" id="petPictureUrl${petsNumber}" name="pet_picture_url_1" placeholder="Insert profile picture URL" aria-describedby="button-load">
-            <button class="btn btn-outline-secondary" type="button" id="loadPictureButton${petsNumber}">Load Picture</button>
-        </div>
-        <div class="d-flex justify-content-center mt-3">
-            <img class="profile-picture-mini"
-            id="petProfilePicture${petsNumber}" src="{% static 'pets/img/default_profile.png' %}" alt="default profile picture">
-        </div>
-        <div class="form-floating my-3">
-            <textarea class="form-control" placeholder="Write a bio" id="petBio" style="height: 8rem" name="pet_bio"></textarea>
-            <label for="bio">Write a bio!</label>
-        </div>`
+        petEl.id = `pet${petsNumber + 1}`;
+
+        const previousPetEl = document.querySelector(`#pet${petsNumber}`);
+        var petElHTML = previousPetEl.innerHTML;
+        // Replace id's for new pet div
+        petElHTML = petElHTML.replaceAll(`petLabel${petsNumber}`, `petLabel${petsNumber + 1}`);
+        petElHTML = petElHTML.replaceAll(`Pet ${petsNumber}`, `Pet ${petsNumber + 1}`);
+        petElHTML = petElHTML.replaceAll(`petName${petsNumber}`, `petName${petsNumber + 1}`);
+        petElHTML = petElHTML.replaceAll(`petCategory${petsNumber}`, `petCategory${petsNumber + 1}`);
+        petElHTML = petElHTML.replaceAll(`petPictureUrl${petsNumber}`, `petPictureUrl${petsNumber + 1}`);
+        petElHTML = petElHTML.replaceAll(`loadPictureButton${petsNumber}`, `loadPictureButton${petsNumber + 1}`);
+        petElHTML = petElHTML.replaceAll(`profilePicture${petsNumber}`, `profilePicture${petsNumber + 1}`);
+        petElHTML = petElHTML.replaceAll(`petBio${petsNumber}`, `petBio${petsNumber + 1}`);
+        // Replace names for new pet div
+        petElHTML = petElHTML.replaceAll(`pet_name_${petsNumber}`, `pet_name_${petsNumber + 1}`);
+        petElHTML = petElHTML.replaceAll(`pet_category_${petsNumber}`, `pet_category_${petsNumber + 1}`);
+        petElHTML = petElHTML.replaceAll(`pet_picture_url_${petsNumber}`, `pet_picture_url_${petsNumber + 1}`);
+        petElHTML = petElHTML.replaceAll(`pet_bio_${petsNumber}`, `pet_bio_${petsNumber + 1}`);
+
+        petEl.innerHTML = petElHTML;
 
         fourthContainer.querySelector('#allPets').appendChild(petEl);
         reloadFourth();
     }
 
-    function handlePrevious(containerNumber) {
-        let numberObj = {
-            'first': '1',
-            'second': '2',
-            'third': '3',
-            'fourth': '4'
-        };
+    function handleRemovePet() {
+        const fourthContainer = document.querySelector('#fourthContainer');
+        const petsNumber = Array.from(fourthContainer.querySelectorAll('.pet')).length;
+
+        lastPetDiv = fourthContainer.querySelector(`#pet${petsNumber}`);
+        lastPetDiv.remove();
+        reloadFourth();
+    }
+
+    function handlePrevious(currentContainerNumber) {
+
+        switch (currentContainerNumber) {
+            case '2': 
+                loadFirst();
+                break;
+            case '3':
+                loadSecond();
+                break;
+            case '4':
+                loadThird();
+                break;
+            default:
+                console.log(`Sorry, I couldn't find container number ${currentContainerNumber}`);
+        }
     }
 
     function handleLoadPicture(pictureNumber) {

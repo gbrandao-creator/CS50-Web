@@ -18,7 +18,7 @@
         <img class="w-100" src="https://images.unsplash.com/photo-1583511655826-05700d52f4d9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80" alt="dog with yellow background">
         <h3 class="center-top">Welcome to PSY</h3>
         <p class="w-75 center-top2">Here we deal with real people that love real pets. Please confirm a few details to activate your account.</p>
-        <button id="get-started-btn" class="btn btn-danger center-bottom font-weight-semibold w-50" >Get Started</button>
+        <button id="getStartedBtn" class="btn btn-danger center-bottom font-weight-semibold w-50" >Get Started</button>
     </div>
 
     <form action="{% url 'register_confirm' %}" method="post" class="d-flex justify-content-center mb-4">
@@ -32,7 +32,7 @@
             <p class="text-center">Put a face to your name so people can identify your pet friendliness!</p>
             <div class="d-flex justify-content-center mb-4">
                 <img class="profile-picture"
-                id="profilePicture0" src="{% static 'pets/img/default_profile.png' %}" alt="default profile picture">
+                id="profilePicture0" src="https://i.imgur.com/goo3sbF.png" alt="profile picture">
             </div>
             <div class="row my-2">
                 <div class="col-12 input-group p-1">
@@ -132,15 +132,15 @@
             </div>
             <div id="ownerShowCaseYes">
                 <div id="allPets">
-                    <div class="pet" id="pet1">
-                        <label class="form-check-label mt-2" for="petName1">
+                    <div id="pet1" class="pet">
+                        <label id="petLabel1" class="form-check-label mt-2" for="petName1">
                             <p class="fw-semibold">Pet 1</p>
                         </label>
                         <div class="input-group">
                             <span class="input-group-text">Pet's name</span>
-                            <input id="petName1" type="text" class="form-control" placeholder="Insert your pet's name" aria-label="Pet name" aria-describedby="basic-addon1">
+                            <input id="petName1" name="pet_name_1" type="text" class="form-control" placeholder="Insert your pet's name" aria-label="Pet name">
                         </div>
-                        <select id="petCategory1" class="form-select my-3" aria-label="pet category">
+                        <select id="petCategory1" name="pet_category_1" class="form-select my-3" aria-label="pet category">
                             <option value="" selected>Select your pet's category</option>
                             <option value="dog">Dog</option>
                             <option value="cat">Cat</option>
@@ -149,22 +149,21 @@
                             <option value="fish">Fish</option>
                         </select>
                         <div class="input-group">
-                            <input type="text" autofocus class="form-control" id="petPictureUrl1" name="pet_picture_url_1" placeholder="Insert pet profile picture URL" aria-describedby="button-load">
-                            <button class="btn btn-outline-secondary" type="button" id="loadPictureButton1">Load Picture</button>
+                            <input id="petPictureUrl1" name="pet_picture_url_1" type="text" class="form-control" placeholder="Insert pet profile picture URL" autofocus>
+                            <button id="loadPictureButton1" class="btn btn-outline-secondary" type="button" >Load Picture</button>
                         </div>
                         <div class="d-flex justify-content-center mt-3">
-                            <img class="profile-picture-mini"
-                            id="profilePicture1" src="{% static 'pets/img/default_profile.png' %}" alt="default profile picture">
+                            <img id="profilePicture1" class="profile-picture-mini"  src="https://i.imgur.com/goo3sbF.png" alt="profile picture">
                         </div>
                         <div class="form-floating my-3">
-                            <textarea class="form-control" placeholder="Write a bio" id="petBio" style="height: 8rem" name="pet_bio"></textarea>
-                            <label for="bio">Write a bio!</label>
+                            <textarea id="petBio1" name="pet_bio_1" class="form-control" placeholder="Write a bio"  style="height: 8rem" ></textarea>
+                            <label for="petBio1">Write a bio!</label>
                         </div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between">
                     <button type="button" id="addPetButton" class="btn btn-link btn-sm mt-2">Add a pet</button>
-                    <button type="button" id="addPetButton" class="btn btn-link btn-sm mt-2">Remove pet</button>
+                    <button type="button" id="removePetButton" class="btn btn-link btn-sm mt-2">Remove pet</button>
                 </div>
             </div>
             <div class="d-flex justify-content-center mt-3 mb-2">
