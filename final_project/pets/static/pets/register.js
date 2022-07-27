@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function reloadFourth() {
         // By default, submit button is disabled
-        fourthContainer.querySelector('#submitButton').disabled = true;
+        //fourthContainer.querySelector('#submitButton').disabled = true;
         fourthContainer.querySelector('#addPetButton').addEventListener('click', handleAddPet);
         enableSubmit();
         
@@ -104,13 +104,13 @@ document.addEventListener('DOMContentLoaded', function() {
         fourthContainer.querySelector('#petOwnerSelect').addEventListener('change', (evt) => {
             if(evt.target.value == 'no'){
                 fourthContainer.querySelector('#ownerShowCaseYes').style.display = 'none';
-                fourthContainer.querySelector('#submitButton').disabled = false;
+                //fourthContainer.querySelector('#submitButton').disabled = false;
             } else if (evt.target.value == 'yes') {
                 fourthContainer.querySelector('#ownerShowCaseYes').style.display = 'block';
-                fourthContainer.querySelector('#submitButton').disabled = true;
+                //fourthContainer.querySelector('#submitButton').disabled = true;
             } else {
                 fourthContainer.querySelector('#ownerShowCaseYes').style.display = 'none';
-                fourthContainer.querySelector('#submitButton').disabled = true;
+                //fourthContainer.querySelector('#submitButton').disabled = true;
             }
         })
 
@@ -119,14 +119,11 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Enable submit button if both PetName and petCategory have a value
         // for all .pet divs.
-        console.log(Array.from(fourthContainer.querySelectorAll('.pet')).every((petDiv, index) => {
-            petDiv.querySelector(`#petCategory${index + 1}`).value !== '' & petDiv.querySelector(`#petName${index+1}`).value !== ''
-        }));
     }
 
     function handleAddPet() {
         const fourthContainer = document.querySelector('#fourthContainer');
-        const petsNumber = Array.from(fourthContainer.querySelectorAll('.pet')).length;
+        const petsNumber = parseInt(document.getElementById('petsNumber').value);
 
         const petEl = document.createElement('div');
         petEl.className = 'pet mt-4';
@@ -152,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
         petEl.innerHTML = petElHTML;
 
         fourthContainer.querySelector('#allPets').appendChild(petEl);
+        document.getElementById('petsNumber').value = parseInt(document.getElementById('petsNumber').value) + 1;
         reloadFourth();
     }
 
@@ -161,6 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         lastPetDiv = fourthContainer.querySelector(`#pet${petsNumber}`);
         lastPetDiv.remove();
+        document.getElementById('petsNumber').value = parseInt(document.getElementById('petsNumber').value) - 1;
         reloadFourth();
     }
 

@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 
-from .models import User
+from .models import User, Pet
 from . import forms
 
 # Create your views here.
@@ -97,22 +97,31 @@ def register(request):
 @login_required
 def register_confirm(request):
     if request.method == "POST":
-        photo_url = request.POST["photo_url"]
+        profile_picture_url = request.POST["profile_picture_url"]
         bio = request.POST["bio"]
         is_pet_sitter = True if request.POST["is_pet_sitter"] == "yes" else False
-        hour_rate = request.POST["hour_rate"]
-        #experience = [request.POST[""], request.POST[""]
+        is_pet_owner = True if request.POST["is_pet_owner"] == "yes" else False
 
-        request.user.photo_url = photo_url
+        request.user.profile_picture_url = profile_picture_url
         request.user.bio = bio
         request.user.is_pet_sitter = is_pet_sitter
+        request.user.is_pet_owner = is_pet_owner 
         if is_pet_sitter:
+            hour_rate = request.POST["hour_rate"]
             request.user.hour_rate = hour_rate
-
+        if is_pet_owner:
+            pets_number = int(request.POST["pets_number"])
+            for pet_number in range(pets_number):
+                pet_name = request.POST["pet_name_" + str(pet_number + 1)]
+                pet_picture_url = request.POST["pet_picture_url_" + str(pet_number + 1)]
+                pet_bio = request.POST["pet_bio_" + str(pet_number + 1)]
+                Pet.objects.create(name=pet_name, profile_picture_url=pet_picture_url, bio=pet_bio, owner=request.user)
         request.user.confirmed = True
-
         request.user.save()
         
         return HttpResponseRedirect(reverse("index"))
     else:
+        #if not request.user.confirmed:
         return render(request, "pets/register_confirm.html")
+        #else:
+        #    return HttpResponse(status=403)
