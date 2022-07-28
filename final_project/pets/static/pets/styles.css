@@ -93,6 +93,34 @@ div#footer.fade, div#header.fade {
 }
 
 /* Register page */
+
+#first-container {
+  animation: fade-in 1s;
+}
+
+#first-container .did-fade-in{
+  animation: fade-out 1s;
+}
+
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 .btn-bd-primary {
   --bs-btn-font-weight: 600;
   --bs-btn-color: var(--bs-white);

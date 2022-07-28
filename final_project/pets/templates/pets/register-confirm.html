@@ -13,44 +13,44 @@
         <h5>Register details</h5>
     </div>
 
-    <div id="firstContainer" 
+    <div id="first-container" 
     class="w-100 mw-30 img-container mx-auto">
         <img class="w-100" src="https://images.unsplash.com/photo-1583511655826-05700d52f4d9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80" alt="dog with yellow background">
         <h3 class="center-top">Welcome to PSY</h3>
         <p class="w-75 center-top2">Here we deal with real people that love real pets. Please confirm a few details to activate your account.</p>
-        <button id="getStartedBtn" class="btn btn-danger center-bottom font-weight-semibold w-50" >Get Started</button>
+        <button id="get-started-btn" class="btn btn-danger center-bottom font-weight-semibold w-50" >Get Started</button>
     </div>
 
     <form action="{% url 'register_confirm' %}" method="post" class="d-flex justify-content-center mb-4">
         {% csrf_token %}
         
-        <div id="secondContainer" class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
-            <svg id="previousTwo" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+        <div id="second-container" class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
+            <svg id="previous-two" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
             </svg>
             <h3 class="text-center">Add your profile Picture</h3>
             <p class="text-center">Put a face to your name so people can identify your pet friendliness!</p>
             <div class="d-flex justify-content-center mb-4">
                 <img class="profile-picture"
-                id="profilePicture0" src="https://i.imgur.com/goo3sbF.png" alt="profile picture">
+                id="profile-picture-0" src="https://i.imgur.com/goo3sbF.png" alt="profile picture">
             </div>
             <div class="row my-2">
                 <div class="col-12 input-group p-1">
-                    <input id="pictureInput0" name="profile_picture_url" type="text" autofocus class="form-control"  placeholder="Insert profile picture URL" aria-describedby="button-load">
-                    <button class="btn btn-outline-secondary" type="button" id="loadPictureButton0">Load Picture</button>
+                    <input id="picture-input-0" name="profile_picture_url" type="text" autofocus class="form-control"  placeholder="Insert profile picture URL" aria-describedby="load-picture-btn-0">
+                    <button class="btn btn-outline-secondary" type="button" id="load-picture-btn-0">Load Picture</button>
                 </div>
                 <div class="d-flex mt-5 mb-2 justify-content-center">
-                    <button type="button" id="nextButton2" class="w-25 btn btn-primary mt-2">Next</button>
+                    <button type="button" id="next-btn-2" class="w-25 btn btn-primary mt-2">Next</button>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button type="button" id="skipButton2" class="btn btn-link btn-sm">Skip for now</button>
+                    <button type="button" id="skip-btn-2" class="btn btn-link btn-sm">Skip for now</button>
                 </div>
             </div>
         </div>
     
 
-        <div id="thirdContainer" class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
-            <svg id="previousThree" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+        <div id="third-container" class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
+            <svg id="previous-three" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
             </svg>
             <h3 class="text-center">About you</h3>
@@ -59,51 +59,51 @@
                 <label for="bio">Write a bio!</label>
             </div>
             <div class="input-group mb-3">
-                <label class="input-group-text" for="petSitterSelect">Are you a Pet Sitter?</label>
-                <select class="form-select" id="petSitterSelect" name="is_pet_sitter">
+                <label class="input-group-text" for="pet-sitter-select">Are you a Pet Sitter?</label>
+                <select class="form-select" id="pet-sitter-select" name="is_pet_sitter">
                     <option selected>Choose...</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                 </select>
             </div>
-            <div id="sitterShowCaseYes">
+            <div id="sitter-show-yes">
                 <div class="form-floating">
-                    <input type="number" class="form-control" placeholder="Hour rate" id="hourRate" name="hour_rate">
-                    <label for="hourRate">Set an hour rate for your services ($)</label>
+                    <input type="number" class="form-control" placeholder="Hour rate" id="hour-rate" name="hour_rate">
+                    <label for="hour-rate">Set an hour rate for your services ($)</label>
                 </div>
                 <div class="form-floating mt-4">
                     <div class="row">
-                        <label class="form-check-label" for="CheckBoxes">
+                        <label class="form-check-label" for="check-boxes">
                             <p class="fw-semibold">Which pets do you have experiece with?</p>
                         </label>
-                        <div class="col-12 d-flex justify-content-between" id="CheckBoxes">
+                        <div class="col-12 d-flex justify-content-between" id="check-boxes">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDogs">
-                                <label class="form-check-label" for="flexCheckDogs">
+                                <input class="form-check-input" type="checkbox" value="" id="flex-check-dogs">
+                                <label class="form-check-label" for="flex-check-dogs">
                                     Dogs
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckCats">
-                                <label class="form-check-label" for="flexCheckCats">
+                                <input class="form-check-input" type="checkbox" value="" id="flex-check-cats">
+                                <label class="form-check-label" for="flex-check-cats">
                                     Cats
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckBirds">
-                                <label class="form-check-label" for="flexCheckBirds">
+                                <input class="form-check-input" type="checkbox" value="" id="flex-check-birds">
+                                <label class="form-check-label" for="flex-check-birds">
                                     Birds
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckBirds">
-                                <label class="form-check-label" for="flexCheckBirds">
+                                <input class="form-check-input" type="checkbox" value="" id="flex-check-rabbits">
+                                <label class="form-check-label" for="flex-check-rabbits">
                                     Rabbits
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckFish">
-                                <label class="form-check-label" for="flexCheckFish">
+                                <input class="form-check-input" type="checkbox" value="" id="flex-check-fish">
+                                <label class="form-check-label" for="flex-check-fish">
                                     Fish
                                 </label>
                             </div>
@@ -112,36 +112,36 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center mt-5 mb-2">
-                <button type="button" id="nextButton3" class="w-50 btn btn-primary">Next</button>
+                <button type="button" id="next-btn-3" class="w-50 btn btn-primary">Next</button>
             </div>
         </div>
 
-        <div id="fourthContainer" class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
-            <svg id="previousFour" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+        <div id="fourth-container" class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
+            <svg id="previous-four" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
             </svg>
             <h3 class="text-center">About your pets</h3>
 
             <div class="input-group my-3">
-                <label class="input-group-text" for="petOwnerSelect">Are you a Pet Owner?</label>
-                <select class="form-select" id="petOwnerSelect" name="is_pet_owner">
+                <label class="input-group-text" for="pet-owner-select">Are you a Pet Owner?</label>
+                <select class="form-select" id="pet-owner-select" name="is_pet_owner">
                     <option selected>Choose...</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                 </select>
             </div>
-            <div id="ownerShowCaseYes">
-                <div id="allPets">
-                    <input id="petsNumber" name="pets_number" value="1" hidden>
-                    <div id="pet1" class="pet">
-                        <label id="petLabel1" class="form-check-label mt-2" for="petName1">
+            <div id="owner-show-yes">
+                <div id="all-pets">
+                    <input id="pets-number" name="pets_number" value="1" hidden>
+                    <div id="pet-1" class="pet">
+                        <label id="pet-label-1" class="form-check-label mt-2" for="pet-name-1">
                             <p class="fw-semibold">Pet 1</p>
                         </label>
                         <div class="input-group">
                             <span class="input-group-text">Pet's name</span>
-                            <input id="petName1" name="pet_name_1" type="text" class="form-control" placeholder="Insert your pet's name" aria-label="Pet name">
+                            <input id="pet-name-1" name="pet_name_1" type="text" class="form-control" placeholder="Insert your pet's name" aria-label="Pet name">
                         </div>
-                        <select id="petCategory1" name="pet_category_1" class="form-select my-3" aria-label="pet category">
+                        <select id="pet-category-1" name="pet_category_1" class="form-select my-3" aria-label="pet category">
                             <option value="" selected>Select your pet's category</option>
                             <option value="dog">Dog</option>
                             <option value="cat">Cat</option>
@@ -150,25 +150,25 @@
                             <option value="fish">Fish</option>
                         </select>
                         <div class="input-group">
-                            <input id="pictureInput1" name="pet_picture_url_1" type="text" class="form-control" placeholder="Insert pet profile picture URL" autofocus>
-                            <button id="loadPictureButton1" class="btn btn-outline-secondary" type="button" >Load Picture</button>
+                            <input id="picture-input-1" name="pet_picture_url_1" type="text" class="form-control" placeholder="Insert pet profile picture URL" autofocus>
+                            <button id="load-picture-btn-1" class="btn btn-outline-secondary" type="button" >Load Picture</button>
                         </div>
                         <div class="d-flex justify-content-center mt-3">
-                            <img id="profilePicture1" class="profile-picture-mini"  src="https://i.imgur.com/goo3sbF.png" alt="profile picture">
+                            <img id="profile-picture-1" class="profile-picture-mini"  src="https://i.imgur.com/goo3sbF.png" alt="profile picture">
                         </div>
                         <div class="form-floating my-3">
-                            <textarea id="petBio1" name="pet_bio_1" class="form-control" placeholder="Write a bio"  style="height: 8rem" ></textarea>
-                            <label for="petBio1">Write a bio!</label>
+                            <textarea id="pet-bio-1" name="pet_bio_1" class="form-control" placeholder="Write a bio"  style="height: 8rem" ></textarea>
+                            <label for="pet-bio-1">Write a bio!</label>
                         </div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <button type="button" id="addPetButton" class="btn btn-link btn-sm mt-2">Add a pet</button>
-                    <button type="button" id="removePetButton" class="btn btn-link btn-sm mt-2">Remove pet</button>
+                    <button type="button" id="add-pet-btn" class="btn btn-link btn-sm mt-2">Add a pet</button>
+                    <button type="button" id="remove-pet-btn" class="btn btn-link btn-sm mt-2">Remove pet</button>
                 </div>
             </div>
             <div class="d-flex justify-content-center mt-3 mb-2">
-                <button type="submit" id="submitButton" class="w-50 btn btn-success">Confirm details</button>
+                <button type="submit" id="submit-btn" class="w-50 btn btn-success">Confirm details</button>
             </div>
         </div>
     </form>
