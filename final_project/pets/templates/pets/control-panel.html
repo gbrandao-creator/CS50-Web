@@ -1,0 +1,35 @@
+{% extends 'pets/layout.html' %}
+{% load static %}
+
+{% block title %} 
+    Pet Sitter You - Profile - {{ user.last_name }} 
+{% endblock %}
+
+{% block body %}
+<div class="bg-light">
+    <div class="container-fluid mw-50 ">
+        <div class="row text-center">
+            <div class="col-4 my-2">
+                <div class="card border rounded p-4">
+                    <img alt="profile picture" class="profile-picture-mini mb-2 
+                    {% if user.profile_picture_url %}
+                        border-purple"
+                        src="{{ user.profile_picture_url }}"
+                    {% else %}
+                        " src="{% static 'pets/img/default_profile.png' %}"
+                    {% endif %}>
+                    <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+                    <span class="badge text-bg-secondary mb-2">
+                        Pet Owner
+                    </span>
+                    {% if user.is_pet_sitter %}
+                    <span class="badge text-bg-primary mb-4">
+                        Pet Sitter
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

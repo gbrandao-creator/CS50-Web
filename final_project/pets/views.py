@@ -36,6 +36,9 @@ def profile(request, username):
     else:
         return HttpResponse(status=404)
 
+@login_required
+def control_panel(request):
+    return render(request, "pets/control-panel.html")
 
 # Authentication views
 def login_view(request):
@@ -122,6 +125,6 @@ def register_confirm(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         #if not request.user.confirmed:
-        return render(request, "pets/register_confirm.html")
+        return render(request, "pets/register-confirm.html")
         #else:
         #    return HttpResponse(status=403)

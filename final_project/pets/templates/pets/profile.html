@@ -22,9 +22,9 @@
         <div class="col-12 col-lg-4 order-1 order-lg-2">
             <div class="shadow border rounded p-4">
                 <img alt="profile picture" class="profile-picture border-rounded mb-2 
-                {% if profile_user.photo_url %}
+                {% if profile_user.profile_picture_url %}
                     border-purple"
-                    src="{{ profile_user.photo_url }}"
+                    src="{{ profile_user.profile_picture_url }}"
                 {% else %}
                     " src="{% static 'pets/img/default_profile.png' %}"
                 {% endif %}>

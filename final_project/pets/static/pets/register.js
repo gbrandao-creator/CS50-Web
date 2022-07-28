@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function handleLoadPicture(pictureNumber) {
         img = document.querySelector(`#profilePicture${pictureNumber}`);
-        img.src = document.querySelector('#pictureInput').value;
+        img.src = document.querySelector(`#pictureInput${pictureNumber}`).value;
     }
 
 })

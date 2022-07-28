@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+
     window.onscroll = function() {handleScroll()};
 
     function handleScroll(){
@@ -9,10 +10,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (! footer.className.includes('fade')) {
                 footer.classList.add('fade');
                 header.classList.add('fade');
+                header.style.height = '2.5rem';
             }
         } else {
             footer.classList.remove('fade');
             header.classList.remove('fade');
+            header.style.height = '0';
         }
     }
     
