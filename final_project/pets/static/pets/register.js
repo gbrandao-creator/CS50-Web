@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
         thirdContainer.style.display = 'none';
         fourthContainer.style.display = 'none';
 
-        firstContainer.addEventListener('animationstart', function(e) {
+        
+        /*firstContainer.addEventListener('animationstart', function(e) {
             if (e.animationName === 'fade-in') {
                 e.target.classList.add('did-fade-in')
             }
@@ -23,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (e.animationName === 'fade-out') {
                 e.target.classList.remove('did-fade-in');
              }
-          });
+          });*/
 
         document.querySelector('#get-started-btn').addEventListener('click', loadSecond);
     }
