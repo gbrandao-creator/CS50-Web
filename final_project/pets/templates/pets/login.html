@@ -17,7 +17,7 @@
     <form action="{% url 'login' %}" method="post" id="auth-form" class="w-75 mw-30 border rounded p-3 bg-light mx-auto">
         {% csrf_token %}
         {{ form }}
-        <input class="btn btn-primary" type="submit" value="Sign up">
+        <input class="btn btn-primary" type="submit" value="Sign in">
         {% if message %}
         <div class="text-center mt-3">
             <div class="alert alert-danger" role="alert">{{ message }}</div>  

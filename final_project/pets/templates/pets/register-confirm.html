@@ -25,9 +25,11 @@
         {% csrf_token %}
         
         <div id="second-container" class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
-            <svg id="previous-two" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-            </svg>
+            <a href="#">
+                <svg id="previous-two" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                </svg>
+            </a>
             <h3 class="text-center">Add your profile Picture</h3>
             <p class="text-center">Put a face to your name so people can identify your pet friendliness!</p>
             <div class="d-flex justify-content-center mb-4">
@@ -50,9 +52,11 @@
     
 
         <div id="third-container" class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
-            <svg id="previous-three" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+            <a href="#">
+                <svg id="previous-three" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-            </svg>
+                </svg>
+            </a>
             <h3 class="text-center">About you</h3>
             <div class="form-floating my-3">
                 <textarea class="form-control" placeholder="Write a bio" id="bio" style="height: 8rem" name="bio"></textarea>
@@ -78,35 +82,38 @@
                         </label>
                         <div class="col-12 d-flex justify-content-between" id="check-boxes">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flex-check-dogs">
+                                <input id="flex-check-dogs" name="check_dogs" class="form-check-input" type="checkbox" value="checked" >
                                 <label class="form-check-label" for="flex-check-dogs">
                                     Dogs
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flex-check-cats">
+                                <input id="flex-check-cats" name="check_cats" class="form-check-input" type="checkbox" value="checked" >
                                 <label class="form-check-label" for="flex-check-cats">
                                     Cats
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flex-check-birds">
+                                <input id="flex-check-birds" name="check_birds" class="form-check-input" type="checkbox" value="checked" >
                                 <label class="form-check-label" for="flex-check-birds">
                                     Birds
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flex-check-rabbits">
+                                <input id="flex-check-rabbits" name="check_rabbits" class="form-check-input" type="checkbox" value="checked">
                                 <label class="form-check-label" for="flex-check-rabbits">
                                     Rabbits
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flex-check-fish">
+                                <input id="flex-check-fish" name="check_fish" class="form-check-input" type="checkbox" value="checked" >
                                 <label class="form-check-label" for="flex-check-fish">
                                     Fish
                                 </label>
                             </div>
+                        </div>
+                        <div class="col-6 mx-auto mt-3">
+                            <input id="flex-check-other" name="check_other" class="form-control" type="text" placeholder="Other">
                         </div>
                     </div>
                 </div>
@@ -117,14 +124,16 @@
         </div>
 
         <div id="fourth-container" class="w-100 mw-30 border rounded p-4 bg-light mx-auto">
-            <svg id="previous-four" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-            </svg>
+            <a href="#">
+                <svg id="previous-four" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                </svg>
+            </a>
             <h3 class="text-center">About your pets</h3>
 
             <div class="input-group my-3">
                 <label class="input-group-text" for="pet-owner-select">Are you a Pet Owner?</label>
-                <select class="form-select" id="pet-owner-select" name="is_pet_owner">
+                <select id="pet-owner-select" name="is_pet_owner" class="form-select">
                     <option selected>Choose...</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>

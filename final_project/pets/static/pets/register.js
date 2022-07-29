@@ -13,19 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
         thirdContainer.style.display = 'none';
         fourthContainer.style.display = 'none';
 
-        
-        /*firstContainer.addEventListener('animationstart', function(e) {
-            if (e.animationName === 'fade-in') {
-                e.target.classList.add('did-fade-in')
-            }
-        });
-
-        firstContainer.addEventListener('animationend', function (e) {
-            if (e.animationName === 'fade-out') {
-                e.target.classList.remove('did-fade-in');
-             }
-          });*/
-
         document.querySelector('#get-started-btn').addEventListener('click', loadSecond);
     }
 
@@ -95,14 +82,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
         fourthContainer.querySelector('#owner-show-yes').style.display = 'none';
         fourthContainer.querySelector('#previous-four').addEventListener('click', () => handlePrevious('4'));
+        fourthContainer.querySelector('#pet-owner-select').addEventListener('change', selectShow);
         reloadFourth();
     }
     
+    /*
+    * Reloads fourth container when a new pet is added or removed:
+    * Enable and disable '#remove-pet-btn' and submit buttons.
+    * It also adds an event listener for new '#load-picture-btn-' buttons.
+    */
     function reloadFourth() {
-        // By default, submit button is disabled
-        //fourthContainer.querySelector('#submitButton').disabled = true;
         const fourthContainer = document.querySelector('#fourth-container');
         fourthContainer.querySelector('#add-pet-btn').addEventListener('click', handleAddPet);
+
+        // By default, submit button is disabled
+        fourthContainer.querySelector('#submit-btn').disabled = true;
         enableSubmit();
         
         if (Array.from(fourthContainer.querySelectorAll('.pet')).length > 1) {
@@ -112,34 +106,35 @@ document.addEventListener('DOMContentLoaded', function() {
             fourthContainer.querySelector('#remove-pet-btn').disabled = true;
         }
         
-
         fourthContainer.querySelectorAll('.pet').forEach( (div, index) => {
             div.querySelector(`#load-picture-btn-${index + 1}`).addEventListener('click', () => handleLoadPicture(index + 1));
         })
     }
 
-    // Enable submit button upon some conditions.
+    /*
+    * Show container based on select 
+    */
+    function selectShow(evt) {
+        const fourthContainer = document.querySelector('#fourth-container');
+        if(evt.target.value == 'no'){
+            fourthContainer.querySelector('#owner-show-yes').style.display = 'none';
+        } else if (evt.target.value == 'yes') {
+            fourthContainer.querySelector('#owner-show-yes').style.display = 'block';
+        } else {
+            fourthContainer.querySelector('#owner-show-yes').style.display = 'none';
+        }
+    }
+
+    /*
+    * Enable submit button if some fields are not empty.
+    */
     function enableSubmit() {
         const fourthContainer = document.querySelector('#fourth-container');
+        const petsNumber = parseInt(document.getElementById('pets-number').value);
 
-        fourthContainer.querySelector('#pet-owner-select').addEventListener('change', (evt) => {
-            if(evt.target.value == 'no'){
-                fourthContainer.querySelector('#owner-show-yes').style.display = 'none';
-                //fourthContainer.querySelector('#submitButton').disabled = false;
-            } else if (evt.target.value == 'yes') {
-                fourthContainer.querySelector('#owner-show-yes').style.display = 'block';
-                //fourthContainer.querySelector('#submitButton').disabled = true;
-            } else {
-                fourthContainer.querySelector('#owner-show-yes').style.display = 'none';
-                //fourthContainer.querySelector('#submitButton').disabled = true;
-            }
+        fourthContainer.querySelectorAll('.pet').forEach((petDiv, index) => {
+            petDiv.querySelector(`#pet-name-${index}`).onkeyup = (evt) => {} // Incomplete
         })
-
-
-        /* this needs fix! */
-        
-        // Enable submit button if both PetName and petCategory have a value
-        // for all .pet divs.
     }
 
     function handleAddPet() {

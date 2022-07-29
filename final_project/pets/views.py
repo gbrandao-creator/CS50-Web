@@ -1,11 +1,11 @@
-from django.http import Http404, HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 
-from .models import User, Pet
+from .models import User, Pet, Experience
 from . import forms
 
 # Create your views here.
@@ -70,7 +70,6 @@ def logout_view(request):
 
 def register(request):
     if request.method == "POST":
-        
         username = request.POST["username"]
         # Ensure password matches confirmation
         password = request.POST["password"]
@@ -111,16 +110,29 @@ def register_confirm(request):
         request.user.is_pet_owner = is_pet_owner 
         if is_pet_sitter:
             hour_rate = request.POST["hour_rate"]
+            experience = Experience.objects.create(
+                dogs = request.POST.get("check_dogs", False) == "checked",
+                cats = request.POST.get("check_cats", False) == "checked",
+                birds = request.POST.get("check_birds", False) == "checked",
+                rabbits = request.POST.get("check_rabbits", False) == "checked",
+                fish = request.POST.get("check_fish", False) == "checked",
+                other = request.POST.get("check_other", "")
+            )
             request.user.hour_rate = hour_rate
+
         if is_pet_owner:
             pets_number = int(request.POST["pets_number"])
             for pet_number in range(pets_number):
                 pet_name = request.POST["pet_name_" + str(pet_number + 1)]
+                pet_category = request.POST["pet_category_" + str(pet_number + 1)]
                 pet_picture_url = request.POST["pet_picture_url_" + str(pet_number + 1)]
                 pet_bio = request.POST["pet_bio_" + str(pet_number + 1)]
-                Pet.objects.create(name=pet_name, profile_picture_url=pet_picture_url, bio=pet_bio, owner=request.user)
+                Pet.objects.create(name=pet_name, category=pet_category, profile_picture_url=pet_picture_url, bio=pet_bio, owner=request.user)
+
         request.user.confirmed = True
+        request.user.experience = experience
         request.user.save()
+        print(request.user.experience.dogs)
         
         return HttpResponseRedirect(reverse("index"))
     else:

@@ -94,12 +94,8 @@ div#footer.fade, div#header.fade {
 
 /* Register page */
 
-#first-container {
-  animation: fade-in 1s;
-}
-
-#first-container .did-fade-in{
-  animation: fade-out 1s;
+#first-container, #second-container, #third-container, #fourth-container {
+  animation: fade-in 0.5s;
 }
 
 
@@ -109,15 +105,6 @@ div#footer.fade, div#header.fade {
   }
   to {
     opacity: 1;
-  }
-}
-
-@keyframes fade-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
   }
 }
 
