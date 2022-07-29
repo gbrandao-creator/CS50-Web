@@ -130,10 +130,30 @@ document.addEventListener('DOMContentLoaded', function() {
     */
     function enableSubmit() {
         const fourthContainer = document.querySelector('#fourth-container');
-        const petsNumber = parseInt(document.getElementById('pets-number').value);
+        const allPets = fourthContainer.querySelectorAll('.pet');
 
-        fourthContainer.querySelectorAll('.pet').forEach((petDiv, index) => {
-            petDiv.querySelector(`#pet-name-${index}`).onkeyup = (evt) => {} // Incomplete
+        allPets.forEach((petDiv, index) => {
+            petDiv.querySelector(`#pet-name-${index + 1}`).onkeyup = () => {
+                if (Array.from(allPets).every((petDiv,index) => {
+                    return petDiv.querySelector(`#pet-name-${index + 1}`).value !== ''
+                    & petDiv.querySelector(`#pet-category-${index + 1}`).value !== '';
+                })) {
+                    fourthContainer.querySelector('#submit-btn').disabled = false;
+                } else { 
+                    fourthContainer.querySelector('#submit-btn').disabled = true;
+                 }
+            }
+
+            petDiv.querySelector(`#pet-category-${index + 1}`).onchange = () => {
+                if (Array.from(allPets).every((petDiv,index) => {
+                    return petDiv.querySelector(`#pet-name-${index + 1}`).value !== ''
+                    & petDiv.querySelector(`#pet-category-${index + 1}`).value !== '';
+                })) {
+                    fourthContainer.querySelector('#submit-btn').disabled = false;
+                } else {
+                    fourthContainer.querySelector('#submit-btn').disabled = true;
+                }
+            }
         })
     }
 
