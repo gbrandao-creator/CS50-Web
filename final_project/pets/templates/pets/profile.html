@@ -88,9 +88,9 @@
         </div>
     </div>
     <div class="row text-center my-5" style="height: 200vh">
-        <div class="col-12 d-flex justify-content-between">
+        <div class="col-12 d-flex justify-content-between mx-2">
             <div>
-                <h3 style="white-space: nowrap">Avaliações</h3>
+                <h3 class="text-nowrap">Comments and review</h3>
             </div>
             <div>
 
@@ -106,7 +106,26 @@
 {% if user != profile_user %}
     <div class="footer sticky-bottom sticky bg-white shadow text-center p-4 
     {% if not profile_user.is_pet_sitter %} d-none {%endif%}" id="footer">
-        <button type="button" class="btn btn-bd-primary w-75" >Send a request</button>
+        <button type="button" class="btn btn-bd-primary w-75" data-bs-toggle="modal" data-bs-target="#request-modal">Send a request</button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade " id="request-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="request-modal-label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="request-modal-label">Send a request to {{ profile_user.first_name }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Understood</button>
+                </div>
+            </div>
+        </div>
     </div>
 {% endif %}
 {% endblock %}
