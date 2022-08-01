@@ -21,8 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const secondContainer = document.querySelector('#second-container');
         const thirdContainer = document.querySelector('#third-container');
 
-
-
         firstContainer.style.display = 'none';
         secondContainer.style.display = 'block';
         thirdContainer.style.display = 'none';
@@ -42,71 +40,77 @@ document.addEventListener('DOMContentLoaded', function() {
         thirdContainer.style.display = 'block';
         fourthContainer.style.display = 'none';
 
-        thirdContainer.querySelector('#sitter-show-yes').style.display = 'none';
-
-        // By default, next button is disabled
-        thirdContainer.querySelector('#next-btn-3').disabled = true;
-
-        /* Enable next button if petSitterSelect select value is 'no' 
-         or hourRate input value is not ''.*/
-        thirdContainer.querySelector('#pet-sitter-select').onchange = (evt) => {
-            if (evt.target.value == 'no') {
-                thirdContainer.querySelector('#next-btn-3').disabled = false; 
-                thirdContainer.querySelector('#sitter-show-yes').style.display = 'none'; 
-            } else if (evt.target.value == 'yes') {
-                thirdContainer.querySelector('#next-btn-3').disabled = true; 
-                thirdContainer.querySelector('#sitter-show-yes').style.display = 'block'; // Show some more info if user selects 'yes'
-            } else {
-                thirdContainer.querySelector('#next-btn-3').disabled = true; 
-                thirdContainer.querySelector('#sitter-show-yes').style.display = 'none';
-            }
-        }
-        
-        thirdContainer.querySelector('input#hour-rate').onkeyup = (evt) => {
-            if (evt.target.value !== '')
-                thirdContainer.querySelector('#next-btn-3').disabled = false;         
-            else
-                thirdContainer.querySelector('#next-btn-3').disabled = true;
-        }
-
-        thirdContainer.querySelector('#next-btn-3').addEventListener('click', loadFourth);
+        thirdContainer.querySelector('#owner-show-yes').style.display = 'none';
         thirdContainer.querySelector('#previous-three').addEventListener('click', () => handlePrevious('3'));
+        thirdContainer.querySelector('#pet-owner-select').addEventListener('change', selectShow);
+        thirdContainer.querySelector('#next-btn-3').addEventListener('click', loadFourth);
+        reloadThird();
     }
 
     function loadFourth() {
+        const secondContainer = document.querySelector('#second-container');
         const thirdContainer = document.querySelector('#third-container');
         const fourthContainer = document.querySelector('#fourth-container');
 
+        secondContainer.style.display = 'none';
         thirdContainer.style.display = 'none';
         fourthContainer.style.display = 'block';
 
-        fourthContainer.querySelector('#owner-show-yes').style.display = 'none';
+        fourthContainer.querySelector('#sitter-show-yes').style.display = 'none';
+
+        // By default, next button is disabled
+        fourthContainer.querySelector('#submit-btn').disabled = true;
+
+        /* Enable next button if petSitterSelect select value is 'no' 
+         or hourRate input value is not ''.*/
+         fourthContainer.querySelector('#pet-sitter-select').onchange = (evt) => {
+            if (evt.target.value == 'no') {
+                if (document.querySelector('#pet-owner-select').value == 'no') {
+                    alert('You must be at least a Pet Owner or a Pet Sitter, in order to confirm your registration.')
+                    fourthContainer.querySelector('#submit-btn').disabled = true;
+                }
+                fourthContainer.querySelector('#submit-btn').disabled = false; 
+                fourthContainer.querySelector('#sitter-show-yes').style.display = 'none'; 
+            } else if (evt.target.value == 'yes') {
+                fourthContainer.querySelector('#submit-btn').disabled = true; 
+                fourthContainer.querySelector('#sitter-show-yes').style.display = 'block'; // Show some more info if user selects 'yes'
+            } else {
+                fourthContainer.querySelector('#submit-btn').disabled = true; 
+                fourthContainer.querySelector('#sitter-show-yes').style.display = 'none';
+            }
+        }
+        
+        fourthContainer.querySelector('input#hour-rate').onkeyup = (evt) => {
+            if (evt.target.value !== '')
+            fourthContainer.querySelector('#submit-btn').disabled = false;         
+            else
+            fourthContainer.querySelector('#submit-btn').disabled = true;
+        }
+
         fourthContainer.querySelector('#previous-four').addEventListener('click', () => handlePrevious('4'));
-        fourthContainer.querySelector('#pet-owner-select').addEventListener('change', selectShow);
-        reloadFourth();
     }
     
     /*
-    * Reloads fourth container when a new pet is added or removed:
+    * Reloads third container when a new pet is added or removed:
     * Enable and disable '#remove-pet-btn' and submit buttons.
     * It also adds an event listener for new '#load-picture-btn-' buttons.
     */
-    function reloadFourth() {
-        const fourthContainer = document.querySelector('#fourth-container');
-        fourthContainer.querySelector('#add-pet-btn').addEventListener('click', handleAddPet);
+    function reloadThird() {
+        const thirdContainer = document.querySelector('#third-container');
+        thirdContainer.querySelector('#add-pet-btn').addEventListener('click', handleAddPet);
 
         // By default, submit button is disabled
-        fourthContainer.querySelector('#submit-btn').disabled = true;
-        enableSubmit();
+        thirdContainer.querySelector('#next-btn-3').disabled = true;
+        enableNext();
         
-        if (Array.from(fourthContainer.querySelectorAll('.pet')).length > 1) {
-            fourthContainer.querySelector('#remove-pet-btn').disabled = false;
-            fourthContainer.querySelector('#remove-pet-btn').addEventListener('click', handleRemovePet);
+        if (Array.from(thirdContainer.querySelectorAll('.pet')).length > 1) {
+            thirdContainer.querySelector('#remove-pet-btn').disabled = false;
+            thirdContainer.querySelector('#remove-pet-btn').addEventListener('click', handleRemovePet);
         } else {
-            fourthContainer.querySelector('#remove-pet-btn').disabled = true;
+            thirdContainer.querySelector('#remove-pet-btn').disabled = true;
         }
         
-        fourthContainer.querySelectorAll('.pet').forEach( (div, index) => {
+        thirdContainer.querySelectorAll('.pet').forEach( (div, index) => {
             div.querySelector(`#load-picture-btn-${index + 1}`).addEventListener('click', () => handleLoadPicture(index + 1));
         })
     }
@@ -115,22 +119,23 @@ document.addEventListener('DOMContentLoaded', function() {
     * Show container based on select 
     */
     function selectShow(evt) {
-        const fourthContainer = document.querySelector('#fourth-container');
-        if(evt.target.value == 'no'){
-            fourthContainer.querySelector('#owner-show-yes').style.display = 'none';
+        const thirdContainer = document.querySelector('#third-container');
+        if (evt.target.value == 'no'){
+            thirdContainer.querySelector('#next-btn-3').disabled = false;
+            thirdContainer.querySelector('#owner-show-yes').style.display = 'none';
         } else if (evt.target.value == 'yes') {
-            fourthContainer.querySelector('#owner-show-yes').style.display = 'block';
+            thirdContainer.querySelector('#owner-show-yes').style.display = 'block';
         } else {
-            fourthContainer.querySelector('#owner-show-yes').style.display = 'none';
+            thirdContainer.querySelector('#owner-show-yes').style.display = 'none';
         }
     }
 
     /*
-    * Enable submit button if some fields are not empty.
+    * Enable next button if some fields are not empty.
     */
-    function enableSubmit() {
-        const fourthContainer = document.querySelector('#fourth-container');
-        const allPets = fourthContainer.querySelectorAll('.pet');
+    function enableNext() {
+        const thirdContainer = document.querySelector('#third-container');
+        const allPets = thirdContainer.querySelectorAll('.pet');
 
         allPets.forEach((petDiv, index) => {
             petDiv.querySelector(`#pet-name-${index + 1}`).onkeyup = () => {
@@ -138,9 +143,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     return petDiv.querySelector(`#pet-name-${index + 1}`).value !== ''
                     & petDiv.querySelector(`#pet-category-${index + 1}`).value !== '';
                 })) {
-                    fourthContainer.querySelector('#submit-btn').disabled = false;
+                    thirdContainer.querySelector('#next-btn-3').disabled = false;
                 } else { 
-                    fourthContainer.querySelector('#submit-btn').disabled = true;
+                    thirdContainer.querySelector('#next-btn-3').disabled = true;
                  }
             }
 
@@ -149,16 +154,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     return petDiv.querySelector(`#pet-name-${index + 1}`).value !== ''
                     & petDiv.querySelector(`#pet-category-${index + 1}`).value !== '';
                 })) {
-                    fourthContainer.querySelector('#submit-btn').disabled = false;
+                    thirdContainer.querySelector('#next-btn-3').disabled = false;
                 } else {
-                    fourthContainer.querySelector('#submit-btn').disabled = true;
+                    thirdContainer.querySelector('#next-btn-3').disabled = true;
                 }
             }
         })
     }
 
     function handleAddPet() {
-        const fourthContainer = document.querySelector('#fourth-container');
+        const thirdContainer = document.querySelector('#third-container');
         const petsNumber = parseInt(document.getElementById('pets-number').value);
 
         const petEl = document.createElement('div');
@@ -187,19 +192,19 @@ document.addEventListener('DOMContentLoaded', function() {
         petEl.innerHTML = petElHTML;
         petEl.querySelector(`#profile-picture-${petsNumber + 1}`).src = 'https://i.imgur.com/goo3sbF.png' // Replace img src to default
 
-        fourthContainer.querySelector('#all-pets').appendChild(petEl);
+        thirdContainer.querySelector('#all-pets').appendChild(petEl);
         document.getElementById('pets-number').value = parseInt(document.getElementById('pets-number').value) + 1;
-        reloadFourth();
+        reloadThird();
     }
 
     function handleRemovePet() {
-        const fourthContainer = document.querySelector('#fourth-container');
-        const petsNumber = Array.from(fourthContainer.querySelectorAll('.pet')).length;
+        const thirdContainer = document.querySelector('#third-container');
+        const petsNumber = Array.from(thirdContainer.querySelectorAll('.pet')).length;
 
-        lastPetDiv = fourthContainer.querySelector(`#pet-${petsNumber}`);
+        lastPetDiv = thirdContainer.querySelector(`#pet-${petsNumber}`);
         lastPetDiv.remove();
         document.getElementById('pets-number').value = parseInt(document.getElementById('pets-number').value) - 1;
-        reloadFourth();
+        reloadThird();
     }
 
     function handlePrevious(currentContainerNumber) {

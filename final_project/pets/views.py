@@ -14,6 +14,9 @@ def index(request, message=""):
         "message": message
     })
 
+def about(request):
+    return render(request, "pets/about.html")
+
 def search_view(request):
 
     location = request.GET.get('l')
@@ -34,7 +37,7 @@ def profile(request, username):
             "profile_user": profile_user
         })
     else:
-        return HttpResponse(status=404)
+        return HttpResponse(status=404) # redirect user to a page which shows he has not yet confirmed his register
 
 @login_required
 def control_panel(request):
@@ -111,13 +114,14 @@ def register_confirm(request):
         if is_pet_sitter:
             hour_rate = request.POST["hour_rate"]
             experience = Experience.objects.create(
-                dogs = request.POST.get("check_dogs", False) == "checked",
-                cats = request.POST.get("check_cats", False) == "checked",
-                birds = request.POST.get("check_birds", False) == "checked",
-                rabbits = request.POST.get("check_rabbits", False) == "checked",
-                fish = request.POST.get("check_fish", False) == "checked",
-                other = request.POST.get("check_other", "")
+                with_dogs = request.POST.get("check_dogs", False) == "checked",
+                with_cats = request.POST.get("check_cats", False) == "checked",
+                with_birds = request.POST.get("check_birds", False) == "checked",
+                with_rabbits = request.POST.get("check_rabbits", False) == "checked",
+                with_fish = request.POST.get("check_fish", False) == "checked",
+                with_other = request.POST.get("check_other", "")
             )
+            request.user.experience = experience
             request.user.hour_rate = hour_rate
 
         if is_pet_owner:
@@ -130,9 +134,7 @@ def register_confirm(request):
                 Pet.objects.create(name=pet_name, category=pet_category, profile_picture_url=pet_picture_url, bio=pet_bio, owner=request.user)
 
         request.user.confirmed = True
-        request.user.experience = experience
         request.user.save()
-        print(request.user.experience.dogs)
         
         return HttpResponseRedirect(reverse("index"))
     else:

@@ -11,13 +11,45 @@
 </div>
 <div class="container-fluid">
     <div class="row text-center">
-        <div class="col-12 col-lg-8 order-2 order-lg-1 my-4 my-lg-0">
-            <div class="card shadow alt-card p-3 text-start">
-                <h2 class="color-purple">oiiii {{ profile_user.bio }}</h2>
+        <div class="col-12 col-lg-8 order-2 order-lg-1 my-3 my-lg-0">
+            <div class="card shadow alt-card py-3 px-4 text-start">
+                <p class="fs-5 mx-auto"><u>{{ profile_user.first_name }}'s bio</u></p>
+                <h2>
+                    {% if profile_user.bio %}
+                        {{ profile_user.bio }}
+                    {% else %}
+                        Hello. My name is {{ profile_user.first_name }}, 
+                        I'm 
+                        {% if profile_user.is_pet_owner %}
+                            {% if profile_user.is_pet_sitter %}
+                                both a Pet Sitter and a Pet Owner
+                            {% else %}
+                                a Pet Owner 
+                            {% endif %}
+                        {% else %}
+                            a Pet Sitter
+                        {% endif %}
+                    at PSY! 
+                    {% endif %}
+                    
+                </h2>
             </div>
-            <div class="card shadow alt-card p-3 my-5 text-start">
-                <h2 class="color-purple">Meus pets aqui!</h2>
-            </div>
+            {% if profile_user.is_pet_owner %}
+                <div class="card shadow bg-light p-3 d-flex justify-content-center my-5">
+                    <div class="row text-center">
+                        {% for pet in profile_user.user_pets.all %}
+                            <div class="col-lg-4 col-6 mx-auto">
+                                <img id="profile-picture-1" class="profile-picture-mini"  src="{{ pet.profile_picture_url }}" alt="profile picture">
+                                <h3 class="mt-3">{{ pet.name }}</h3>
+                                <span class="badge text-bg-primary mb-3">
+                                    {{ pet.category.capitalize }}
+                                </span>
+                                <blockquote>{{ pet.bio }}<blockquote>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
         </div>
         <div class="col-12 col-lg-4 order-1 order-lg-2">
             <div class="shadow border rounded p-4">
@@ -71,11 +103,12 @@
     </div>
 </div>
 
-
-<div class="footer sticky-bottom sticky bg-white shadow text-center p-4 
-{% if not profile_user.is_pet_sitter %} d-none {%endif%}" id="footer">
-    <button type="button" class="btn btn-bd-primary w-75">Send a request</button>
-</div>
+{% if user != profile_user %}
+    <div class="footer sticky-bottom sticky bg-white shadow text-center p-4 
+    {% if not profile_user.is_pet_sitter %} d-none {%endif%}" id="footer">
+        <button type="button" class="btn btn-bd-primary w-75" >Send a request</button>
+    </div>
+{% endif %}
 {% endblock %}
 
 {% block script %}
