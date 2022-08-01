@@ -18,7 +18,7 @@ def index(request):
 def wiki_entry(request, entry_title):
     content = util.get_entry(entry_title)
     print(content)
-    return render(request, "encyclopedia/wiki_entry.html", {
+    return render(request, "encyclopedia/wiki-entry.html", {
         "entry_title": entry_title,
         "content": content
     })
@@ -33,16 +33,16 @@ def new_page(request):
                 util.save_entry(new_page_title, new_page_content)
                 return HttpResponseRedirect(reverse('wiki_entry', kwargs={'entry_title': new_page_title}))
             except:
-                return render(request, "encyclopedia/new_page.html", {
+                return render(request, "encyclopedia/new-page.html", {
                 "form": forms.NewPageForm(initial={'title': new_page_title, 'markdown_content': new_page_content}),
                 "entry_title": new_page_title,
                 "name_error": True
             })
         else:
-            return render(request, "encyclopedia/new_page.html", {
+            return render(request, "encyclopedia/new-page.html", {
                 "form": form
             })
-    return render(request, "encyclopedia/new_page.html", {
+    return render(request, "encyclopedia/new-page.html", {
         "page_title": "Create New Page",
         "form": forms.NewPageForm()
     })
@@ -57,12 +57,12 @@ def edit_page(request, entry_title):
             return HttpResponseRedirect(reverse('wiki_entry', kwargs={'entry_title': entry_title}))
         else:
             content = util.get_entry_markdown(entry_title)
-            return render(request, "encyclopedia/edit_page.html", {
+            return render(request, "encyclopedia/edit-page.html", {
                 "entry_title": entry_title,
                 "form": forms.EditPageForm(initial={'markdown_content': content})
             })
     content = util.get_entry_markdown(entry_title)
-    return render(request, "encyclopedia/edit_page.html", {
+    return render(request, "encyclopedia/edit-page.html", {
         "entry_title": entry_title,
         "form": forms.EditPageForm(initial={'markdown_content': content})
     })
@@ -78,7 +78,7 @@ def search_results(request):
             return wiki_entry(request, query)
         elif query.lower() in entry.lower():
             matches.append(entry)
-    return render(request, "encyclopedia/search_results.html", {
+    return render(request, "encyclopedia/search-results.html", {
         "query": query,
         "matches": matches
     })
