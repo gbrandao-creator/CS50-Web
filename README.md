@@ -9,7 +9,7 @@ In this project you'll find an encyclopedia, where users can search, add and edi
 ### Files and directories: 
 
 * The directory [wiki/encyclopedia](https://github.com/gbrandao-creator/CS50-Web/tree/project1/wiki/encyclopedia) contains all files for the _encyclopedia django app_:
-  - The file [static/encyclopedia/styles.css](https://github.com/gbrandao-creator/CS50-Web/blob/project1/wiki/encyclopedia/static/encyclopedia/styles.css) has all the styles for the app.
+  - Inside [static/encyclopedia/styles.css](https://github.com/gbrandao-creator/CS50-Web/blob/project1/wiki/encyclopedia/static/encyclopedia/styles.css), there are all the styles for the app.
   - The directory [templates/encyclopedia](https://github.com/gbrandao-creator/CS50-Web/tree/project1/wiki/encyclopedia/templates/encyclopedia) has all the templates for the app:
     - Inside [layout.html](https://github.com/gbrandao-creator/CS50-Web/blob/project1/wiki/encyclopedia/templates/encyclopedia/layout.html), there is the basic layout for all the templates on the app.
     - Inside [index.html](https://github.com/gbrandao-creator/CS50-Web/blob/project1/wiki/encyclopedia/templates/encyclopedia/index.html), there is the template that shows all the entries on the app.
