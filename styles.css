@@ -17,7 +17,7 @@
 
 /*---------layout---------*/
 
-.headerContent{
+.header-content{
     height: 3rem;
     margin-bottom: 4rem;
     padding: 0.75rem;
@@ -31,7 +31,7 @@
     margin-left: 2rem;
 }
 
-.formContainer, .logoContainer, .buttonHolder{
+.centered{
     display: flex;
     justify-content: center;
     text-align: center;
@@ -63,7 +63,7 @@ header a:hover{
     max-width: 700px;
 }
 
-.searchInput{
+.search-input{
     border-radius: 1.5rem;
     border: 0.1rem solid rgb(230, 230, 230);
     padding: 0.75rem 0.75rem;
@@ -75,17 +75,17 @@ header a:hover{
     width: 75%;
 }
 
-.searchInput:hover{
+.search-input:hover{
     box-shadow: 0 0 0.2rem rgb(200,200,200);
 }
 
-.searchInput:focus{
+.search-input:focus{
     outline: none !important;
     border: 0.1rem solid rgb(200,200,200);
 }
 
 
-.submitButton{
+.submit-btn{
     border-radius: 0.2rem;
     border: 0.01rem solid rgb(250, 250, 250);
     padding: 0.5rem 1.5rem;
@@ -95,11 +95,11 @@ header a:hover{
     margin: 0 0.5rem;
 }
 
-.submitButton:hover{
+.submit-btn:hover{
     border: 1px solid rgb(200, 200, 200);
 }
 
-.searchInput::placeholder{
+.search-input::placeholder{
     color: #bbb;
 }
 
@@ -111,7 +111,7 @@ header a:hover{
 
 /*---------Advanced search page styles---------*/
 
-.advancedHeader{
+.advanced-header{
     /*height: 3rem;*/
     margin-bottom: 2rem;
     padding: 0.75rem;
@@ -121,45 +121,45 @@ header a:hover{
     margin-right: 0.5rem;
 }
 
-.advancedContainer{
+.advanced-container{
     border-bottom: 1px solid rgb(200, 200, 200);
     border-width: thin;
     font-weight: 50;
 }
 
-.advancedContainer p{
+.advanced-container p{
     font-size: 125%;
     margin-bottom: 2rem;
     color: rgb(217,48,37);
 }
 
-.advancedFormContainer{
+.advanced-form-container{
     margin-top: 2rem;
     font-size: smaller;
     color: var(--regular-text-color);
 }
 
 /*gotta chance this h4 for a div or something*/
-.advancedFormContainer h4{
+.advanced-form-container h4{
     font-weight: 100;
     font-size: medium;
 }
 
-.advancedFields{
+.advanced-fields{
     width: 10rem;
     height: 1.875rem;
     max-width: 10rem;
     display: inline-block;
 }
 
-.advancedInputContainer{
+.advanced-input-container{
     display: inline-block;
     width: 50%;
     max-width: 32rem;
     margin-bottom: 0.75rem;
 }
 
-.advancedInputContainer input{
+.advanced-input-container input{
     width: 100%;
     max-height: 2rem;
     border: 0.1rem solid rgb(230, 230, 230);
@@ -167,13 +167,13 @@ header a:hover{
     padding: 0.5rem;
 }
 
-.advancedInputContainer input:focus{
+.advanced-input-container input:focus{
     outline: none !important;
     border:1px solid rgb(71, 138, 249);
     box-shadow: 0 0 1px #719ECE;
 }
 
-.advancedButtonHolder{
+.advanced-btn-holder{
     display: inline-block;
     width: 50%;
     max-width: 32rem;
@@ -181,7 +181,7 @@ header a:hover{
     text-align: right;
 }
 
-.advancedSubmitButton{
+.advanced-submit-btn{
     border-radius: 0.2rem;
     border: 0.01rem solid rgb(67, 111, 203);
     padding: 0.5rem 1rem;
@@ -191,7 +191,7 @@ header a:hover{
     background-image: linear-gradient(to right, rgb(71, 138, 249), rgb(62, 130, 240));
 }
 
-.advancedSubmitButton:hover{
+.advanced-submit-btn:hover{
     border: 0.04rem solid rgb(47, 91, 183);
     background-image: linear-gradient(to top, rgb(61, 128, 239), rgb(52, 120, 230))
 }
