@@ -7,9 +7,6 @@ from . import util
 from random import choice
 
 
-
-
-
 def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
@@ -17,7 +14,6 @@ def index(request):
 
 def wiki_entry(request, entry_title):
     content = util.get_entry(entry_title)
-    print(content)
     return render(request, "encyclopedia/wiki-entry.html", {
         "entry_title": entry_title,
         "content": content
@@ -52,7 +48,6 @@ def edit_page(request, entry_title):
         form = forms.EditPageForm(request.POST)
         if form.is_valid():
             edit_page_content = form.cleaned_data.get("markdown_content")
-            print("Este é o edit_page_content: ", edit_page_content)
             util.save_entry(entry_title, edit_page_content, edit=True)
             return HttpResponseRedirect(reverse('wiki_entry', kwargs={'entry_title': entry_title}))
         else:

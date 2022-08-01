@@ -15,7 +15,7 @@
             </form>
         </div>
     {% if name_error %}
-        <div class="error_container">
+        <div class="error-container">
             <p>Sorry, the page you tried to create already exists. Change the title or <a href="{% url 'edit_page' entry_title %}">edit the existing page.<p>
         </div> 
     {% endif %}

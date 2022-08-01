@@ -49,6 +49,12 @@ textarea {
     color:white;
 }
 
+.submit-alt {
+    position: absolute; 
+    bottom: 20px; 
+    left: 20px;
+}
+
 .submit:hover{
     background-color: rgb(34, 141, 65);
 }
@@ -58,7 +64,7 @@ a.submit:hover{
     color:white;
 }
 
-.error_container{
+.error-container{
     width: 100vw;
     margin-top: 2rem;
     color: #D8000C;
