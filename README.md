@@ -9,5 +9,3 @@ In this project you'll find somewhat like a copy of some of Google's pages:
 - Inside images.html, there's a page destined for Google Images Search.
 - Inside advanced-search.html, there's a page for Google's Advanced Search, with only 4 input fields.
 - The styles are all contained in styles.css.
-
-:)
