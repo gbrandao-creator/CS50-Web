@@ -19,27 +19,27 @@
                         </a>
                     </div>
                     <div class="row justify-content-center mt-4">
-                        <a href="{% url 'listing' listing.id %}" style="color: black">
+                        <a href="{% url 'listing' listing.id %}" class="text-dark">
                             <h3>{{ listing.title}}</h3>
                         </a>
                     </div>
                     <div class="row justify-content-center">
                         <h5>
-                            <span style="font-weight: 300">${{ listing.bids.last.value }}</span>
+                            <span class="font-weight-light">${{ listing.bids.last.value }}</span>
                         </h5>
                     </div>
                     <div class="row justify-content-center">
                         <p>{{ listing.description }}</p>
                     </div>
                     <div class="row justify-content-center">
-                        <p style="font-weight: 300; font-size: small">
+                        <p class="font-weight-light" style="font-size: small">
                             Created {{ listing.created_at }}
                         </p>
                     </div>
                 </div>
             {% else %}
                 <div class="col-4 p-4 border-right" style="min-height: 40vh">
-                    <table style="height: 100%; width: 100%;">
+                    <table class="w-100 h-100">
                         <tbody>
                             <tr>
                                 <td class="align-middle">
@@ -50,7 +50,7 @@
                                     </div>
                                     <div class="row justify-content-center">
                                             <h4>
-                                                <span style="font-weight: 200">
+                                                <span class="font-weight-lighter">
                                                 ${{ listing.bids.last.value }}
                                             </span></h4>
                                     </div>
@@ -58,7 +58,7 @@
                                         <p class="lead">{{ listing.description }}</p>
                                     </div>
                                     <div class="row justify-content-center">
-                                        <p style="font-weight: 300; font-size: small">
+                                        <p class="font-weight-light" style="font-size: small">
                                             Created {{ listing.created_at }}
                                         </p>
                                     </div>

@@ -38,12 +38,7 @@
 
     <div class="row mb-2">
         {% if listing.image_url != "" %}
-            <div class="col-6" 
-            style="background-color: 
-            rgb(245,245,245); 
-            padding: 1rem; 
-            border-radius: 0.5rem;"
-            >
+            <div class="col-6 bg-light p-3 rounded">
                     <img class="alt-active-fig" src="{{ listing.image_url }}" alt="listing {{ listing.id }}">
             </div>
             <div class="col-6">
@@ -183,7 +178,7 @@
                     {% endfor %}
                 </div>
                 <div class="col-12 my-1">
-                    <div class="card-footer py-2 border-0" style="background-color: #f8f9fa;">
+                    <div class="card-footer py-2 border-0 bg-light" >
                         <div class="flex-start w-100">
                             {% if user.is_authenticated %}
                                 <h5 class="mb-4">Comment as {{ request.user }}:</h5>
