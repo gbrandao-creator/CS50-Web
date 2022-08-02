@@ -22,5 +22,5 @@ In this project you'll find a single-page mailing web application, where users c
 
 [^1]: The files not mentioned are either not used or inherent to a basic django project.
 
-[^*]: Already available in the source code (not written by [gbrandao-creator](https://github.com/gbrandao-creator)).
+[^*]: Files already available in the source code (not written by [gbrandao-creator](https://github.com/gbrandao-creator)).
 
