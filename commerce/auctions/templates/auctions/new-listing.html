@@ -7,8 +7,8 @@ Create Listing
 
 {% block body %}
 <div>
-    <h3 style="margin-bottom: 2rem">New listing</h3>
-    <form action="{% url 'new_listing' %}" method="post" accept-charset="UTF-8" class="form">
+    <h3>New listing</h3>
+    <form action="{% url 'new_listing' %}" method="post" accept-charset="UTF-8" class="text-center mt-5">
         {% csrf_token %}
         {% for field in form %}
         {{ field }}<br>

@@ -2,9 +2,9 @@
 
 {% block body %}
     <div class="title row">
-        <h2>{% block header %}Active Listings{% endblock %}{{ category }}</h2>
+        <h2>{{ header }}{{ category }}</h2>
         {% if message %} 
-            <div class="col-2 text-center alert alert-success">
+            <div class="col-6 col-lg-4 text-center alert alert-success">
                 {{ message }}
             </div>
         {% endif %}
@@ -69,6 +69,8 @@
                 </div>
             {% endif %}
         {% if forloop.counter|divisibleby:3 %}</div>{% endif %}
+        {% empty %}
+        <h4 class="text-center mt-5">Oops. No listings to show here.</h4>
     {% endfor %}
 
 {% endblock %}

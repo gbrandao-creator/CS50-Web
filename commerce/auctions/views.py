@@ -12,6 +12,7 @@ from . import forms
 
 def index(request, message=""):
     return render(request, "auctions/index.html", {
+        "header": "Active Listings",
         "listings": Listing.objects.filter(active=True),
         "message": message
     })
@@ -75,9 +76,9 @@ def listing(request, listing_id):
     except:
         raise Http404
     if listing.active:
-        base_template = "auctions/listing_active.html"
+        base_template = "auctions/listing-active.html"
     else:
-        base_template = "auctions/listing_inactive.html"
+        base_template = "auctions/listing-inactive.html"
 
     context = {}
     context["listing"] = listing
@@ -85,7 +86,6 @@ def listing(request, listing_id):
     context["bid_form"] = forms.NewBidForm()
 
     if request.user.is_authenticated:
-        print(Watchlist.objects.get(owner=request.user).listings.filter(pk=listing.id).exists())
         if Watchlist.objects.get(owner=request.user).listings.filter(pk=listing.id).exists():
             context["in_watchlist"] = True
         else:
@@ -121,12 +121,12 @@ def new_listing(request):
             bid = Bid.objects.create(value=starting_bid,owner=request.user)
             listing = Listing.objects.create(title=title, description=description, image_url=image_url, category=category, owner=request.user)
             listing.bids.add(bid)
-            return HttpResponseRedirect(reverse("index"))
+            return HttpResponseRedirect(reverse("listing", args=str(listing.id))) #TEST
         else:
-            return render(request, "auction/new_listing.html", {
+            return render(request, "auction/new-listing.html", {
                 "form": form
             })
-    return render(request, "auctions/new_listing.html", {
+    return render(request, "auctions/new-listing.html", {
         "form": forms.NewListingForm()
     })
 
@@ -142,14 +142,15 @@ def close_auction(request, listing_id):
             listing.active = False
             listing.save()
             return HttpResponseRedirect(reverse("listing", args=listing_id))
-        return render(request, "auctions/close_auction.html", {
+        return render(request, "auctions/close-auction.html", {
             "listing": listing
         })
     else:
         raise PermissionDenied
 
 def closed_listings(request):
-    return render(request, "auctions/closed_listings.html", {
+    return render(request, "auctions/index.html", {
+        "header": "Closed Listings",
         "listings": Listing.objects.filter(active=False)
     })
 
@@ -179,8 +180,8 @@ def category(request, category=""):
         })
     else:
         return render(request, "auctions/index.html", {
+        "header": "Active Listings of Category: " + category,
         "listings": Listing.objects.filter(active=True, category=category),
-        "category": ": " + category
     })
 
 @login_required
@@ -199,7 +200,8 @@ def remove_from_watchlist(request, listing_id):
 
 def watchlist(request):
     watchlist_listings = Watchlist.objects.get(owner=request.user).listings.all()
-    return render(request, "auctions/watchlist.html", {
+    return render(request, "auctions/index.html", {
+        "header": "Watchlist",
         "listings": watchlist_listings
     })
 
