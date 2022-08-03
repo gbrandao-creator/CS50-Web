@@ -15,18 +15,21 @@ pre {
     background-color: #fff;
 }
 
-@keyframes fadein {
+@keyframes fade-in {
     0% {
        opacity: 0;
     }
-    
-    50% {
+    100% {
         opacity: 1;
     }
 }
 
+#emails-view, #compose-view, #single-email-view {
+    animation: fade-in 0.5s;
+}
+
 #error {
-    animation-name: fadein;
+    animation-name: fade-in;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
     animation-play-state: paused;
