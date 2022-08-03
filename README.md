@@ -24,7 +24,7 @@ In this project you'll find an auctions website, where users can list a new auct
   - Inside [models.py](https://github.com/gbrandao-creator/CS50-Web/blob/project2/commerce/auctions/models.py), there are all models for this app: User, Bid, Comment, Listing and Watchlist.
   - Inside [forms.py](https://github.com/gbrandao-creator/CS50-Web/blob/project2/commerce/auctions/forms.py), there are three django forms, one for creating a *new listing*, one for creating a *new bid* on a particular listing, and one for creating a new *comment* on a particular listing.
   - Inside [urls.py](https://github.com/gbrandao-creator/CS50-Web/blob/project2/commerce/auctions/urls.py), there are all routes for this app.
-  - Inside [admin.py](https://github.com/gbrandao-creator/CS50-Web/blob/project1/wiki/encyclopedia/util.py), the app's models are registered to admin management.
-  - Inside [views.py](https://github.com/gbrandao-creator/CS50-Web/blob/project1/wiki/encyclopedia/views.py), there are all the view functions for the server-side handling.
+  - Inside [admin.py](https://github.com/gbrandao-creator/CS50-Web/blob/project2/commerce/auctions/admin.py), the app's models are registered to admin management.
+  - Inside [views.py](https://github.com/gbrandao-creator/CS50-Web/blob/project2/commerce/auctions/views.py), there are all the view functions for the server-side handling.
 
 *The files not mentioned are either not used or inherent to a basic django project.*
