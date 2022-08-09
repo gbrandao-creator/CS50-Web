@@ -54,8 +54,12 @@
             </div>
             <div class="col-12">
                 <p>
-                    {% if listing.bids.all.count > 1 %}
-                        {{ listing.bids.all.count }} bids so far.
+                    {% if bids_count > 0 %}
+                        {% if bids_count > 1 %}
+                            {{ bids_count }} bids so far.
+                        {% else %}
+                            {{ bids_count }} bid so far.
+                        {% endif %}
                         {% if listing.bids.last.owner == request.user %}
                             Your bid is the current bid.
                         {% endif %}

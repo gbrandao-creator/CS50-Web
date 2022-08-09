@@ -84,6 +84,7 @@ def listing(request, listing_id):
     context["listing"] = listing
     context["comment_form"] = forms.NewCommentForm()
     context["bid_form"] = forms.NewBidForm()
+    context["bids_count"] = listing.bids.all().count() - 1
 
     if request.user.is_authenticated:
         if Watchlist.objects.get(owner=request.user).listings.filter(pk=listing.id).exists():
@@ -198,6 +199,7 @@ def remove_from_watchlist(request, listing_id):
     watchlist.listings.remove(listing)
     return HttpResponseRedirect(reverse("listing", args=listing_id))
 
+@login_required()
 def watchlist(request):
     watchlist_listings = Watchlist.objects.get(owner=request.user).listings.all()
     return render(request, "auctions/index.html", {

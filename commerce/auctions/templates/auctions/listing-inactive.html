@@ -1,6 +1,24 @@
 {% extends "auctions/listing-active.html" %}
 
-{% block watchlist %}{% endblock %}
+{% block watchlist %}
+    {% if not in_watchlist %}
+    <div class="row mb-2">
+        <div class="col-12">
+            <a href="{% url 'add_to_watchlist' listing.id %}" class="btn btn-success btn-sm">
+                Add to watchlist
+            </a>
+        </div>
+    </div>
+    {% else %}
+    <div class="row mb-2">
+        <div class="col-12">
+            <a href="{% url 'remove_from_watchlist' listing.id %}" class="btn btn-secondary btn-sm">
+                Remove from watchlist
+            </a>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}
 
 {% block main %}
     <div class="row">
