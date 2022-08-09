@@ -70,7 +70,6 @@ def new_post(request):
 def edit_post(request, post_id):
     try:
         post = Post.objects.get(id=post_id)
-        print(Like.objects.all().count())
     except Post.DoesNotExist:
         return JsonResponse({"error": "Post not found."}, status=404)
 
@@ -161,6 +160,7 @@ def follow(request, username):
             #return HttpResponseRedirect(reverse("user_profile", args=[str(username)]))
     else:
         return JsonResponse({"error": "PUT request required."}, status=400)
+
 # authentication views
 def login_view(request):
     if request.method == "POST":

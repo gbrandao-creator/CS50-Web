@@ -120,3 +120,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# login_required() decorator URL
+# https://docs.djangoproject.com/en/dev/ref/settings/#login-url
+
+LOGIN_URL = '/login'
