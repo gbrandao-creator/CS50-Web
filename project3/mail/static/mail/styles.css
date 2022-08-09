@@ -13,6 +13,8 @@ pre {
     color: #212529;
     text-align: left;
     background-color: #fff;
+    max-width: 100vw;
+    white-space: pre-wrap;
 }
 
 @keyframes fade-in {
