@@ -25,14 +25,20 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(res => res.json())
         .then(result => {
             if(! result['error']){
+                const followersCount = evt.target.parentElement.parentElement.querySelector('#followers-count');
                 if(evt.target.innerHTML == 'Follow'){
-                    const followersCount = evt.target.parentElement.parentElement.querySelector('#followers-count');
                     followersCount.innerHTML = parseInt(followersCount.innerHTML) + 1;
                     evt.target.innerHTML = 'Unfollow';
                 } else {
-                    const followersCount = evt.target.parentElement.parentElement.querySelector('#followers-count');
                     followersCount.innerHTML = parseInt(followersCount.innerHTML) - 1;
                     evt.target.innerHTML = 'Follow';
+                }
+
+                const followersText = evt.target.parentElement.parentElement.querySelector('#followers-text');
+                if (parseInt(followersCount.innerHTML) == 1) {
+                    followersText.innerHTML = 'Follower';
+                } else {
+                    followersText.innerHTML = 'Followers';
                 }
             }
         })

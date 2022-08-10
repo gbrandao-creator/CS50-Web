@@ -12,7 +12,7 @@
     <div class="row py-2 d-flex border-bottom">
         <div class="col-2 text-center" style="line-height:2.5em">
             <span id="followers-count" class="font-weight-bold">{{ profile_user.followers.all.count }}</span> 
-            {% if profile_user.followers.all.count == 1 %} Follower {% else %} Followers {% endif %}
+            <span id="followers-text">{% if profile_user.followers.all.count == 1 %} Follower {% else %} Followers {% endif %}</span>
         </div>
         <div class="col-2 text-center" style="line-height:2.5em">
             <span class="font-weight-bold">{{ profile_user.following.all.count }}</span> Following
