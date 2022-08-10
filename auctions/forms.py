@@ -1,6 +1,4 @@
 from django import forms
-#from input_mask.fields import DecimalField
-from numpy import require
 
 custom_styles = '''
     border-radius: 0.5rem;
